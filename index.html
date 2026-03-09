@@ -1178,7 +1178,73 @@
   display:flex; align-items:center; justify-content:center;
   cursor:pointer; user-select:none;
 }
+
+.chm-wa-fab{
+  position:fixed; right:92px; bottom:18px; z-index:9999;
+  width:56px; height:56px; border-radius:999px;
+  background:rgba(37, 211, 102, .92);
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 18px 50px rgba(0,0,0,.45);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; user-select:none;
+  color:#ffffff;
+  font-size:26px;
+}
+.chm-wa-fab:hover{filter:brightness(1.06);}
 .chm-chat-fab span{font-size:28px; filter:drop-shadow(0 6px 10px rgba(0,0,0,.35));}
+.chm-chat-wa{
+  width:40px; height:40px; border-radius:12px;
+  background:rgba(37, 211, 102, .18);
+  border:1px solid rgba(37, 211, 102, .35);
+  color:#d9ffe8;
+  cursor:pointer;
+}
+.chm-chat-wa:hover{background:rgba(37, 211, 102, .28);}
+.chm-wa-panel{
+  position:fixed;
+  z-index:10000;
+  width:min(380px, calc(100vw - 36px));
+  height:min(620px, calc(100vh - 140px));
+  right:auto; left:auto; bottom:92px;
+  background:rgba(10,14,35,.92);
+  border:1px solid rgba(37,211,102,.35);
+  box-shadow:0 18px 60px rgba(0,0,0,.55);
+  border-radius:18px;
+  overflow:hidden;
+  display:none;
+  backdrop-filter: blur(10px);
+}
+.chm-wa-panel.open{display:flex; flex-direction:column;}
+.chm-wa-header{
+  padding:12px 14px;
+  display:flex; align-items:center; justify-content:space-between;
+  border-bottom:1px solid rgba(37,211,102,.22);
+}
+.chm-wa-title{font-weight:800; letter-spacing:.3px; color:#c7ffe0;}
+.chm-wa-direct{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:8px 10px; border-radius:12px;
+  border:1px solid rgba(37,211,102,.45);
+  background: rgba(37,211,102,.14);
+  color:#eafff4; text-decoration:none; font-weight:700; font-size:13px;
+}
+.chm-wa-direct:hover{ background: rgba(37,211,102,.22); }
+
+.chm-wa-close{
+  width:34px; height:34px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.10);
+}
+.chm-wa-body{flex:1; overflow:auto; padding:10px;}
+/* Keep the embedded widget inside the panel */
+.chm-wa-body .elfsight-app-dceefc20-f8a3-44fb-9349-a818baa1b883{
+  min-height:520px;
+}
+@media (max-width: 520px){
+  .chm-wa-panel{left:18px; right:18px; width:calc(100vw - 36px);}
+}
 .chm-chat-panel{
   position:fixed; right:18px; bottom:92px; z-index:9999;
   width:min(420px, calc(100vw - 36px));
@@ -1557,6 +1623,234 @@ body.high-contrast{
 
 
 body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
+
+/* ===== SHOP OVERLAY ===== */
+.shop-overlay{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,.72);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.shop-shell{
+  width: min(1200px, 98vw);
+  height: min(740px, 92vh);
+  background: var(--dark-bg);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 16px;
+  box-shadow: 0 24px 80px rgba(0,0,0,.55);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.shop-topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 12px 14px;
+  background: rgba(255,255,255,.04);
+  border-bottom: 1px solid rgba(255,255,255,.10);
+  gap: 12px;
+}
+.shop-title{
+  display:flex; align-items:center; gap:10px;
+  font-weight:700;
+}
+.shop-badge{
+  font-size:.78rem;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,188,212,.35);
+  color: var(--primary-color);
+  background: rgba(0,188,212,.10);
+}
+.shop-topbar-actions{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.shop-content{ flex:1; display:flex; gap: 0; min-height: 0; }
+.shop-left{
+  width: 290px;
+  border-right: 1px solid rgba(255,255,255,.10);
+  padding: 12px;
+  background: rgba(255,255,255,.02);
+  display:flex;
+  flex-direction:column;
+  gap: 12px;
+}
+.shop-search input{
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.25);
+  color: #fff;
+  outline: none;
+}
+.shop-tabs{
+  display:flex;
+  flex-direction:column;
+  gap: 8px;
+  overflow:auto;
+  padding-right: 4px;
+}
+.shop-tab{
+  padding: 10px 10px;
+  border-radius: 10px;
+  cursor:pointer;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+  transition: transform .08s ease, background .12s ease;
+}
+.shop-tab:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); }
+.shop-tab.active{
+  border-color: rgba(0,188,212,.45);
+  background: rgba(0,188,212,.10);
+}
+.shop-right{
+  flex: 1;
+  padding: 14px;
+  overflow:auto;
+}
+.shop-status{ opacity:.85; margin-bottom: 12px; }
+.shop-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+.shop-card{
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 14px;
+  background: rgba(255,255,255,.03);
+  padding: 12px;
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+}
+
+.shop-card-img{
+  width: 100%;
+  height: 170px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(0,0,0,.25);
+  border: 1px solid rgba(255,255,255,.10);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.shop-card-img img{
+  width:100%;
+  height:100%;
+  object-fit: contain;
+  display:block;
+  background: rgba(0,0,0,.32);
+}
+.shop-img-placeholder{
+  font-size: 13px;
+  opacity: .70;
+  padding: 6px 10px;
+  text-align:center;
+}
+.shop-thumb-row img{
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+.shop-card-head{ display:flex; align-items:center; gap:10px; }
+.shop-card-emoji{
+  width: 44px; height:44px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius: 12px;
+  background: rgba(0,0,0,.22);
+  font-size: 22px;
+}
+.shop-card-title{ font-weight: 700; line-height: 1.2; }
+.shop-card-desc{ opacity:.85; font-size:.95rem; line-height: 1.35; }
+.shop-card-price{ font-weight: 800; color: var(--secondary-color); }
+.shop-card-actions{ margin-top:auto; display:flex; gap: 8px; flex-wrap:wrap; }
+.shop-note{ font-size:.86rem; opacity:.78; }
+
+/* Store Admin */
+.store-admin-split{
+  display:flex;
+  gap: 12px;
+  min-height: 420px;
+}
+.store-admin-left{
+  width: 320px;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(255,255,255,.02);
+  overflow:auto;
+}
+.store-admin-right{
+  flex:1;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(255,255,255,.02);
+  overflow:auto;
+}
+.store-admin-item{
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+  cursor:pointer;
+  margin-bottom: 8px;
+}
+.store-admin-item.active{
+  border-color: rgba(0,188,212,.45);
+  background: rgba(0,188,212,.10);
+}
+.store-admin-editor label{ display:block; margin: 10px 0 6px; opacity:.9; }
+.store-admin-editor input, .store-admin-editor textarea, .store-admin-editor select{
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.25);
+  color: #fff;
+  outline: none;
+}
+.store-admin-editor textarea{ min-height: 88px; resize: vertical; }
+.store-admin-editor .row{ display:flex; gap: 10px; }
+.store-admin-editor .row > div{ flex:1; }
+
+/* Store Admin Category Tabs */
+.store-admin-cats{ display:flex; flex-wrap:wrap; gap:8px; margin: 6px 0 10px; }
+.store-admin-catbtn{
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.04);
+  color:#fff;
+  cursor:pointer;
+  font-weight:700;
+  font-size:.9rem;
+}
+.store-admin-catbtn.active{
+  border-color: rgba(0,188,212,.55);
+  background: rgba(0,188,212,.14);
+}
+.store-admin-toolbar{ display:flex; gap:8px; flex-wrap:wrap; margin: 8px 0 10px; }
+.store-admin-toolbar .btn{ padding: 9px 10px; border-radius: 10px; }
+/* Image gallery in editor */
+.st-img-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:8px; margin-top:10px; }
+.st-img-grid img{ width:100%; height:64px; object-fit:contain; background: rgba(0,0,0,.26); border-radius:10px; border:1px solid rgba(255,255,255,.12); cursor:pointer; }
+.st-img-grid img.active{ outline: 2px solid rgba(0,188,212,.7); }
+
+
+/* Shop thumbnails (multi-image) */
+.shop-thumb-row{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.shop-thumb-row img{ width:44px; height:44px; object-fit:contain; background: rgba(0,0,0,.26); border-radius:10px; border:1px solid rgba(255,255,255,.12); }
+
 </style>
 </head>
 <body>
@@ -1984,8 +2278,8 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
                 </div>
                 <div class="footer-section">
                     <h4>Support Us</h4>
-                    <button class="btn-primary" onclick="alert('Purchase: @chmnetwork')" style="width: 100%; margin: 5px 0;">💳 Purchase</button>
-                    <button class="btn-secondary" onclick="alert('Donation: paypal.me/chmnetwork')" style="width: 100%; margin: 5px 0;" id="donationBtn">Donation</button>
+                    <button class="btn-primary purchaseBtn" style="width: 100%; margin: 5px 0;">💳 Purchase</button>
+                    <button class="btn-secondary donationBtn" onclick="openDonation()" style="width: 100%; margin: 5px 0;" id="donationBtnFooter">Donation</button>
                 </div>
             </div>
 
@@ -2086,6 +2380,18 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
                     <button class="btn-primary" onclick="switchAdminSection('music')" style="height: 50px;">🎵 Edit Music</button>
                     <button class="btn-secondary" onclick="switchAdminSection('forms')" style="height: 50px;">📨 Messages</button>
                 </div>
+                <h3 style="margin: 22px 0 14px 0;">Shop Quick Edit</h3>
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));">
+                    <button class="btn-primary" onclick="openStoreAdminForCategory('books')" style="height: 50px;">🛒 Edit Books</button>
+                    <button class="btn-primary" onclick="openStoreAdminForCategory('music')" style="height: 50px;">🎶 Edit Music</button>
+                    <button class="btn-primary" onclick="openStoreAdminForCategory('bibles')" style="height: 50px;">📖 Edit Bibles</button>
+                    <button class="btn-primary" onclick="openStoreAdminForCategory('songbooks')" style="height: 50px;">🎼 Edit Songbooks</button>
+                    <button class="btn-primary" onclick="openStoreAdminForCategory('clothing')" style="height: 50px;">👕 Edit Clothing</button>
+                    <button class="btn-primary" onclick="openStoreAdminForCategory('electronics')" style="height: 50px;">💻 Edit Electronics</button>
+                    <button class="btn-primary" onclick="openStoreAdminForCategory('other')" style="height: 50px;">📦 Edit Other</button>
+                    <button class="btn-secondary" onclick="openStoreAdminForCategory('all')" style="height: 50px;">🛍️ Manage All</button>
+                </div>
+
             </div>
 
             <!-- CONTENT SECTION -->
@@ -2135,7 +2441,19 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 
                 <div id="video-schedule" class="tab-content active">
                     <h3 style="color: var(--primary-color); margin-bottom: 20px;">Scheduled Videos</h3>
+                    
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; align-items:center;">
+                        <button class="btn-primary" type="button" onclick="exportPublishedVideosJson()">⬇ Export published_videos.json (Global)</button>
+                        <button class="btn-secondary" type="button" onclick="triggerImportPublishedVideos()">⬆ Import published_videos.json</button>
+                        <small style="color: var(--text-secondary); line-height:1.3;">
+                            For worldwide playback: upload <b>published_videos.json</b> to the same folder as this HTML on your website.
+                            (Local uploads saved in the browser remain device-specific.)
+                        </small>
+                        <input id="importPublishedVideosInput" type="file" accept="application/json" style="display:none"
+                            onchange="if(this.files && this.files[0]) importPublishedVideosFile(this.files[0]); this.value='';" />
+                    </div>
                     <div id="videoList" style="max-height: 400px; overflow-y: auto;"></div>
+
                 </div>
 
                 <div id="video-upload" class="tab-content">
@@ -2157,12 +2475,26 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
                             <div id="tvLiveEmbedFields" style="margin-top: 12px; display:none;">
                                 <label style="display:block; margin-bottom: 6px;">Live Embed URL or Iframe Code</label>
                                 <textarea id="tvLiveEmbed" rows="3" placeholder="Paste iframe code (recommended) or a direct embed URL..." style="width:100%;"></textarea>
+
+                                <div style="margin-top:12px; padding:12px; border:1px solid rgba(255,255,255,0.08); border-radius:10px; background: rgba(255,255,255,0.03);">
+                                    <label style="display:block; margin-bottom:6px;">YouTube Live Channel ID (Auto Takeover)</label>
+                                    <input type="text" id="tvYoutubeChannelId" placeholder="Paste your YouTube channel ID here" style="width:100%;">
+                                    <label style="display:flex; gap:8px; align-items:center; margin-top:10px; cursor:pointer;">
+                                        <input type="checkbox" id="tvYoutubeAutoTakeover">
+                                        <span>Auto-takeover YODEBEPRO TV with this YouTube live embed</span>
+                                    </label>
+                                    <small style="display:block; margin-top:8px; color: var(--text-secondary); line-height:1.45;">
+                                        Paste either your full YouTube live embed code above or your Channel ID here. When auto-takeover is enabled,
+                                        the public TV player will prioritize the YouTube live embed over the scheduled playlist.
+                                    </small>
+                                </div>
+
                                 <div style="display:flex; gap:10px; margin-top: 10px; flex-wrap: wrap;">
                                     <button class="btn-success" type="button" onclick="saveTvSourceSettings()">✓ Save TV Mode</button>
                                     <button class="btn-primary" type="button" onclick="publishTvSourceSettings()">🚀 Publish</button>
                                 </div>
                                 <p style="margin-top:8px; color: var(--text-secondary); font-size: 0.9rem;">
-                                    Tip: For Facebook Live, use the platform's <em>Embed</em> iframe code for best results.
+                                    Tip: For Facebook Live, use the platform's <em>Embed</em> iframe code for best results. For YouTube, you can use the channel live embed or the channel ID.
                                 </p>
                             </div>
                         </div>
@@ -2527,6 +2859,82 @@ updateRadioSettings(settings) {
 
     const cache = new CacheManager();
 
+    // ==================== GLOBAL (WORLDWIDE) VIDEO LINKS SUPPORT ====================
+    // IMPORTANT:
+    // - Local uploads saved in IndexedDB are device-specific (per browser).
+    // - For worldwide playback, use URLs (YouTube or direct MP4) and publish them in a JSON file on your website.
+    // - This app will automatically try to load ./published_videos.json on startup.
+    const PUBLISHED_VIDEOS_URL = './published_videos.json';
+
+    async function loadPublishedVideosFromServer() {
+        try {
+            // Only works when served over http(s). If opened as file://, fetch will usually fail.
+            const res = await fetch(PUBLISHED_VIDEOS_URL, { cache: 'no-store' });
+            if (!res.ok) return false;
+            const data = await res.json();
+            if (!data || !Array.isArray(data.videos)) return false;
+
+            // Keep any existing local videos as fallback, but prefer published list.
+            const current = cache.getCache();
+            current.videos = data.videos.map(v => ({
+                // normalize
+                id: v.id || Date.now() + Math.floor(Math.random()*100000),
+                title: v.title || 'Video',
+                url: v.url || '',
+                startTime: v.startTime || new Date().toISOString(),
+                type: v.type || detectVideoType(v.url || ''),
+            }));
+            cache.setCache(current);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function exportPublishedVideosJson() {
+        const vids = cache.getVideos() || [];
+        const payload = { videos: vids };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'published_videos.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        showNotification('📥 Exported published_videos.json. Upload it to your website to make videos global.', 'success');
+    }
+
+    function triggerImportPublishedVideos() {
+        const inp = document.getElementById('importPublishedVideosInput');
+        if (inp) inp.click();
+    }
+
+    async function importPublishedVideosFile(file) {
+        try {
+            const txt = await file.text();
+            const data = JSON.parse(txt);
+            if (!data || !Array.isArray(data.videos)) throw new Error('Invalid file');
+            const current = cache.getCache();
+            current.videos = data.videos.map(v => ({
+                id: v.id || Date.now() + Math.floor(Math.random()*100000),
+                title: v.title || 'Video',
+                url: v.url || '',
+                startTime: v.startTime || new Date().toISOString(),
+                type: v.type || detectVideoType(v.url || ''),
+            }));
+            cache.setCache(current);
+                    await loadPublishedVideosFromServer();
+loadVideoSchedule();
+            await syncPublicVideoPlaylist();
+            renderPublicVideoPlaylist(document.getElementById('videoPlaylistSearch')?.value || '');
+            showNotification('✅ Imported published videos into this browser. Export + upload to publish globally.', 'success');
+        } catch (e) {
+            showNotification('❌ Could not import published_videos.json', 'error');
+        }
+    }
+
+
+
     // ==================== MEDIA STORAGE (IndexedDB) ====================
     // Stores uploaded MP3/MP4 locally in the browser so Admin uploads instantly affect the Public page.
     const MEDIA_DB_NAME = 'yodebeproMediaDB';
@@ -2596,30 +3004,153 @@ updateRadioSettings(settings) {
 
     async function setVideoPlayerSource(player, url, shouldPlay) {
         const resolved = await resolveMediaUrl(url);
-        if (!resolved || !player) return;
+        if (!player) return;
 
-        // Set src and force reload (improves reliability across browsers)
-        player.pause();
-        player.removeAttribute('src');
-        player.src = resolved;
-        try { player.load(); } catch (e) {}
+        // If a clip is a YouTube link or an iframe embed, play it via the TV embed wrapper (not the <video> tag)
+        const videoEl = player;
+        const embedWrap = document.getElementById('tvEmbedWrapper');
+        const embedInner = document.getElementById('tvEmbedInner');
 
-        if (shouldPlay) {
-            // Autoplay is often blocked unless muted; try unmuted first, then fallback to muted.
+        const isIframeHtml = (s) => typeof s === 'string' && s.trim().toLowerCase().startsWith('<iframe');
+        const isYouTubeUrl = (s) => {
+            if (!s || typeof s !== 'string') return false;
+            const u = s.toLowerCase().trim();
+            return u.includes('youtube.com') || u.includes('youtu.be') || u.includes('youtube-nocookie.com');
+        };
+        const isHlsLikeUrl = (s) => {
+            if (!s || typeof s !== 'string') return false;
+            const u = s.toLowerCase().trim();
+            return u.includes('.m3u8') || u.includes('playlist-hls') || u.includes('manifest/video.m3u8') || u.includes('master.m3u8') || u.includes('playlist.m3u8') || u.includes('index.m3u8') || u.includes('live?stream=');
+        };
+        const destroyHls = () => {
             try {
-                player.playsInline = true;
-                const p = player.play();
+                if (videoEl._hls && typeof videoEl._hls.destroy === 'function') {
+                    videoEl._hls.destroy();
+                }
+            } catch (e) {}
+            videoEl._hls = null;
+        };
+        const tryPlayVideoEl = async () => {
+            if (!shouldPlay) return;
+            try {
+                videoEl.playsInline = true;
+                const p = videoEl.play();
                 if (p && typeof p.catch === 'function') {
                     await p.catch(() => {
-                        try { player.muted = true; } catch (e) {}
-                        return player.play().catch(()=>{});
+                        try { videoEl.muted = true; } catch (e) {}
+                        return videoEl.play().catch(()=>{});
                     });
                 }
             } catch (e) {
-                try { player.muted = true; } catch (e2) {}
-                try { await player.play(); } catch (e3) {}
+                try { videoEl.muted = true; } catch (e2) {}
+                try { await videoEl.play(); } catch (e3) {}
+            }
+        };
+        const extractYouTubeId = (s) => {
+            try {
+                const raw = s.trim();
+                const m1 = raw.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/i);
+                if (m1) return m1[1];
+                const m2 = raw.match(/[?&]v=([A-Za-z0-9_-]{6,})/i);
+                if (m2) return m2[1];
+                const m3 = raw.match(/\/embed\/([A-Za-z0-9_-]{6,})/i);
+                if (m3) return m3[1];
+                const m4 = raw.match(/\/shorts\/([A-Za-z0-9_-]{6,})/i);
+                if (m4) return m4[1];
+            } catch (e) {}
+            return '';
+        };
+        const makeYouTubeIframe = (s) => {
+            const id = extractYouTubeId(s);
+            if (!id) return '';
+            if (location && location.protocol === 'file:') {
+                return `<div style="padding:18px; text-align:center; color:#b8c7d6;">
+                          YouTube videos can’t play inside the embedded player when this page is opened from a local file.<br>
+                          Please run the site on <b>localhost</b> or your domain to play YouTube here.<br><br>
+                          <a href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener" style="color:#00bcd4; text-decoration:underline;">Watch on YouTube</a>
+                        </div>`;
+            }
+            const origin = encodeURIComponent(location.origin || '');
+            const widgetRef = encodeURIComponent(location.href || '');
+            const src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&rel=0&playsinline=1&enablejsapi=1&origin=${origin}&widget_referrer=${widgetRef}`;
+            return `<iframe src="${src}" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>`;
+        };
+
+        const showEmbed = (iframeHtml) => {
+            if (!embedWrap || !embedInner) return false;
+            try { videoEl.pause(); } catch (e) {}
+            destroyHls();
+            videoEl.style.display = 'none';
+            embedInner.innerHTML = iframeHtml || '<div style="color:#b8c7d6; padding:18px; text-align:center;">Unable to load this video.</div>';
+            embedWrap.style.display = 'block';
+            return true;
+        };
+
+        const showVideoTag = () => {
+            if (embedWrap && embedInner) {
+                embedWrap.style.display = 'none';
+                embedInner.innerHTML = '';
+            }
+            videoEl.style.display = 'block';
+        };
+
+        if (!resolved) {
+            showVideoTag();
+            destroyHls();
+            try { videoEl.pause(); videoEl.removeAttribute('src'); videoEl.load(); } catch (e) {}
+            return;
+        }
+
+        if (isIframeHtml(resolved)) {
+            showEmbed(resolved);
+            return;
+        }
+        if (isYouTubeUrl(resolved)) {
+            const iframeHtml = makeYouTubeIframe(resolved);
+            if (iframeHtml) {
+                showEmbed(iframeHtml);
+                return;
             }
         }
+
+        showVideoTag();
+        try { videoEl.pause(); } catch (e) {}
+        destroyHls();
+        videoEl.removeAttribute('src');
+
+        if (isHlsLikeUrl(resolved) && typeof window.Hls !== 'undefined' && window.Hls && window.Hls.isSupported()) {
+            try {
+                const hls = new Hls({
+                    enableWorker: true,
+                    lowLatencyMode: true,
+                    backBufferLength: 90
+                });
+                videoEl._hls = hls;
+                hls.loadSource(resolved);
+                hls.attachMedia(videoEl);
+                hls.on(Hls.Events.MANIFEST_PARSED, async () => {
+                    await tryPlayVideoEl();
+                });
+                hls.on(Hls.Events.ERROR, async (event, data) => {
+                    if (data && data.fatal) {
+                        try {
+                            hls.destroy();
+                            videoEl._hls = null;
+                            videoEl.src = resolved;
+                            videoEl.load();
+                            await tryPlayVideoEl();
+                        } catch (e) {}
+                    }
+                });
+                return;
+            } catch (e) {
+                destroyHls();
+            }
+        }
+
+        videoEl.src = resolved;
+        try { videoEl.load(); } catch (e) {}
+        await tryPlayVideoEl();
     }
 
     async function playMusicResolved(url, title) {
@@ -2712,7 +3243,7 @@ updateRadioSettings(settings) {
 
 
     // ==================== INITIALIZATION ====================
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', async function() {
         document.getElementById('currentYear').textContent = new Date().getFullYear();
         generateCalendar(new Date());
         loadMusicLibrary();
@@ -2734,6 +3265,8 @@ loadVideoSchedule();
         if (mf) mf.setAttribute('accept','audio/*');
         const vf = document.getElementById('videoFileUpload');
         if (vf) vf.setAttribute('accept','video/*');
+        initTvSourceAdminUI();
+        applyTvSourcePublic();
         // Public Music Library link button
         const openBtn = document.getElementById('openMusicLibraryBtn');
         if (openBtn) openBtn.addEventListener('click', openMusicLibraryModal);
@@ -2850,6 +3383,11 @@ function setupRadioPlayer() {
     function setupVideoPlayer() {
         // Build the public playlist from the Admin Video Library so public page updates instantly.
         syncPublicVideoPlaylist().catch(()=>{});
+        setInterval(() => {
+            if (shouldUseTvLiveTakeover()) {
+                applyTvSourcePublic('live');
+            }
+        }, 30000);
         const player = document.getElementById('videoPlayer');
         if (player) {
             player.addEventListener('ended', function() {
@@ -2891,6 +3429,8 @@ function setupRadioPlayer() {
     // ===== TV SOURCE MODE (Scheduled vs Live Embed) =====
     const TV_MODE_KEY = 'chm_tv_source_mode';          // 'scheduled' | 'live'
     const TV_EMBED_KEY = 'chm_tv_live_embed';          // iframe code or url
+    const TV_YT_CHANNEL_KEY = 'chm_tv_youtube_channel_id';
+    const TV_YT_AUTO_KEY = 'chm_tv_youtube_auto_takeover';
 
     function getTvMode() {
         return (localStorage.getItem(TV_MODE_KEY) || 'scheduled').toLowerCase();
@@ -2898,11 +3438,41 @@ function setupRadioPlayer() {
     function getTvEmbed() {
         return (localStorage.getItem(TV_EMBED_KEY) || '').trim();
     }
+    function getTvYoutubeChannelId() {
+        return (localStorage.getItem(TV_YT_CHANNEL_KEY) || '').trim();
+    }
+    function getTvYoutubeAutoTakeover() {
+        return localStorage.getItem(TV_YT_AUTO_KEY) === 'true';
+    }
     function setTvMode(mode) {
         localStorage.setItem(TV_MODE_KEY, mode);
     }
     function setTvEmbed(embed) {
         localStorage.setItem(TV_EMBED_KEY, (embed || '').trim());
+    }
+    function setTvYoutubeChannelId(channelId) {
+        localStorage.setItem(TV_YT_CHANNEL_KEY, (channelId || '').trim());
+    }
+    function setTvYoutubeAutoTakeover(enabled) {
+        localStorage.setItem(TV_YT_AUTO_KEY, enabled ? 'true' : 'false');
+    }
+
+    function buildYoutubeLiveStreamUrl(channelId) {
+        const clean = (channelId || '').trim();
+        if (!clean) return '';
+        return `https://www.youtube.com/embed/live_stream?channel=${encodeURIComponent(clean)}`;
+    }
+
+    function getConfiguredTvLiveSource() {
+        const rawEmbed = getTvEmbed();
+        if (rawEmbed) return rawEmbed;
+        const channelId = getTvYoutubeChannelId();
+        if (channelId) return buildYoutubeLiveStreamUrl(channelId);
+        return '';
+    }
+
+    function shouldUseTvLiveTakeover() {
+        return !!(getTvYoutubeAutoTakeover() && (getTvYoutubeChannelId() || getTvEmbed()));
     }
 
     function normalizeEmbedToIframe(embed) {
@@ -2916,8 +3486,8 @@ function setupRadioPlayer() {
         return `<iframe src="${safeUrl}" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
     }
 
-    function applyTvSourcePublic() {
-        const mode = getTvMode();
+    function applyTvSourcePublic(forceMode) {
+        const mode = forceMode || (shouldUseTvLiveTakeover() ? 'live' : getTvMode());
         const videoEl = document.getElementById('videoPlayer');
         const embedWrap = document.getElementById('tvEmbedWrapper');
         const embedInner = document.getElementById('tvEmbedInner');
@@ -2931,16 +3501,16 @@ function setupRadioPlayer() {
             } catch(e) {}
             videoEl.style.display = 'none';
 
-            const iframeHtml = normalizeEmbedToIframe(getTvEmbed());
+            const iframeHtml = normalizeEmbedToIframe(getConfiguredTvLiveSource());
             embedInner.innerHTML = iframeHtml || '<div style="color:#b8c7d6; padding:18px; text-align:center;">No live embed set yet.</div>';
             embedWrap.style.display = 'block';
 
             const title = document.getElementById('videoTitle');
             const schedule = document.getElementById('videoSchedule');
-            if (title) title.textContent = 'Live Stream';
-            if (schedule) schedule.textContent = 'Live embed selected (Admin controlled)';
+            if (title) title.textContent = shouldUseTvLiveTakeover() ? 'YouTube Live Auto Takeover' : 'Live Stream';
+            if (schedule) schedule.textContent = shouldUseTvLiveTakeover() ? 'Live embed active — scheduled playlist is temporarily overridden' : 'Live embed selected (Admin controlled)';
             const status = document.getElementById('videoStatusText');
-            if (status) status.textContent = 'Live stream ready';
+            if (status) status.textContent = shouldUseTvLiveTakeover() ? 'YouTube live auto-takeover active' : 'Live stream ready';
         } else {
             // Switch to Scheduled Playlist
             embedWrap.style.display = 'none';
@@ -2954,12 +3524,20 @@ function setupRadioPlayer() {
 
     function saveTvSourceSettings() {
         const mode = document.getElementById('tvModeLive')?.checked ? 'live' : 'scheduled';
+        const embedValue = document.getElementById('tvLiveEmbed')?.value || '';
+        const channelValue = document.getElementById('tvYoutubeChannelId')?.value || '';
+        const autoTakeover = !!document.getElementById('tvYoutubeAutoTakeover')?.checked;
+
         setTvMode(mode);
-        if (mode === 'live') {
-            setTvEmbed(document.getElementById('tvLiveEmbed')?.value || '');
-        }
-        showNotification('TV source saved', 'success');
+        setTvEmbed(embedValue);
+        setTvYoutubeChannelId(channelValue);
+        setTvYoutubeAutoTakeover(autoTakeover);
+
+        showNotification(autoTakeover ? 'TV source saved — YouTube live auto-takeover enabled' : 'TV source saved', 'success');
         applyTvSourcePublic();
+        if (!shouldUseTvLiveTakeover()) {
+            Promise.resolve(syncPublicVideoPlaylist()).then(() => renderPublicVideoPlaylist(document.getElementById('videoPlaylistSearch')?.value || ''));
+        }
     }
 
     function publishTvSourceSettings() {
@@ -2972,6 +3550,8 @@ function setupRadioPlayer() {
         const live = document.getElementById('tvModeLive');
         const fields = document.getElementById('tvLiveEmbedFields');
         const embedTa = document.getElementById('tvLiveEmbed');
+        const channelInput = document.getElementById('tvYoutubeChannelId');
+        const autoTakeoverInput = document.getElementById('tvYoutubeAutoTakeover');
 
         if (!scheduled || !live || !fields) return;
 
@@ -2979,11 +3559,14 @@ function setupRadioPlayer() {
         if (mode === 'live') {
             live.checked = true;
             fields.style.display = 'block';
-            if (embedTa) embedTa.value = getTvEmbed();
         } else {
             scheduled.checked = true;
             fields.style.display = 'none';
         }
+
+        if (embedTa) embedTa.value = getTvEmbed();
+        if (channelInput) channelInput.value = getTvYoutubeChannelId();
+        if (autoTakeoverInput) autoTakeoverInput.checked = getTvYoutubeAutoTakeover();
 
         const toggle = () => {
             const isLive = live.checked;
@@ -2993,30 +3576,71 @@ function setupRadioPlayer() {
         live.addEventListener('change', toggle);
     }
 function playVideo() {
-        const mode = getTvMode();
+        const mode = shouldUseTvLiveTakeover() ? 'live' : getTvMode();
         if (mode === 'live') {
             // Ensure live embed is visible
             applyTvSourcePublic();
-            const hasEmbed = !!getTvEmbed();
+            const hasEmbed = !!getConfiguredTvLiveSource();
             if (!hasEmbed) {
                 showNotification('No live embed set in Admin', 'error');
             }
             return;
         }
+
         const player = document.getElementById('videoPlayer');
+        const embedWrap = document.getElementById('tvEmbedWrapper');
+        const embedInner = document.getElementById('tvEmbedInner');
+
+        // If a scheduled clip is playing via iframe (e.g., YouTube), try to re-trigger autoplay by resetting src
+        if (embedWrap && embedWrap.style.display !== 'none' && embedInner && embedInner.querySelector('iframe')) {
+            const iframe = embedInner.querySelector('iframe');
+            try {
+                const src = iframe.getAttribute('src');
+                iframe.setAttribute('src', src);
+            } catch (e) {}
+            return;
+        }
+
         if (player && player.src) {
-            player.play();
+            player.play().catch(() => {
+                showNotification('Your browser blocked autoplay. Click the video itself, then press Play.', 'error');
+            });
         } else {
-            showNotification('No video scheduled', 'error');
+            showNotification('No video selected', 'error');
         }
     }
 
     function pauseVideo() {
-        document.getElementById('videoPlayer').pause();
+        const embedWrap = document.getElementById('tvEmbedWrapper');
+        const embedInner = document.getElementById('tvEmbedInner');
+
+        // If iframe is active (e.g., YouTube), we can't reliably pause it without postMessage,
+        // so we "pause" by removing it (user can press Play to reload).
+        if (embedWrap && embedWrap.style.display !== 'none' && embedInner && embedInner.querySelector('iframe')) {
+            embedInner.innerHTML = embedInner.innerHTML; // no-op reset (keeps visible)
+            return;
+        }
+
+        const player = document.getElementById('videoPlayer');
+        if (player) player.pause();
     }
 
     function stopVideo() {
+        const embedWrap = document.getElementById('tvEmbedWrapper');
+        const embedInner = document.getElementById('tvEmbedInner');
+
+        // If iframe is active (e.g., YouTube), stop by clearing the iframe
+        if (embedWrap && embedWrap.style.display !== 'none' && embedInner && embedInner.querySelector('iframe')) {
+            embedInner.innerHTML = '';
+            embedWrap.style.display = 'none';
+            // Show the <video> tag again (it may be empty until a clip is selected)
+            const v = document.getElementById('videoPlayer');
+            if (v) v.style.display = 'block';
+            return;
+        }
+
         const player = document.getElementById('videoPlayer');
+        if (!player) return;
         player.pause();
         player.currentTime = 0;
     }
@@ -3414,6 +4038,10 @@ function playMusic(url, title) {
         const statusText = document.getElementById('videoStatusText');
 
         if (!player) return;
+        if (shouldUseTvLiveTakeover()) {
+            applyTvSourcePublic('live');
+            return;
+        }
         if (!publicVideoPlaylist || publicVideoPlaylist.length === 0) {
             if (statusText) statusText.textContent = 'Ready for scheduled videos';
             // Clear player if nothing scheduled
@@ -3444,6 +4072,10 @@ function playMusic(url, title) {
     }
 
     function nextPublicVideo() {
+        if (shouldUseTvLiveTakeover()) {
+            applyTvSourcePublic('live');
+            return;
+        }
         if (!publicVideoPlaylist || publicVideoPlaylist.length === 0) return;
         publicVideoIndex = (publicVideoIndex + 1) % publicVideoPlaylist.length;
         const current = publicVideoPlaylist[publicVideoIndex];
@@ -3532,17 +4164,52 @@ function playMusic(url, title) {
 
     
     async function hydratePlaylistThumbs() {
-        // Create lightweight muted video thumbnails inside the playlist items
+        // Thumbnails:
+        // - MP4/WebM: create a lightweight muted <video> frame
+        // - YouTube: use the public thumbnail image
         const thumbs = document.querySelectorAll('.playlist-thumb[data-thumb-url]');
-        for (const el of thumbs) {
-            // Skip if already hydrated
-            if (el.querySelector('video')) continue;
+        const isYouTubeUrl = (s) => {
+            if (!s || typeof s !== 'string') return false;
+            const u = s.toLowerCase().trim();
+            return u.includes('youtube.com') || u.includes('youtu.be') || u.includes('youtube-nocookie.com');
+        };
+        const extractYouTubeId = (s) => {
+            try {
+                const raw = s.trim();
+                const m1 = raw.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/i);
+                if (m1) return m1[1];
+                const m2 = raw.match(/[?&]v=([A-Za-z0-9_-]{6,})/i);
+                if (m2) return m2[1];
+                const m3 = raw.match(/\/embed\/([A-Za-z0-9_-]{6,})/i);
+                if (m3) return m3[1];
+                const m4 = raw.match(/\/shorts\/([A-Za-z0-9_-]{6,})/i);
+                if (m4) return m4[1];
+            } catch (e) {}
+            return '';
+        };
 
+        for (const el of thumbs) {
             const raw = el.getAttribute('data-thumb-url') || '';
             if (!raw) continue;
 
+            // If already hydrated, skip
+            if (el.querySelector('video') || el.style.backgroundImage) continue;
+
+            // YouTube thumbnail
+            if (isYouTubeUrl(raw)) {
+                const id = extractYouTubeId(raw);
+                if (id) {
+                    el.style.backgroundImage = `url('https://img.youtube.com/vi/${id}/hqdefault.jpg')`;
+                    el.style.backgroundSize = 'cover';
+                    el.style.backgroundPosition = 'center';
+                }
+                continue;
+            }
+
+            // Local / direct video thumbnail
             try {
                 const resolved = await resolveMediaUrl(raw);
+                if (!resolved) continue;
                 const vid = document.createElement('video');
                 vid.src = resolved;
                 vid.muted = true;
@@ -3702,6 +4369,7 @@ function initPublicVideoPlaylistPanel() {
             closeAdminLogin();
             switchAdminSection('dashboard');
             showNotification('✓ Logged in!', 'success');
+            try{ localStorage.setItem(ADMIN_AUTH_KEY,'1'); }catch(e){}
             updateAdminStats();
         } else {
             showNotification('❌ Invalid credentials', 'error');
@@ -3926,6 +4594,10 @@ function initPublicVideoPlaylistPanel() {
   <span>💬</span>
 </div>
 
+<div class="chm-wa-fab" id="chmWaFab" title="WhatsApp">
+  <span>🟢</span>
+</div>
+
 <div class="chm-chat-panel" id="chmChatPanel" aria-live="polite">
   <div class="chm-chat-header">
     <div>
@@ -3943,6 +4615,7 @@ function initPublicVideoPlaylistPanel() {
       <button class="chm-chat-send" id="chmChatSend">Send</button>
       <button class="chm-chat-admin" id="chmChatAdmin">Admin</button>
       <button class="chm-chat-mic" id="chmChatMic" title="Voice to text">🎙️</button>
+      <button class="chm-chat-wa" id="chmChatWhatsApp" title="WhatsApp">🟢</button>
     </div>
     <div class="chm-chat-hint" id="chmChatHint">
       Note: If your browser blocks autoplay, press Play once. For urgent help, use the options and we will notify the admin.
@@ -3954,6 +4627,38 @@ function initPublicVideoPlaylistPanel() {
       <div class="chm-inbox-list" id="chmInboxList"></div>
     </div>
   </div>
+
+
+<!-- =========================
+     WhatsApp Widget (Elfsight)
+     ========================= -->
+<div class="chm-wa-panel" id="chmWaPanel" aria-hidden="true">
+  <div class="chm-wa-header">
+    <div>
+      <div class="chm-wa-title">WhatsApp</div>
+      <div class="chm-wa-sub" style="font-size:12px; opacity:.85; margin-top:2px;">Message us on WhatsApp: <strong>+1 973-855-2396</strong></div>
+    </div>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <a class="chm-wa-direct" href="https://wa.me/19738552396" target="_blank" rel="noopener" title="Open WhatsApp chat">Open</a>
+      <div class="chm-wa-close" id="chmWaClose" title="Close">✕</div>
+    </div>
+  </div>
+  <div class="chm-wa-body">
+    <div class="elfsight-app-dceefc20-f8a3-44fb-9349-a818baa1b883" ></div>
+  
+    <div id="chmWaFallback" style="display:none; padding:14px; border:1px dashed rgba(37,211,102,.35); border-radius:12px; margin-top:10px;">
+      <div style="font-weight:800; margin-bottom:6px;">WhatsApp is loading…</div>
+      <div style="font-size:13px; opacity:.9; margin-bottom:10px;">If it doesn’t appear, tap below to message us directly.</div>
+      <a href="https://wa.me/19738552396" target="_blank" rel="noopener"
+         style="display:inline-block; padding:10px 14px; border-radius:10px; background:rgba(37,211,102,.22); border:1px solid rgba(37,211,102,.35); color:#eafff4; text-decoration:none; font-weight:800;">
+        Open WhatsApp Chat
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="https://elfsightcdn.com/platform.js" async></script>
+
 </div>
 
 <script>
@@ -3969,6 +4674,7 @@ function initPublicVideoPlaylistPanel() {
   const LS_KEY = "chm_chat_sessions_v1";
 
   const fab = document.getElementById("chmChatFab");
+  const waFab = document.getElementById("chmWaFab");
   const panel = document.getElementById("chmChatPanel");
   const closeBtn = document.getElementById("chmChatClose");
   const body = document.getElementById("chmChatBody");
@@ -3976,7 +4682,84 @@ function initPublicVideoPlaylistPanel() {
   const sendBtn = document.getElementById("chmChatSend");
   const adminBtn = document.getElementById("chmChatAdmin");
   const micBtn = document.getElementById("chmChatMic");
-  const inboxWrap = document.getElementById("chmChatInbox");
+  const waBtn = document.getElementById("chmChatWhatsApp");
+  const waPanel = document.getElementById("chmWaPanel");
+  const waClose = document.getElementById("chmWaClose");
+
+  function positionWhatsAppPanel(){
+    if(!waPanel) return;
+    // Anchor next to the WhatsApp floating button
+    const btn = waFab || waBtn;
+    const margin = 12;
+    if(btn){
+      const r = btn.getBoundingClientRect();
+      const width = Math.min(380, window.innerWidth - 36);
+      const height = Math.min(620, window.innerHeight - 140);
+      const left = Math.max(18, Math.min(window.innerWidth - width - 18, r.left - width - margin));
+      const top = Math.max(18, Math.min(window.innerHeight - height - 92, r.top - height - margin));
+      waPanel.style.width = width + "px";
+      waPanel.style.height = height + "px";
+      waPanel.style.left = left + "px";
+      waPanel.style.top = top + "px";
+      waPanel.style.right = "auto";
+      waPanel.style.bottom = "auto";
+    }else{
+      // Fallback bottom-right
+      waPanel.style.left = "auto";
+      waPanel.style.top = "auto";
+      waPanel.style.right = "18px";
+      waPanel.style.bottom = "92px";
+    }
+  }
+
+function toggleWhatsAppPanel(force){
+    if(!waPanel) return;
+    const shouldOpen = (typeof force === "boolean") ? force : !waPanel.classList.contains("open");
+    if(shouldOpen){
+      // Open WhatsApp only (do not open CHM chat at the same time)
+      panel.classList.remove("open");
+
+      // Ensure Elfsight platform script is present (in case it was blocked or removed)
+      if(!document.querySelector('script[src="https://elfsightcdn.com/platform.js"]')){
+        const s = document.createElement("script");
+        s.src = "https://elfsightcdn.com/platform.js";
+        s.async = true;
+        document.head.appendChild(s);
+      }
+
+      // Show panel and position it near the WhatsApp button (not overlapping the chat panel)
+      waPanel.classList.add("open");
+      waPanel.setAttribute("aria-hidden","false");
+      positionWhatsAppPanel();
+
+      // If the widget is still empty, give it a small nudge by re-attaching the container once.
+      if(!waPanel.dataset.elfsightNudged){
+        const app = waPanel.querySelector('[class*="elfsight-app-"]');
+        if(app){
+          waPanel.dataset.elfsightNudged = "1";
+          const clone = app.cloneNode(true);
+          app.replaceWith(clone);
+        }
+      }
+      // If Elfsight content doesn't render quickly, show a direct WhatsApp fallback link.
+      setTimeout(()=>{
+        try{
+          const app = waPanel.querySelector('.elfsight-app-dceefc20-f8a3-44fb-9349-a818baa1b883');
+          const fallback = document.getElementById("chmWaFallback");
+          // Heuristic: if Elfsight hasn't injected anything inside the app div, show fallback.
+          const empty = !app || !(app.children && app.children.length) || app.innerText.trim()==="";
+          if(fallback){
+            fallback.style.display = empty ? "block" : "none";
+          }
+        }catch(e){}
+      }, 1200);
+
+    }else{
+      waPanel.classList.remove("open");
+      waPanel.setAttribute("aria-hidden","true");
+    }
+  }
+const inboxWrap = document.getElementById("chmChatInbox");
   const inboxList = document.getElementById("chmInboxList");
 
   let isAdmin = false;
@@ -4172,6 +4955,8 @@ function initPublicVideoPlaylistPanel() {
   }
 
   function openChat(){
+    // Open CHM chat only
+    if(waPanel) waPanel.classList.remove("open");
     panel.classList.add("open");
     const sid = ensureSession();
     renderConversation(sid);
@@ -4189,6 +4974,10 @@ function initPublicVideoPlaylistPanel() {
 
   fab.addEventListener("click", openChat);
   closeBtn.addEventListener("click", closeChat);
+  if(waFab){ waFab.addEventListener("click", (e)=>{ e.preventDefault(); e.stopPropagation(); toggleWhatsAppPanel(); }); }
+  if(waBtn){ waBtn.addEventListener("click", ()=>toggleWhatsAppPanel()); }
+  if(waClose){ waClose.addEventListener("click", ()=>toggleWhatsAppPanel(false)); }
+  window.addEventListener("resize", ()=>{ if(waPanel && waPanel.classList.contains("open")) positionWhatsAppPanel(); });
 
   sendBtn.addEventListener("click", ()=>{
     const txt = (input.value || "").trim();
@@ -4441,7 +5230,7 @@ function loadMemberAccount(){
     const btn = document.getElementById('donateLinkBtn');
     if(btn){
         btn.href = donateLink || '#';
-        btn.textContent = donateLink ? 'Donate Now' : 'Set Donation Link First';
+        btn.textContent = donateLink ? 'Donate Now' : 'Open Zelle Donation First';
     }
     renderMemberPhotos(m);
     openMemberTab('profile');
@@ -4873,7 +5662,7 @@ function setupMembersUI(){
                         </p>
                         <div class="modal-actions" style="justify-content:flex-start;">
                             <a class="btn btn-primary" id="donateLinkBtn" href="#" target="_blank" rel="noopener">Donate Now</a>
-                            <button class="btn btn-secondary" type="button" onclick="setDonationLink()">Set Donation Link</button>
+                            <button class="btn btn-secondary" type="button" onclick="openDonation()">Open Zelle Donation</button>
                         </div>
                         <div class="modal-hint">Admin can also set the donation link for the whole site.</div>
                     </div>
@@ -5120,35 +5909,93 @@ function setupMembersUI(){
       </div>
     </div>
 
+    
     <!-- DONATION MODAL (PUBLIC) -->
     <div id="donationModal" class="modal-overlay" aria-hidden="true">
       <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="donationTitle">
-        <div class="modal-head">
-          <div id="donationTitle" class="modal-title">Donation</div>
+        <div class="modal-header">
+          <div id="donationTitle" class="modal-title">DONATE</div>
           <button class="modal-close" type="button" onclick="closeDonation()" aria-label="Close">✕</button>
         </div>
-        <div class="modal-body">
-          <div class="donate-card">
-            <h3 style="margin-top:0;">Support the Ministry</h3>
-            <p style="opacity:0.9; margin-top:6px;">
-              Enter the amount you would like to give. The Donate button opens your connected payment link.
-            </p>
 
-            <div class="form-grid" style="grid-template-columns: 1fr;">
-              <div class="form-field">
-                <label>Donation Amount (USD)</label>
-                <input id="donationAmount" type="number" min="1" step="1" placeholder="e.g., 25">
+        
+<div class="modal-body">
+  <div class="modal-hint" style="margin-top:0; margin-bottom:10px;">
+    Donate securely using <b>PayPal</b> (fastest) or <b>Zelle</b>.
+  </div>
+
+    <div class="card" style="margin:12px 0 14px 0; padding:12px;">
+    <div style="font-weight:800; margin-bottom:10px;">Donate with PayPal</div>
+    <div class="modal-hint" style="margin-top:0; margin-bottom:10px;">
+      Click the PayPal donate button below. You can choose your donation amount on PayPal.
+    </div>
+    <div style="display:flex; justify-content:flex-start; align-items:center; gap:12px; flex-wrap:wrap;">
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="margin:0;">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="4Z2S24UX5EXB4">
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+      </form>
+
+      <button class="btn btn-secondary" type="button"
+        onclick="document.getElementById('zelleQrWrap')?.scrollIntoView({behavior:'smooth', block:'center'});">
+        Or donate with Zelle QR
+      </button>
+    </div>
+  </div>
+
+          <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start;">
+            <div style="min-width:220px; flex:0 0 auto;">
+              <div class="modal-hint" style="margin-bottom:8px;">
+                Scan to donate via <b>ZELLE</b>
+              </div>
+              <div id="zelleQrWrap" style="width:220px; height:220px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,0.12); border-radius:14px; background:rgba(0,0,0,0.15);">
+                <!-- QR generated here -->
+              </div>
+              <div style="margin-top:10px; font-size:14px; opacity:0.9;">
+                Send to: <b id="zelleDisplayNumber">973-855-2396</b>
+              </div>
+              <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
+                <button class="btn btn-secondary" type="button" onclick="copyZelleNumber()">Copy Number</button>
+                <a class="btn btn-primary" href="https://www.zellepay.com/" target="_blank" rel="noopener">Open Zelle Info</a>
               </div>
             </div>
 
-            <div class="modal-actions" style="justify-content:flex-start;">
-              <a class="btn btn-primary" id="donationPayBtn" href="#" target="_blank" rel="noopener">Donate</a>
-              <button class="btn btn-secondary" type="button" onclick="setDonationLink()">Connect My Donation Link</button>
-            </div>
+            <div style="flex:1 1 260px; min-width:240px;">
+              <div class="modal-hint" style="margin-bottom:8px;">
+                Choose an amount (USD) or enter a custom amount. We’ll update the QR text to include your amount as a note.
+              </div>
 
-            <div class="modal-hint">
-              Tip: Use a payment link you control (PayPal.me, Stripe Payment Link, Cash App, etc.).
-              You can change it anytime in Admin.
+              <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
+                <button class="btn btn-secondary" type="button" onclick="setZelleAmount(10)">$10</button>
+                <button class="btn btn-secondary" type="button" onclick="setZelleAmount(25)">$25</button>
+                <button class="btn btn-secondary" type="button" onclick="setZelleAmount(50)">$50</button>
+                <button class="btn btn-secondary" type="button" onclick="setZelleAmount(100)">$100</button>
+              </div>
+
+              <div class="form-row" style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap;">
+                <div style="flex:1 1 200px;">
+                  <label>Custom Amount (USD)</label>
+                  <input id="donationAmount" type="number" min="1" step="1" placeholder="e.g., 25" oninput="onZelleAmountInput()">
+                </div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <button class="btn btn-primary" type="button" onclick="copyZelleAmount()">Copy Amount</button>
+                  <button class="btn btn-secondary" type="button" onclick="copyZelleInstructions()">Copy Instructions</button>
+                </div>
+              </div>
+
+              <div style="margin-top:12px; font-size:14px; line-height:1.4; opacity:0.95;">
+                <b>How to donate:</b>
+                <ol style="margin:8px 0 0 18px;">
+                  <li>Open your banking app’s Zelle feature.</li>
+                  <li>Send to <b>973-855-2396</b>.</li>
+                  <li>Enter the amount you selected (optional note: “CHM Network”).</li>
+                </ol>
+              </div>
+
+              <div class="modal-hint" style="margin-top:10px;">
+                Note: Some Zelle apps do not auto-fill amount from a QR scan. If it doesn’t auto-fill, just type the amount manually.
+              </div>
             </div>
           </div>
         </div>
@@ -5158,8 +6005,16 @@ function setupMembersUI(){
 
 <script>
 /* ===== PURCHASE / DONATION SYSTEM (LOCAL) ===== */
+
 const PRODUCTS_KEY = 'yodebepro_products';
-const DONATION_KEY = 'yodebepro_donate_link';
+
+/* ===== GLOBAL DONATION: ZELLE QR (PUBLIC) ===== */
+const ZELLE_PHONE_RAW = '9738552396';
+const ZELLE_PHONE_DISPLAY = '973-855-2396';
+const ZELLE_NOTE_DEFAULT = 'CHM Network';
+const PAYPAL_DONATION_URL = '';
+
+
 
 function getProducts(){ 
   try{ return JSON.parse(localStorage.getItem(PRODUCTS_KEY) || '[]') || []; }
@@ -5186,47 +6041,87 @@ function closePurchase(){
 function openDonation(){
   const m = document.getElementById('donationModal');
   if(m){ m.style.display='flex'; m.setAttribute('aria-hidden','false'); }
-  updateDonationPayButton();
+  
+  const dn = document.getElementById('zelleDisplayNumber');
+  if(dn) dn.textContent = ZELLE_PHONE_DISPLAY;
+  updateZelleQr();
+  const a = document.getElementById('donationAmount');
+  if(a && !a._zelleBound){
+    a.addEventListener('input', onZelleAmountInput);
+    a._zelleBound = true;
+  }
 }
 function closeDonation(){
   const m = document.getElementById('donationModal');
   if(m){ m.style.display='none'; m.setAttribute('aria-hidden','true'); }
 }
 
-function getDonationLink(){
-  try{ return localStorage.getItem(DONATION_KEY) || ''; }catch(e){ return ''; }
+function getZelleAmount(){
+  const v = Number(document.getElementById('donationAmount')?.value || 0);
+  return (isFinite(v) && v > 0) ? Math.round(v) : null;
 }
-function setDonationLink(){
-  const current = getDonationLink();
-  const url = prompt('Paste your DONATION payment link (PayPal.me / Stripe / etc):', current);
-  if(url === null) return;
-  try{ localStorage.setItem(DONATION_KEY, url.trim()); }catch(e){}
-  updateDonationPayButton();
-  fillAdminDonationLink();
-  alert('Donation link saved.');
+function buildZelleQrText(amount){
+  let txt = 'ZELLE\n';
+  txt += 'Send to: ' + ZELLE_PHONE_DISPLAY + '\n';
+  if(amount) txt += 'Amount: $' + amount + '\n';
+  txt += 'Note: ' + ZELLE_NOTE_DEFAULT + '\n';
+  txt += 'If amount is not auto-filled, please type it manually in Zelle.';
+  return txt;
 }
-
-function updateDonationPayButton(){
-  const btn = document.getElementById('donationPayBtn');
-  if(!btn) return;
-  const base = getDonationLink();
-  const amt = Number(document.getElementById('donationAmount')?.value || 0);
-  if(!base){
-    btn.href = '#';
-    btn.textContent = 'Set Donation Link First';
-    btn.onclick = (e)=>{ e.preventDefault(); setDonationLink(); };
-    return;
-  }
-  btn.textContent = 'Donate';
-  btn.onclick = null;
-
-  let url = base;
-  if(/paypal\.me/i.test(base) && amt > 0){
-    url = base.replace(/\/+$/,'') + '/' + amt;
-  }
-  btn.href = url;
+function updateZelleQr(){
+  const wrap = document.getElementById('zelleQrWrap');
+  if(!wrap) return;
+  const amt = getZelleAmount();
+  const payload = encodeURIComponent(buildZelleQrText(amt));
+  const url = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=' + payload;
+  wrap.innerHTML = '<img alt="Zelle QR Code" src="' + url + '" style="width:220px;height:220px;border-radius:12px;"/>';
+}
+function setZelleAmount(n){
+  const a = document.getElementById('donationAmount');
+  if(a){ a.value = n; }
+  updateZelleQr();
+}
+function onZelleAmountInput(){
+  updateZelleQr();
 }
 
+/* Clipboard helpers */
+async function safeCopyText(text){
+  try{
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  }catch(e){}
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position='fixed';
+    ta.style.left='-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    return true;
+  }catch(e){ return false; }
+}
+
+async function copyZelleNumber(){
+  const ok = await safeCopyText(ZELLE_PHONE_DISPLAY);
+  alert(ok ? ('Copied: ' + ZELLE_PHONE_DISPLAY) : 'Could not copy. Please copy manually: 973-855-2396');
+}
+async function copyZelleAmount(){
+  const amt = getZelleAmount();
+  if(!amt){ alert('Please choose or enter an amount first.'); return; }
+  const ok = await safeCopyText('$' + amt);
+  alert(ok ? ('Copied amount: $' + amt) : 'Could not copy amount.');
+}
+async function copyZelleInstructions(){
+  const amt = getZelleAmount();
+  const msg = 'ZELLE Donation\nSend to: ' + ZELLE_PHONE_DISPLAY + (amt ? ('\nAmount: $' + amt) : '') + '\nNote: ' + ZELLE_NOTE_DEFAULT;
+  const ok = await safeCopyText(msg);
+  alert(ok ? 'Copied instructions.' : 'Could not copy instructions.');
+}
 function renderPurchaseProducts(){
   const grid = document.getElementById('purchaseProductsGrid');
   if(!grid) return;
@@ -5320,14 +6215,12 @@ function clearProducts(){
 }
 
 function saveAdminDonationLink(){
-  const val = (document.getElementById('adminDonationLink')?.value || '').trim();
-  try{ localStorage.setItem(DONATION_KEY, val); }catch(e){}
-  alert('Donation link saved.');
+  alert('Donation is set to ZELLE: 973-855-2396');
 }
 function fillAdminDonationLink(){
   const el = document.getElementById('adminDonationLink');
   if(!el) return;
-  el.value = getDonationLink();
+  el.value = 'ZELLE: 973-855-2396';
 }
 
 function setupPurchaseDonationUI(){
@@ -5336,10 +6229,14 @@ function setupPurchaseDonationUI(){
     pBtn.addEventListener('click', (e)=>{ e.preventDefault(); openPurchase(); });
     pBtn.__wired = true;
   }
-  const dBtn = document.getElementById('donationBtn');
-  if(dBtn && !dBtn.__wired){
-    dBtn.addEventListener('click', (e)=>{ e.preventDefault(); openDonation(); });
-    dBtn.__wired = true;
+  const dBtns = document.querySelectorAll('.donationBtn');
+  if(dBtns && dBtns.length){
+    dBtns.forEach((btn)=>{
+      if(btn && !btn.__wired){
+        btn.addEventListener('click', (e)=>{ e.preventDefault(); openDonation(); });
+        btn.__wired = true;
+      }
+    });
   }
   const s = document.getElementById('purchaseSearch');
   if(s && !s.__wired){
@@ -5384,14 +6281,851 @@ function setupPurchaseDonationUI(){
 document.addEventListener('DOMContentLoaded', ()=>{
   try{ setupPurchaseDonationUI(); }catch(e){}
 });
+
+/* ==================== STORE / PURCHASE (GLOBAL CATALOG) ==================== */
+const STORE_GLOBAL_JSON = 'published_store.json';
+const STORE_LOCAL_KEY = 'CHM_STORE_DATA_V1';
+
+let storeData = null;
+let storeCategory = 'all';
+let storeSearch = '';
+let storeSelectedId = null;
+let storeAdminCategoryFilter = 'all';
+
+function defaultStoreData(){
+  return {
+    version: 3,
+    updatedAt: new Date().toISOString(),
+    settings: {
+      // If an item has no checkoutUrl, this default link will be used (PayPal.me, Stripe Payment Link, Gumroad store, Shopify collection, etc.)
+      defaultCheckoutUrl: '',
+      currency: 'USD'
+    },
+    categories: [
+      { id: 'books', name: 'Books' },
+      { id: 'music', name: 'Music' },
+      { id: 'bibles', name: 'Bibles' },
+      { id: 'songbooks', name: 'Songbooks' },
+      { id: 'clothing', name: 'Clothing' },
+      { id: 'electronics', name: 'Electronics' },
+      { id: 'other', name: 'Other' }
+    ],
+    items: [
+      { id: cryptoRandomId(), category: 'books', title: 'What Is Your Life?', description: 'Measuring Life Through God\'s Lens (Book)', price: 19.99, emoji: '📘', images: [], image: '', checkoutUrl: '' },
+      { id: cryptoRandomId(), category: 'music', title: 'Worship Album', description: 'Digital worship music collection', price: 9.99, emoji: '🎶', images: [], image: '', checkoutUrl: '' },
+      { id: cryptoRandomId(), category: 'bibles', title: 'Holy Bible (KJV)', description: 'King James Version', price: 24.99, emoji: '📖', images: [], image: '', checkoutUrl: '' }
+    ]
+  };
+}
+
+function cryptoRandomId(){
+  try{
+    const a = new Uint8Array(8);
+    crypto.getRandomValues(a);
+    return Array.from(a).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }catch(e){
+    return 'id_' + Math.random().toString(16).slice(2) + Date.now().toString(16);
+  }
+}
+
+async function loadStoreData(){
+  // 1) Try hosted global file
+  try{
+    const url = STORE_GLOBAL_JSON + '?v=' + Date.now();
+    const res = await fetch(url, { cache: 'no-store' });
+    if(res.ok){
+      const data = await res.json();
+      if(data && data.items && data.categories){
+        storeData = normalizeStoreData(data);
+        saveStoreLocal(storeData);
+        return storeData;
+      }
+    }
+  }catch(e){ /* ignore */ }
+
+  // 2) Fallback local
+  const local = readStoreLocal();
+  if(local){
+    storeData = normalizeStoreData(local);
+    return storeData;
+  }
+
+  // 3) Default
+  storeData = normalizeStoreData(defaultStoreData());
+  saveStoreLocal(storeData);
+  return storeData;
+}
+
+function readStoreLocal(){
+  try{
+    const raw = localStorage.getItem(STORE_LOCAL_KEY);
+    if(!raw) return null;
+    return JSON.parse(raw);
+  }catch(e){ return null; }
+}
+
+function saveStoreLocal(data){
+  try{
+    data.updatedAt = new Date().toISOString();
+    localStorage.setItem(STORE_LOCAL_KEY, JSON.stringify(data));
+  }catch(e){}
+}
+
+
+function normalizeStoreData(data){
+  if(!data) return data;
+  data.categories = data.categories || [];
+  data.items = data.items || [];
+  // Backward compatibility: ensure settings exists
+  data.settings = data.settings || { defaultCheckoutUrl:'', currency:'USD' };
+  // Normalize item images (support multi-image gallery)
+  data.items.forEach(it=>{
+    if(!it) return;
+    if(Array.isArray(it.images)){
+      // ok
+    }else{
+      const single = (it.image || it.img || '');
+      it.images = single ? [String(single)] : [];
+    }
+    // keep legacy "image" as primary for older rendering
+    it.image = it.images && it.images[0] ? String(it.images[0]) : (it.image || '');
+    if(typeof it.price !== 'number') it.price = Number(it.price||0) || 0;
+    it.title = it.title || '';
+    it.description = it.description || '';
+    it.category = it.category || 'other';
+    it.emoji = it.emoji || '🛒';
+    it.checkoutUrl = it.checkoutUrl || '';
+  });
+  return data;
+}
+
+
+function openStoreAdminForCategory(catId){
+  // catId can be 'books','music','bibles','songbooks','clothing','electronics','other','all'
+  const desired = (catId && catId !== 'all') ? catId : 'all';
+  (async ()=>{
+    try{ if(typeof closeShop === 'function') closeShop(); }catch(e){}
+    try{
+      if(typeof loadStoreData === 'function'){
+        await loadStoreData();
+      }
+    }catch(e){}
+    try{
+      if(typeof openStoreAdmin === 'function'){
+        openStoreAdmin();
+      }
+      if(desired && typeof setAdminCategoryFilter === 'function'){
+        setAdminCategoryFilter(desired);
+      }
+      if(typeof ensureStoreSelectionForCurrentFilter === 'function'){
+        ensureStoreSelectionForCurrentFilter();
+      }
+    }catch(e){}
+  })();
+}
+
+
+
+function openShop(){
+  const overlay = document.getElementById('shopOverlay');
+  if(!overlay) return;
+  overlay.classList.remove('hidden');
+  overlay.setAttribute('aria-hidden', 'false');
+
+  // enable admin manage button if authed
+  const adminBtn = document.getElementById('shopAdminBtn');
+  if(adminBtn){
+    if(typeof isAdminAuthed === 'function' && isAdminAuthed()){
+      adminBtn.classList.remove('hidden');
+      adminBtn.onclick = () => openStoreAdmin();
+    }else{
+      adminBtn.classList.add('hidden');
+    }
+  }
+
+  // load and render
+  document.getElementById('shopStatus').textContent = 'Loading store items…';
+  loadStoreData().then(()=>{
+    renderStoreTabs();
+    renderStoreGrid();
+    hookStoreSearch();
+    document.getElementById('shopStatus').textContent = '';
+  }).catch(()=>{
+    document.getElementById('shopStatus').textContent = 'Could not load store items.';
+  });
+}
+
+function closeShop(){
+  const overlay = document.getElementById('shopOverlay');
+  if(!overlay) return;
+  overlay.classList.add('hidden');
+  overlay.setAttribute('aria-hidden', 'true');
+}
+
+function hookStoreSearch(){
+  const inp = document.getElementById('shopSearchInput');
+  if(!inp || inp.dataset.bound === '1') return;
+  inp.dataset.bound = '1';
+  inp.addEventListener('input', ()=>{
+    storeSearch = (inp.value || '').trim().toLowerCase();
+    renderStoreGrid();
+  });
+}
+
+function renderStoreTabs(){
+  const wrap = document.getElementById('shopCategoryTabs');
+  if(!wrap || !storeData) return;
+
+  const cats = [{id:'all', name:'All Items'}, ...storeData.categories];
+  wrap.innerHTML = cats.map(c=>{
+    const active = (c.id === storeCategory) ? 'active' : '';
+    return `<div class="shop-tab ${active}" data-cat="${escapeHtml(c.id)}">${escapeHtml(c.name)}</div>`;
+  }).join('');
+
+  wrap.querySelectorAll('.shop-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      storeCategory = tab.getAttribute('data-cat') || 'all';
+      wrap.querySelectorAll('.shop-tab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      renderStoreGrid();
+    });
+  });
+}
+
+function renderStoreGrid(){
+  const grid = document.getElementById('shopGrid');
+  const status = document.getElementById('shopStatus');
+  if(!grid || !storeData) return;
+
+  const items = (storeData.items || []).filter(it=>{
+    if(storeCategory !== 'all' && it.category !== storeCategory) return false;
+    if(storeSearch){
+      const blob = `${it.title||''} ${it.description||''}`.toLowerCase();
+      if(!blob.includes(storeSearch)) return false;
+    }
+    return true;
+  });
+
+  if(items.length === 0){
+    grid.innerHTML = '';
+    if(status) status.textContent = 'No items found.';
+    return;
+  }else{
+    if(status) status.textContent = '';
+  }
+
+  grid.innerHTML = items.map(it=>{
+    const price = (it.price === 0 || it.price) ? `$${Number(it.price).toFixed(2)}` : '';
+    const emoji = it.emoji || '🛒';
+    const primaryImage = (it.images && it.images[0]) ? it.images[0] : (it.image || '');
+    const hasLink = !!((it.checkoutUrl && String(it.checkoutUrl).trim()) || (storeData?.settings?.defaultCheckoutUrl && String(storeData.settings.defaultCheckoutUrl).trim()));
+    return `
+      <div class="shop-card">
+        ${`<div class=\"shop-card-img\">${primaryImage ? `<img alt=\"\" src=\"${escapeAttr(primaryImage)}\" />` : `<div class=\"shop-img-placeholder\">No Image</div>`}</div>`}${(it.images && it.images.length>1) ? `<div class=\"shop-thumb-row\">${it.images.slice(0,4).map(u=>`<img alt=\"\" src=\"${escapeAttr(u)}\"/>`).join('')}</div>` : ''}
+        <div class="shop-card-head">
+          <div class="shop-card-emoji">${emoji}</div>
+          <div>
+            <div class="shop-card-title">${escapeHtml(it.title||'Item')}</div>
+            <div class="shop-card-price">${escapeHtml(price)}</div>
+          </div>
+        </div>
+        <div class="shop-card-desc">${escapeHtml(it.description||'')}</div>
+        <div class="shop-card-actions">
+          <button class="btn-primary" type="button" onclick="buyStoreItem('${escapeHtml(it.id)}')">Buy</button>
+          ${hasLink ? `<button class="btn-secondary" type="button" onclick="window.open('${escapeAttr((it.checkoutUrl||'') || (storeData?.settings?.defaultCheckoutUrl||''))}','_blank')">Open Checkout</button>` : ''}
+        </div>
+        <div class="shop-note">${hasLink ? 'Checkout opens securely in a new tab.' : 'Admin needs to add a checkout link for this item (or set a Default Checkout URL in Store Admin).'}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function buyStoreItem(id){
+  if(!storeData) return;
+  const it = (storeData.items||[]).find(x=>String(x.id)===String(id));
+  if(!it){
+    showNotification && showNotification('Item not found', 'error');
+    return;
+  }
+  const link = ((it.checkoutUrl || '').trim() || (storeData?.settings?.defaultCheckoutUrl || '').trim());
+  if(!link){
+    alert('This item does not have a checkout link yet. Please contact the admin or try again later.');
+    return;
+  }
+  window.open(link, '_blank');
+}
+
+/* ---------- Store Admin ---------- */
+function openStoreAdmin(){
+  const modal = document.getElementById('storeAdminModal');
+  if(!modal) return;
+  try{ modal.style.display = 'flex'; modal.style.zIndex = '10001'; }catch(e){}
+  modal.classList.remove('hidden');
+  modal.setAttribute('aria-hidden','false');
+  renderStoreAdminCategoryTabs();
+  renderStoreAdminList();
+  fillStorePaymentSettings();
+  if(!storeSelectedId && storeData && storeData.items && storeData.items[0]){
+    selectStoreItem(storeData.items[0].id);
+  }
+  ensureStoreSelectionForCurrentFilter();
+  const file = document.getElementById('importStoreJsonFile');
+  if(file && !file.dataset.bound){
+    file.dataset.bound='1';
+    file.addEventListener('change', async ()=>{
+      const f = file.files && file.files[0];
+      if(!f) return;
+      try{
+        const text = await f.text();
+        const data = JSON.parse(text);
+        if(!data || !data.items || !data.categories) throw new Error('Invalid format');
+        storeData = data;
+        saveStoreLocal(storeData);
+        renderStoreTabs();
+        renderStoreGrid();
+        renderStoreAdminList();
+        showNotification && showNotification('✓ Store JSON imported (local). Export & upload to publish globally.', 'success');
+      }catch(e){
+        alert('Could not import JSON: ' + (e.message || e));
+      }finally{
+        file.value = '';
+      }
+    });
+  }
+}
+
+
+function fillStorePaymentSettings(){
+  try{
+    const inp = document.getElementById('storeDefaultCheckoutUrl');
+    if(!inp || !storeData) return;
+    inp.value = (storeData.settings && storeData.settings.defaultCheckoutUrl) ? storeData.settings.defaultCheckoutUrl : '';
+  }catch(e){}
+}
+
+function saveStorePaymentSettings(){
+  if(!storeData) storeData = defaultStoreData();
+  storeData.settings = storeData.settings || { defaultCheckoutUrl:'', currency:'USD' };
+  const inp = document.getElementById('storeDefaultCheckoutUrl');
+  const url = (inp && inp.value) ? String(inp.value).trim() : '';
+  storeData.settings.defaultCheckoutUrl = url;
+  saveStoreLocal(storeData);
+  renderStoreGrid();
+  showNotification && showNotification('✓ Saved checkout settings (local). Export & upload published_store.json to publish globally.', 'success');
+}
+
+function closeStoreAdmin(){
+  const modal = document.getElementById('storeAdminModal');
+  if(!modal) return;
+  try{ modal.style.display = 'none'; }catch(e){}
+  modal.classList.add('hidden');
+  modal.setAttribute('aria-hidden','true');
+}
+
+
+function setAdminCategoryFilter(catId){
+  storeAdminCategoryFilter = catId || 'all';
+  renderStoreAdminCategoryTabs();
+  renderStoreAdminList();
+  ensureStoreSelectionForCurrentFilter();
+}
+
+function getStoreItemsForCurrentFilter(){
+  if(!storeData) return [];
+  let items = storeData.items || [];
+  if(storeAdminCategoryFilter && storeAdminCategoryFilter !== 'all'){
+    items = items.filter(it=>it.category===storeAdminCategoryFilter);
+  }
+  return items;
+}
+
+function ensureStoreSelectionForCurrentFilter(){
+  if(!storeData) return;
+  const filtered = getStoreItemsForCurrentFilter();
+  if(!filtered.length){
+    storeSelectedId = null;
+    renderStoreEditor();
+    return;
+  }
+  const found = filtered.find(x=>x.id===storeSelectedId);
+  if(!found){
+    storeSelectedId = filtered[0].id;
+  }
+  renderStoreAdminList();
+  renderStoreEditor();
+}
+function resetAdminCategoryFilter(){
+  setAdminCategoryFilter('all');
+}
+function addNewStoreItemFromAdmin(){
+  const cat = (storeAdminCategoryFilter && storeAdminCategoryFilter !== 'all') ? storeAdminCategoryFilter : (storeData?.categories?.[0]?.id || 'other');
+  addNewStoreItem(cat);
+}
+function renderStoreAdminCategoryTabs(){
+  const wrap = document.getElementById('storeAdminCategoryTabs');
+  if(!wrap || !storeData) return;
+  const cats = storeData.categories || [];
+  const allActive = (storeAdminCategoryFilter === 'all') ? 'active' : '';
+  let html = `<button class="store-admin-catbtn ${allActive}" type="button" onclick="setAdminCategoryFilter('all')">All</button>`;
+  html += cats.map(c=>{
+    const active = (storeAdminCategoryFilter === c.id) ? 'active' : '';
+    return `<button class="store-admin-catbtn ${active}" type="button" onclick="setAdminCategoryFilter('${escapeAttr(c.id)}')">${escapeHtml(c.name)}</button>`;
+  }).join('');
+  wrap.innerHTML = html;
+}
+
+function renderStoreAdminList(){
+  const list = document.getElementById('storeAdminList');
+  if(!list || !storeData) return;
+  let items = storeData.items || [];
+  if(storeAdminCategoryFilter && storeAdminCategoryFilter !== 'all'){
+    items = items.filter(it=>it.category===storeAdminCategoryFilter);
+  }
+
+  if(items.length === 0){
+    const label = (storeData.categories||[]).find(c=>c.id===storeAdminCategoryFilter)?.name || 'this section';
+    list.innerHTML = `<div style="opacity:.9;">No items yet in ${escapeHtml(label)}.</div><div style="margin-top:10px;"><button class="btn-primary" type="button" onclick="addNewStoreItemFromAdmin()">＋ Add First Item</button></div>`;
+    return;
+  }
+  list.innerHTML = items.map(it=>{
+    const active = (storeSelectedId === it.id) ? 'active' : '';
+    const catName = (storeData.categories||[]).find(c=>c.id===it.category)?.name || it.category || '';
+    return `<div class="store-admin-item ${active}" onclick="selectStoreItem('${escapeHtml(it.id)}')">
+      <div style="font-weight:700">${escapeHtml(it.emoji||'🛒')} ${escapeHtml(it.title||'Item')}</div>
+      <div style="opacity:.8; font-size:.92rem;">${escapeHtml(catName)} • $${Number(it.price||0).toFixed(2)}</div>
+    </div>`;
+  }).join('');
+}
+
+function selectStoreItem(id){
+  storeSelectedId = id;
+  renderStoreAdminList();
+  renderStoreEditor();
+}
+
+function addNewStoreItem(categoryOverride){
+  if(!storeData) storeData = defaultStoreData();
+  const firstCat = categoryOverride || storeData.categories?.[0]?.id || 'other';
+  const item = {
+    id: cryptoRandomId(),
+    category: firstCat,
+    title: 'New Item',
+    description: '',
+    price: 0,
+    emoji: '🛒',
+    checkoutUrl: '',
+    images: [],
+    image: ''
+  };
+  storeData.items = storeData.items || [];
+  storeData.items.unshift(item);
+  saveStoreLocal(storeData);
+  renderStoreTabs();
+  renderStoreGrid();
+  renderStoreAdminList();
+  ensureStoreSelectionForCurrentFilter();
+  selectStoreItem(item.id);
+}
+
+function deleteStoreItem(id){
+  if(!storeData) return;
+  if(!confirm('Delete this item?')) return;
+  storeData.items = (storeData.items||[]).filter(x=>x.id !== id);
+  saveStoreLocal(storeData);
+  storeSelectedId = storeData.items?.[0]?.id || null;
+  renderStoreTabs();
+  renderStoreGrid();
+  renderStoreAdminList();
+  renderStoreEditor();
+}
+
+
+function moveStoreItem(id, dir){
+  if(!storeData || !storeData.items) return;
+  const idx = storeData.items.findIndex(x=>x.id===id);
+  if(idx<0) return;
+  const newIdx = idx + (dir<0?-1:1);
+  if(newIdx<0 || newIdx>=storeData.items.length) return;
+  const arr = storeData.items;
+  const [it] = arr.splice(idx,1);
+  arr.splice(newIdx,0,it);
+  saveStoreLocal(storeData);
+  renderStoreGrid();
+  renderStoreAdminList();
+  selectStoreItem(id);
+}
+function renderStoreEditor(){
+  const ed = document.getElementById('storeAdminEditor');
+  if(!ed || !storeData) return;
+  const it = (storeData.items||[]).find(x=>x.id===storeSelectedId);
+  if(!it){
+    ed.innerHTML = '<div style="opacity:.8;">Select an item to edit.</div>';
+    return;
+  }
+  const catOptions = (storeData.categories||[]).map(c=>`<option value="${escapeAttr(c.id)}" ${c.id===it.category?'selected':''}>${escapeHtml(c.name)}</option>`).join('');
+  ed.innerHTML = `
+    <div class="row">
+      <div>
+        <label>Category</label>
+        <select id="st_category">${catOptions}</select>
+      </div>
+      <div>
+        <label>Price (USD)</label>
+        <input id="st_price" type="number" min="0" step="0.01" value="${escapeAttr(it.price ?? 0)}" />
+      </div>
+      <div>
+        <label>Emoji</label>
+        <input id="st_emoji" type="text" maxlength="2" value="${escapeAttr(it.emoji||'🛒')}" />
+      </div>
+    </div>
+
+    <label>Title</label>
+    <input id="st_title" type="text" value="${escapeAttr(it.title||'')}" />
+
+    <label>Description</label>
+    <textarea id="st_desc">${escapeHtml(it.description||'')}</textarea>
+
+    <label>Product Images (up to 6)</label>
+    <div class="row">
+      <div>
+        <label style="opacity:.85">Image URL #1</label>
+        <input id="st_img_url_1" type="url" placeholder="https://..." value="${escapeAttr((it.images && it.images[0]) ? it.images[0] : (it.image||''))}" />
+      </div>
+      <div>
+        <label style="opacity:.85">Image URL #2</label>
+        <input id="st_img_url_2" type="url" placeholder="https://..." value="${escapeAttr((it.images && it.images[1]) ? it.images[1] : '')}" />
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label style="opacity:.85">Image URL #3</label>
+        <input id="st_img_url_3" type="url" placeholder="https://..." value="${escapeAttr((it.images && it.images[2]) ? it.images[2] : '')}" />
+      </div>
+      <div>
+        <label style="opacity:.85">Image URL #4</label>
+        <input id="st_img_url_4" type="url" placeholder="https://..." value="${escapeAttr((it.images && it.images[3]) ? it.images[3] : '')}" />
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label style="opacity:.85">Upload Images</label>
+        <input id="st_img_files" type="file" accept="image/*" multiple />
+        <div style="opacity:.75; font-size:.85rem; margin-top:6px;">Tip: Upload will embed images into your catalog. After Export + upload published_store.json, everyone will see them.</div>
+      </div>
+      <div>
+        <label style="opacity:.85">Primary Image</label>
+        <select id="st_img_primary"></select>
+      </div>
+    </div>
+
+    <div id="st_img_gallery" class="st-img-grid" style="display:${(it.images && it.images.length) ? 'grid' : 'none'};"></div>
+
+    <label>Checkout Link (Stripe/PayPal/Gumroad/Shopify, etc.)</label>
+    <input id="st_checkout" type="url" placeholder="https://..." value="${escapeAttr(it.checkoutUrl||'')}" />
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px;">
+      <button class="btn-primary" type="button" onclick="saveStoreEditor()">Save</button>
+      <button class="btn" type="button" onclick="moveStoreItem('${escapeHtml(it.id)}', -1)">↑ Move Up</button>
+      <button class="btn" type="button" onclick="moveStoreItem('${escapeHtml(it.id)}', 1)">↓ Move Down</button>
+      <button class="btn-secondary" type="button" onclick="deleteStoreItem('${escapeHtml(it.id)}')">Delete</button>
+    </div>
+  `;
+  // wire image inputs
+  wireStoreImageInputs();
+}
+
+
+function wireStoreImageInputs(){
+  try{
+    const url1 = document.getElementById('st_img_url_1');
+    const url2 = document.getElementById('st_img_url_2');
+    const url3 = document.getElementById('st_img_url_3');
+    const url4 = document.getElementById('st_img_url_4');
+    const fileInp = document.getElementById('st_img_files');
+    const primarySel = document.getElementById('st_img_primary');
+    const gallery = document.getElementById('st_img_gallery');
+
+    function collectUrls(){
+      const arr = [url1,url2,url3,url4].map(x => (x && x.value ? String(x.value).trim() : '')).filter(Boolean);
+      return arr;
+    }
+
+    function renderPrimaryAndGallery(){
+      if(!storeData) return;
+      const it = (storeData.items||[]).find(x=>x.id===storeSelectedId);
+      if(!it) return;
+
+      // Start from URLs currently in inputs (not yet saved) if present, otherwise from it.images
+      const currentUrls = collectUrls();
+      const imgs = currentUrls.length ? currentUrls : (it.images || []);
+      it.images = Array.isArray(imgs) ? imgs.slice(0, 6) : [];
+      it.image = it.images[0] || '';
+
+      // Primary select
+      if(primarySel){
+        const opts = (it.images||[]).map((u,i)=>`<option value="${i}">${i===0?'Primary':'Image '+(i+1)}</option>`).join('');
+        primarySel.innerHTML = opts || '<option value="0">Primary</option>';
+        if(!primarySel.dataset.bound){
+          primarySel.dataset.bound='1';
+          primarySel.addEventListener('change', ()=>{
+            const idx = Number(primarySel.value||0);
+            if(!isFinite(idx)) return;
+            const arr = it.images||[];
+            if(arr[idx]){
+              // move selected to front
+              const chosen = arr[idx];
+              const rest = arr.filter((_,j)=>j!==idx);
+              it.images = [chosen, ...rest].slice(0,6);
+              it.image = it.images[0] || '';
+              // reflect back into url inputs
+              const u = it.images;
+              if(url1) url1.value = u[0]||'';
+              if(url2) url2.value = u[1]||'';
+              if(url3) url3.value = u[2]||'';
+              if(url4) url4.value = u[3]||'';
+              renderPrimaryAndGallery();
+            }
+          });
+        }
+      }
+
+      // Gallery thumbnails
+      if(gallery){
+        if((it.images||[]).length){
+          gallery.style.display = 'grid';
+          gallery.innerHTML = (it.images||[]).slice(0,6).map((u,i)=>{
+            const active = (i===0) ? 'active' : '';
+            return `<img class="${active}" src="${escapeAttr(u)}" alt="" title="Click to make primary" onclick="(function(){ try{ const sel=document.getElementById('st_img_primary'); if(sel){ sel.value='${i}'; sel.dispatchEvent(new Event('change')); } }catch(e){} })()" />`;
+          }).join('');
+        }else{
+          gallery.style.display = 'none';
+          gallery.innerHTML = '';
+        }
+      }
+    }
+
+    // Bind URL inputs
+    [url1,url2,url3,url4].forEach(inp=>{
+      if(inp && !inp.dataset.bound){
+        inp.dataset.bound='1';
+        inp.addEventListener('input', ()=>{ renderPrimaryAndGallery(); });
+      }
+    });
+
+    // Bind upload (multiple)
+    if(fileInp && !fileInp.dataset.bound){
+      fileInp.dataset.bound='1';
+      fileInp.addEventListener('change', async ()=>{
+        const files = Array.from(fileInp.files || []);
+        if(!files.length) return;
+        const tooBig = files.find(f=>f.size > 2.5 * 1024 * 1024);
+        if(tooBig){
+          alert('One of the images is too large. Please keep each image under ~2.5MB, or use Image URLs instead.');
+          fileInp.value='';
+          return;
+        }
+        const dataUrls = [];
+        for(const f of files.slice(0,6)){
+          const dataUrl = await new Promise((res, rej)=>{
+            const r = new FileReader();
+            r.onload = ()=>res(String(r.result||''));
+            r.onerror = ()=>rej(new Error('Read failed'));
+            r.readAsDataURL(f);
+          });
+          dataUrls.push(dataUrl);
+        }
+        // Merge with existing URLs
+        const merged = [...collectUrls(), ...dataUrls].filter(Boolean).slice(0,6);
+        if(url1) url1.value = merged[0]||'';
+        if(url2) url2.value = merged[1]||'';
+        if(url3) url3.value = merged[2]||'';
+        if(url4) url4.value = merged[3]||'';
+        renderPrimaryAndGallery();
+      });
+    }
+
+    // Initial render
+    renderPrimaryAndGallery();
+  }catch(e){}
+}
+
+
+function saveStoreEditor(){
+  if(!storeData) return;
+  const it = (storeData.items||[]).find(x=>x.id===storeSelectedId);
+  if(!it) return;
+
+  const title = document.getElementById('st_title')?.value || '';
+  const desc = document.getElementById('st_desc')?.value || '';
+  const category = document.getElementById('st_category')?.value || 'other';
+  const emoji = document.getElementById('st_emoji')?.value || '🛒';
+  const price = Number(document.getElementById('st_price')?.value || 0);
+  const checkout = document.getElementById('st_checkout')?.value || '';
+  const imgs = [1,2,3,4].map(i=>document.getElementById('st_img_url_'+i)?.value||'').map(s=>String(s||'').trim()).filter(Boolean);
+
+
+  it.title = title.trim();
+  it.description = desc.trim();
+  it.category = category;
+  it.emoji = emoji.trim().slice(0,2) || '🛒';
+  it.price = isFinite(price) ? price : 0;
+  it.checkoutUrl = checkout.trim();
+  it.images = Array.isArray(imgs) ? imgs.slice(0,6) : [];
+  it.image = it.images[0] ? String(it.images[0]) : '';
+
+  saveStoreLocal(storeData);
+  renderStoreTabs();
+  renderStoreGrid();
+  renderStoreAdminList();
+  showNotification && showNotification('✓ Saved (local). Export & upload published_store.json to publish globally.', 'success');
+}
+
+function exportStoreJson(){
+  if(!storeData) return;
+  const data = JSON.stringify(storeData, null, 2);
+  const blob = new Blob([data], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'published_store.json';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 200);
+}
+
+function resetStoreToDefault(){
+  if(!confirm('Reset store to default items?')) return;
+  storeData = defaultStoreData();
+  saveStoreLocal(storeData);
+  renderStoreTabs();
+  renderStoreGrid();
+  renderStoreAdminList();
+  renderStoreEditor();
+}
+
+/* ---------- Wiring for Purchase buttons ---------- */
+function wirePurchaseButtons(){
+  document.querySelectorAll('.purchaseBtn, #purchaseBtn').forEach(btn=>{
+    if(btn.dataset.boundPurchase==='1') return;
+    btn.dataset.boundPurchase='1';
+    btn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      openShop();
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  wirePurchaseButtons();
+});
+
+/* Small helpers (safe if already defined) */
+function escapeHtml(str){
+  return String(str ?? '')
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'","&#39;");
+}
+function escapeAttr(str){ return escapeHtml(str).replaceAll('\n',' '); }
 </script>
 
 
     <!-- Footer Actions (fallback) -->
     <div style="position:fixed; left:16px; bottom:16px; display:flex; gap:10px; z-index:999;">
       <button class="btn btn-secondary" id="purchaseBtn">Purchase</button>
-      <button class="btn btn-secondary" id="donationBtn">Donation</button>
+      <button class="btn btn-secondary donationBtn" id="donationBtnFloat">Donation</button>
     </div>
 
+
+<!-- ==================== SHOP / PURCHASE PAGE OVERLAY (GLOBAL CATALOG) ==================== -->
+<div id="shopOverlay" class="shop-overlay hidden" aria-hidden="true">
+  <div class="shop-shell">
+    <div class="shop-topbar">
+      <div class="shop-title">
+        <span class="shop-badge">SHOP</span>
+        <span id="shopHeadingText">Purchase</span>
+      </div>
+      <div class="shop-topbar-actions">
+        <button id="shopAdminBtn" class="btn-secondary hidden" type="button">Admin: Manage Store</button>
+        <button class="btn-primary" type="button" onclick="closeShop()">Close</button>
+      </div>
+    </div>
+
+    <div class="shop-content">
+      <div class="shop-left">
+        <div class="shop-search">
+          <input id="shopSearchInput" type="text" placeholder="Search items..." autocomplete="off" />
+        </div>
+        <div id="shopCategoryTabs" class="shop-tabs"></div>
+      </div>
+
+      <div class="shop-right">
+        <div id="shopStatus" class="shop-status">Loading store items…</div>
+        <div id="shopGrid" class="shop-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Store Admin Modal -->
+  <div id="storeAdminModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-content" style="max-width: 980px; width: 95%;">
+      <span class="close-modal" onclick="closeStoreAdmin()">&times;</span>
+      <h2 style="color: var(--primary-color); text-align: center;">Store Admin</h2>
+      <p style="opacity:.85; margin-top:8px; line-height:1.4;">
+        This store uses a <b>global catalog file</b> named <code>published_store.json</code>.
+        Everyone worldwide will see the same items when your site is hosted online.
+        After edits, click <b>Export</b> and upload/replace <code>published_store.json</code> on your hosting.
+      </p>
+
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin: 14px 0;">
+        <button class="btn-primary" type="button" onclick="addNewStoreItem()">+ Add Item</button>
+        <button class="btn-secondary" type="button" onclick="exportStoreJson()">Export published_store.json</button>
+        <button class="btn-secondary" type="button" onclick="document.getElementById('importStoreJsonFile').click()">Import JSON</button>
+        <input id="importStoreJsonFile" type="file" accept="application/json" style="display:none" />
+        <button class="btn-secondary" type="button" onclick="resetStoreToDefault()">Reset to Default</button>
+      </div>
+
+      <div class=\"content-editor\" style=\"margin: 10px 0 16px 0;\">
+        <h3 style=\"margin-bottom:8px;\">Payment Settings</h3>
+        <div class=\"form-group\">
+          <label>Default Checkout URL (your account link)</label>
+          <input id=\"storeDefaultCheckoutUrl\" type=\"url\" placeholder=\"Paste your Stripe Payment Link, PayPal.me link, Shopify checkout, Gumroad, etc.\" />
+          <div style=\"opacity:.8; font-size:.92rem; margin-top:6px; line-height:1.35;\">
+            If an item does not have its own checkout link, the <b>Buy</b> button will use this default link so payments go to your account.
+          </div>
+        </div>
+        <button class=\"btn-success\" type=\"button\" onclick=\"saveStorePaymentSettings\(\)\">✓ Save Payment Settings</button>
+      </div>
+
+
+      <div class="store-admin-split">
+        
+<div class="store-admin-left">
+  <h3 style="margin: 10px 0;">Catalog</h3>
+  <div id="storeAdminCategoryTabs" class="store-admin-cats"></div>
+  <div class="store-admin-toolbar">
+    <button class="btn btn-success" type="button" onclick="addNewStoreItemFromAdmin()">+ Add Item</button>
+    <button class="btn" type="button" onclick="resetAdminCategoryFilter()">Show All</button>
+  </div>
+  <div id="storeAdminList" class="store-admin-list"></div>
+</div>
+
+        <div class="store-admin-right">
+          <h3 style="margin: 10px 0;">Editor</h3>
+          <div id="storeAdminEditor" class="store-admin-editor">
+            <div style="opacity:.8;">Select an item to edit, or click <b>Add Item</b>.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px; font-size:.95rem; opacity:.85;">
+        Tip: For “automatic transactions to your account”, paste your payment link for each item (Stripe Payment Link, PayPal, Shopify, Gumroad, etc.).
+        The <b>Buy</b> button will open that checkout link.
+      </div>
+    </div>
+  </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </body>
 </html>
