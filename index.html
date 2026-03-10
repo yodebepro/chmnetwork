@@ -1775,6 +1775,61 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 .shop-card-actions{ margin-top:auto; display:flex; gap: 8px; flex-wrap:wrap; }
 .shop-note{ font-size:.86rem; opacity:.78; }
 
+
+/* ===== INLINE STORE SECTION ===== */
+.store-inline-shell{
+  background: var(--dark-bg);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 16px;
+  box-shadow: 0 24px 80px rgba(0,0,0,.25);
+  overflow: hidden;
+}
+.store-inline-shell .shop-content{
+  min-height: 680px;
+}
+.store-inline-shell .shop-left{
+  width: 290px;
+}
+.store-inline-shell .shop-right{
+  min-height: 680px;
+}
+.store-inline-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,.04);
+  border-bottom: 1px solid rgba(255,255,255,.10);
+}
+.store-inline-header .shop-title{
+  font-size: 1.1rem;
+}
+.store-inline-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+@media (max-width: 920px){
+  .store-inline-shell .shop-content{
+    flex-direction: column;
+    min-height: 0;
+  }
+  .store-inline-shell .shop-left{
+    width: 100%;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255,255,255,.10);
+  }
+  .store-inline-shell .shop-right{
+    min-height: 0;
+  }
+}
+.video-protect,
+.video-protect *{
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 /* Store Admin */
 .store-admin-split{
   display:flex;
@@ -1961,12 +2016,12 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
                         <h3 id="videoTitle">Scheduled Video</h3>
                         <p id="videoSchedule">Loading...</p>
                     </div>
-                    <video id="videoPlayer" controls controlsList="nodownload" style="background: #000;">
+                    <video id="videoPlayer" class="video-protect" controls controlsList="nodownload noplaybackrate" disablepictureinpicture oncontextmenu="return false" style="background: #000;">
                         <source src="" type="video/mp4">
                         Your browser does not support the video element.
                     </video>
                     <!-- LIVE EMBED (shown when admin selects Live mode) -->
-                    <div id="tvEmbedWrapper" style="display:none; width:100%; margin: 20px 0; border-radius: 8px; overflow:hidden; background:#000;">
+                    <div id="tvEmbedWrapper" class="video-protect" oncontextmenu="return false" style="display:none; width:100%; margin: 20px 0; border-radius: 8px; overflow:hidden; background:#000;">
                         <div id="tvEmbedInner" style="width:100%; height:100%; background:#000;"></div>
                     </div>
 
@@ -1980,7 +2035,7 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
                     </div>
 
                 <!-- RIGHT-SIDE: VIDEO PLAYLIST (Scheduled Videos) -->
-                <div class="live-player video-playlist-panel">
+                <div class="live-player video-playlist-panel video-protect" oncontextmenu="return false">
                     <div class="player-title">📼 Video Playlist</div>
                     <div class="player-info" style="margin-bottom: 10px;">
                         <input id="videoPlaylistSearch" type="text" placeholder="Search videos by name..." style="width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(0,188,212,0.35); background: rgba(10,14,39,0.35); color: var(--text); outline:none;">
@@ -1989,7 +2044,7 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
                         <p style="text-align:center; padding: 18px; color: var(--text-secondary);">Loading videos...</p>
                     </div>
                     <div style="text-align:center; margin-top: 10px; color: var(--text-secondary); font-size: 0.85rem;">
-                        Click a video to play it on YODEBEPRO TV.
+                        Click a video to play it on YODEBEPRO TV. Right-click is disabled on this playlist.
                     </div>
                 </div>
 
@@ -1998,6 +2053,37 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
         </div>
     </section>
 
+    <!-- STORE SECTION -->
+    <section id="resources">
+        <div class="container">
+            <h2>🛍️ Store</h2>
+            <div class="store-inline-shell">
+                <div class="store-inline-header">
+                    <div class="shop-title">
+                        <span class="shop-badge">STORE</span>
+                        <span>Browse and purchase resources</span>
+                    </div>
+                    <div class="store-inline-actions">
+                        <button class="btn-secondary" type="button" onclick="closeInlineStore()">Close</button>
+                    </div>
+                </div>
+                <div class="shop-content">
+                    <div class="shop-left">
+                        <div class="shop-search">
+                            <input id="storeSectionSearchInput" type="text" placeholder="Search items..." autocomplete="off" />
+                        </div>
+                        <div id="storeSectionCategoryTabs" class="shop-tabs"></div>
+                    </div>
+                    <div class="shop-right">
+                        <div id="storeSectionStatus" class="shop-status">Loading store items…</div>
+                        <div id="storeSectionGrid" class="shop-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCHEDULE SECTION -->
     <!-- SCHEDULE SECTION -->
     <section id="schedule" class="schedule-section">
         <div class="container">
@@ -2138,63 +2224,6 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
                         <li>🔗 Prayer Line: Join our dedicated line</li>
                         <li>🎥 Zoom Meeting: Virtual participation available</li>
                     </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- RESOURCES SECTION -->
-    <section id="resources">
-        <div class="container">
-            <h2>📚 Resource Library</h2>
-            
-            <h3>Books</h3>
-            <div class="grid">
-                <div class="card">
-                    <div class="card-image">📕</div>
-                    <h3>Holy Bible</h3>
-                    <p>King James Version - Essential spiritual resource for daily study and meditation</p>
-                    <button class="btn-primary" onclick="alert('Link to Amazon or purchase page')">Get Book</button>
-                </div>
-                <div class="card">
-                    <div class="card-image">✨</div>
-                    <h3>Chants & Performance</h3>
-                    <p>Collection of spiritual songs and performances to enhance worship experience</p>
-                    <button class="btn-primary" onclick="alert('Link to purchase')">Get Book</button>
-                </div>
-                <div class="card">
-                    <div class="card-image">👨‍👩‍👧‍👦</div>
-                    <h3>Pentecostal Parenting</h3>
-                    <p>Guidance for raising children in faith and spiritual values</p>
-                    <button class="btn-primary" onclick="alert('Link to purchase')">Get Book</button>
-                </div>
-                <div class="card">
-                    <div class="card-image">🎯</div>
-                    <h3>All In One</h3>
-                    <p>Comprehensive spiritual development guide for all life stages</p>
-                    <button class="btn-primary" onclick="alert('Link to purchase')">Get Book</button>
-                </div>
-            </div>
-
-            <h3>Audio & Music</h3>
-            <div class="grid">
-                <div class="card">
-                    <div class="card-image">🎵</div>
-                    <h3>Professional Live Audio</h3>
-                    <p>High-quality audio recordings from Mixlr broadcasting platform</p>
-                    <button class="btn-primary" onclick="alert('Mixlr player would load')">Listen</button>
-                </div>
-                <div class="card">
-                    <div class="card-image">🎧</div>
-                    <h3>SoundCloud Playlists</h3>
-                    <p>Curated music collection for worship and meditation</p>
-                    <button class="btn-primary" onclick="alert('SoundCloud player would load')">Listen</button>
-                </div>
-                <div class="card">
-                    <div class="card-image">📻</div>
-                    <h3>Sample Tracks</h3>
-                    <p>Featured audio samples from our latest productions</p>
-                    <button class="btn-primary" onclick="alert('Audio player would load')">Listen</button>
                 </div>
             </div>
         </div>
@@ -2745,6 +2774,13 @@ function copyDevCred(id){
         alert("Copied to clipboard");
     });
 }
+
+function closeInlineStore() {
+    const section = document.getElementById('resources');
+    if (!section) return;
+    section.style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 </script><script>
     // ==================== CACHE MANAGER ====================
     class CacheManager {
@@ -3247,6 +3283,18 @@ loadVideoSchedule();
         document.getElementById('currentYear').textContent = new Date().getFullYear();
         generateCalendar(new Date());
         loadMusicLibrary();
+        hardenPublicVideoUi();
+        loadStoreData().then(() => {
+            renderStoreTabs();
+            renderStoreGrid();
+            hookStoreSearch();
+            hookStoreSectionSearch();
+            renderStoreSection();
+            syncStoreSectionAdminButton();
+        }).catch(() => {
+            const inlineStatus = document.getElementById('storeSectionStatus');
+            if (inlineStatus) inlineStatus.textContent = 'Could not load store items.';
+        });
         
         // Public Music search: filter carousel as user types
         const musicSearchInput = document.getElementById('musicSearchInput');
@@ -3678,6 +3726,7 @@ function playVideo() {
             loadVideoSchedule();
             showNotification('✓ Video deleted', 'success');
             updateAdminStats();
+            syncStoreSectionAdminButton();
         }
     }
 
@@ -4115,7 +4164,7 @@ function playMusic(url, title) {
             // thumbnail will be hydrated after render
             return `
                 <div class="playlist-item ${isActive ? 'active' : ''}" onclick="playPublicVideoById(${v.id})">
-                    <div class="playlist-thumb" data-thumb-url="${escapeHtml(v.url || '')}">
+                    <div class="playlist-thumb" data-video-id="${escapeHtml(String(v.id || ''))}">
                         <div class="thumb-play">▶</div>
                     </div>
                     <div style="min-width:0;">
@@ -4167,7 +4216,7 @@ function playMusic(url, title) {
         // Thumbnails:
         // - MP4/WebM: create a lightweight muted <video> frame
         // - YouTube: use the public thumbnail image
-        const thumbs = document.querySelectorAll('.playlist-thumb[data-thumb-url]');
+        const thumbs = document.querySelectorAll('.playlist-thumb[data-video-id]');
         const isYouTubeUrl = (s) => {
             if (!s || typeof s !== 'string') return false;
             const u = s.toLowerCase().trim();
@@ -4189,7 +4238,9 @@ function playMusic(url, title) {
         };
 
         for (const el of thumbs) {
-            const raw = el.getAttribute('data-thumb-url') || '';
+            const videoId = el.getAttribute('data-video-id') || '';
+            const item = (getPublishedOrAllVideos() || []).find(v => String(v.id) === String(videoId));
+            const raw = item && item.url ? item.url : '';
             if (!raw) continue;
 
             // If already hydrated, skip
@@ -4236,6 +4287,18 @@ function initPublicVideoPlaylistPanel() {
         }
         // initial render
         renderPublicVideoPlaylist('');
+    }
+
+    function hardenPublicVideoUi() {
+        ['videoPlayer','tvEmbedWrapper','publicVideoPlaylistList'].forEach(id => {
+            const el = document.getElementById(id);
+            if (!el || el.dataset.protected === '1') return;
+            el.dataset.protected = '1';
+            el.addEventListener('contextmenu', (e) => e.preventDefault());
+            el.addEventListener('dragstart', (e) => e.preventDefault());
+            el.addEventListener('copy', (e) => e.preventDefault());
+            el.addEventListener('cut', (e) => e.preventDefault());
+        });
     }
 
 // ==================== CALENDAR ====================
@@ -4379,6 +4442,7 @@ function initPublicVideoPlaylistPanel() {
     function logoutAdmin() {
   try{ localStorage.removeItem(ADMIN_AUTH_KEY); }catch(e){}
   refreshAdminOnlyControls();
+  syncStoreSectionAdminButton();
 
         if (confirm('Logout?')) {
             document.getElementById('adminDashboard').classList.add('hidden');
@@ -6432,15 +6496,12 @@ function openShop(){
   overlay.classList.remove('hidden');
   overlay.setAttribute('aria-hidden', 'false');
 
-  // enable admin manage button if authed
+  // public overlay never shows admin management
   const adminBtn = document.getElementById('shopAdminBtn');
   if(adminBtn){
-    if(typeof isAdminAuthed === 'function' && isAdminAuthed()){
-      adminBtn.classList.remove('hidden');
-      adminBtn.onclick = () => openStoreAdmin();
-    }else{
-      adminBtn.classList.add('hidden');
-    }
+    adminBtn.classList.add('hidden');
+    adminBtn.style.display = 'none';
+    adminBtn.onclick = null;
   }
 
   // load and render
@@ -6448,10 +6509,14 @@ function openShop(){
   loadStoreData().then(()=>{
     renderStoreTabs();
     renderStoreGrid();
+    renderStoreSection();
     hookStoreSearch();
+    syncStoreSectionAdminButton();
     document.getElementById('shopStatus').textContent = '';
   }).catch(()=>{
     document.getElementById('shopStatus').textContent = 'Could not load store items.';
+    const inlineStatus = document.getElementById('storeSectionStatus');
+    if(inlineStatus) inlineStatus.textContent = 'Could not load store items.';
   });
 }
 
@@ -6468,7 +6533,10 @@ function hookStoreSearch(){
   inp.dataset.bound = '1';
   inp.addEventListener('input', ()=>{
     storeSearch = (inp.value || '').trim().toLowerCase();
+    const sectionInp = document.getElementById('storeSectionSearchInput');
+    if(sectionInp && sectionInp.value !== inp.value) sectionInp.value = inp.value;
     renderStoreGrid();
+    renderStoreSection();
   });
 }
 
@@ -6488,6 +6556,7 @@ function renderStoreTabs(){
       wrap.querySelectorAll('.shop-tab').forEach(t=>t.classList.remove('active'));
       tab.classList.add('active');
       renderStoreGrid();
+      renderStoreSection();
     });
   });
 }
@@ -6540,6 +6609,102 @@ function renderStoreGrid(){
   }).join('');
 }
 
+
+function syncStoreSectionAdminButton(){
+  const adminBtn = document.getElementById('shopAdminBtn');
+  if(adminBtn){
+    adminBtn.classList.add('hidden');
+    adminBtn.style.display = 'none';
+  }
+}
+
+function hookStoreSectionSearch(){
+  const inp = document.getElementById('storeSectionSearchInput');
+  if(!inp || inp.dataset.bound === '1') return;
+  inp.dataset.bound = '1';
+  inp.addEventListener('input', ()=>{
+    storeSearch = (inp.value || '').trim().toLowerCase();
+    const shopInp = document.getElementById('shopSearchInput');
+    if(shopInp && shopInp.value !== inp.value) shopInp.value = inp.value;
+    renderStoreGrid();
+    renderStoreSection();
+  });
+}
+
+function renderStoreSection(){
+  const tabsWrap = document.getElementById('storeSectionCategoryTabs');
+  const grid = document.getElementById('storeSectionGrid');
+  const status = document.getElementById('storeSectionStatus');
+  if(!tabsWrap || !grid) return;
+  if(!storeData){
+    if(status) status.textContent = 'Loading store items…';
+    return;
+  }
+
+  const searchInp = document.getElementById('storeSectionSearchInput');
+  const q = (searchInp && searchInp.value ? searchInp.value.trim().toLowerCase() : storeSearch || '');
+  storeSearch = q;
+
+  const cats = [{id:'all', name:'All Items'}, ...(storeData.categories || [])];
+  tabsWrap.innerHTML = cats.map(c=>{
+    const active = (c.id === storeCategory) ? 'active' : '';
+    return `<div class="shop-tab ${active}" data-cat="${escapeHtml(c.id)}">${escapeHtml(c.name)}</div>`;
+  }).join('');
+
+  tabsWrap.querySelectorAll('.shop-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      storeCategory = tab.getAttribute('data-cat') || 'all';
+      const overlayTabs = document.getElementById('shopCategoryTabs');
+      if(overlayTabs){
+        overlayTabs.querySelectorAll('.shop-tab').forEach(t=>t.classList.toggle('active', t.getAttribute('data-cat') === storeCategory));
+      }
+      renderStoreGrid();
+      renderStoreSection();
+    });
+  });
+
+  const items = (storeData.items || []).filter(it=>{
+    if(storeCategory !== 'all' && it.category !== storeCategory) return false;
+    if(q){
+      const blob = `${it.title||''} ${it.description||''}`.toLowerCase();
+      if(!blob.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if(items.length === 0){
+    grid.innerHTML = '';
+    if(status) status.textContent = 'No items found.';
+    return;
+  }
+  if(status) status.textContent = '';
+
+  grid.innerHTML = items.map(it=>{
+    const price = (it.price === 0 || it.price) ? `$${Number(it.price).toFixed(2)}` : '';
+    const emoji = it.emoji || '🛒';
+    const primaryImage = (it.images && it.images[0]) ? it.images[0] : (it.image || '');
+    const hasLink = !!((it.checkoutUrl && String(it.checkoutUrl).trim()) || (storeData?.settings?.defaultCheckoutUrl && String(storeData.settings.defaultCheckoutUrl).trim()));
+    return `
+      <div class="shop-card">
+        ${`<div class="shop-card-img">${primaryImage ? `<img alt="" src="${escapeAttr(primaryImage)}" />` : `<div class="shop-img-placeholder">No Image</div>`}</div>`}${(it.images && it.images.length>1) ? `<div class="shop-thumb-row">${it.images.slice(0,4).map(u=>`<img alt="" src="${escapeAttr(u)}"/>`).join('')}</div>` : ''}
+        <div class="shop-card-head">
+          <div class="shop-card-emoji">${emoji}</div>
+          <div>
+            <div class="shop-card-title">${escapeHtml(it.title||'Item')}</div>
+            <div class="shop-card-price">${escapeHtml(price)}</div>
+          </div>
+        </div>
+        <div class="shop-card-desc">${escapeHtml(it.description||'')}</div>
+        <div class="shop-card-actions">
+          <button class="btn-primary" type="button" onclick="buyStoreItem('${escapeHtml(it.id)}')">Buy</button>
+          ${hasLink ? `<button class="btn-secondary" type="button" onclick="window.open('${escapeAttr((it.checkoutUrl||'') || (storeData?.settings?.defaultCheckoutUrl||''))}','_blank')">Open Checkout</button>` : ''}
+        </div>
+        <div class="shop-note">${hasLink ? 'Checkout opens securely in a new tab.' : 'Admin needs to add a checkout link for this item (or set a Default Checkout URL in Store Admin).'}</div>
+      </div>
+    `;
+  }).join('');
+}
+
 function buyStoreItem(id){
   if(!storeData) return;
   const it = (storeData.items||[]).find(x=>String(x.id)===String(id));
@@ -6561,6 +6726,7 @@ function openStoreAdmin(){
   if(!modal) return;
   try{ modal.style.display = 'flex'; modal.style.zIndex = '10001'; }catch(e){}
   modal.classList.remove('hidden');
+  modal.classList.add('active');
   modal.setAttribute('aria-hidden','false');
   renderStoreAdminCategoryTabs();
   renderStoreAdminList();
@@ -6583,6 +6749,7 @@ function openStoreAdmin(){
         saveStoreLocal(storeData);
         renderStoreTabs();
         renderStoreGrid();
+        renderStoreSection();
         renderStoreAdminList();
         showNotification && showNotification('✓ Store JSON imported (local). Export & upload to publish globally.', 'success');
       }catch(e){
@@ -6611,6 +6778,7 @@ function saveStorePaymentSettings(){
   storeData.settings.defaultCheckoutUrl = url;
   saveStoreLocal(storeData);
   renderStoreGrid();
+  renderStoreSection();
   showNotification && showNotification('✓ Saved checkout settings (local). Export & upload published_store.json to publish globally.', 'success');
 }
 
@@ -6618,6 +6786,7 @@ function closeStoreAdmin(){
   const modal = document.getElementById('storeAdminModal');
   if(!modal) return;
   try{ modal.style.display = 'none'; }catch(e){}
+  modal.classList.remove('active');
   modal.classList.add('hidden');
   modal.setAttribute('aria-hidden','true');
 }
@@ -6722,6 +6891,7 @@ function addNewStoreItem(categoryOverride){
   saveStoreLocal(storeData);
   renderStoreTabs();
   renderStoreGrid();
+  renderStoreSection();
   renderStoreAdminList();
   ensureStoreSelectionForCurrentFilter();
   selectStoreItem(item.id);
@@ -6735,6 +6905,7 @@ function deleteStoreItem(id){
   storeSelectedId = storeData.items?.[0]?.id || null;
   renderStoreTabs();
   renderStoreGrid();
+  renderStoreSection();
   renderStoreAdminList();
   renderStoreEditor();
 }
@@ -6751,6 +6922,7 @@ function moveStoreItem(id, dir){
   arr.splice(newIdx,0,it);
   saveStoreLocal(storeData);
   renderStoreGrid();
+  renderStoreSection();
   renderStoreAdminList();
   selectStoreItem(id);
 }
@@ -6976,6 +7148,7 @@ function saveStoreEditor(){
   saveStoreLocal(storeData);
   renderStoreTabs();
   renderStoreGrid();
+  renderStoreSection();
   renderStoreAdminList();
   showNotification && showNotification('✓ Saved (local). Export & upload published_store.json to publish globally.', 'success');
 }
@@ -6998,6 +7171,7 @@ function resetStoreToDefault(){
   saveStoreLocal(storeData);
   renderStoreTabs();
   renderStoreGrid();
+  renderStoreSection();
   renderStoreAdminList();
   renderStoreEditor();
 }
@@ -7047,7 +7221,7 @@ function escapeAttr(str){ return escapeHtml(str).replaceAll('\n',' '); }
         <span id="shopHeadingText">Purchase</span>
       </div>
       <div class="shop-topbar-actions">
-        <button id="shopAdminBtn" class="btn-secondary hidden" type="button">Admin: Manage Store</button>
+        <button id="shopAdminBtn" class="btn-secondary hidden" type="button" style="display:none !important;">Admin: Manage Store</button>
         <button class="btn-primary" type="button" onclick="closeShop()">Close</button>
       </div>
     </div>
