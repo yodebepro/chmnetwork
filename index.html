@@ -2574,6 +2574,17 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 
                 <div id="music-list" class="tab-content active">
                     <h3 style="color: var(--primary-color); margin-bottom: 20px;">Your Music Tracks</h3>
+                    
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; align-items:center;">
+                        <button class="btn-primary" type="button" onclick="exportPublishedMusicJson()">⬇ Export published_music.json (Global)</button>
+                        <button class="btn-secondary" type="button" onclick="triggerImportPublishedMusic()">⬆ Import published_music.json</button>
+                        <small style="color: var(--text-secondary); line-height:1.3;">
+                            For worldwide playback: upload <b>published_music.json</b> to the same folder as this HTML on your website.
+                            (Local uploads saved in the browser remain device-specific.)
+                        </small>
+                        <input id="importPublishedMusicInput" type="file" accept="application/json" style="display:none"
+                            onchange="if(this.files && this.files[0]) importPublishedMusicFile(this.files[0]); this.value='';" />
+                    </div>
                     <div id="musicAdminList" style="max-height: 500px; overflow-y: auto;">
                         <!-- Music items -->
                     </div>
@@ -2636,6 +2647,17 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
             <!-- ANNOUNCEMENTS SECTION -->
             <div id="section-announcements" class="admin-section">
                 <h2>📢 Announcements</h2>
+                
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; align-items:center;">
+                    <button class="btn-primary" type="button" onclick="exportPublishedAnnouncementsJson()">⬇ Export published_announcements.json (Global)</button>
+                    <button class="btn-secondary" type="button" onclick="triggerImportPublishedAnnouncements()">⬆ Import published_announcements.json</button>
+                    <small style="color: var(--text-secondary); line-height:1.3;">
+                        For worldwide updates: upload <b>published_announcements.json</b> to the same folder as this HTML on your website.
+                    </small>
+                    <input id="importPublishedAnnouncementsInput" type="file" accept="application/json" style="display:none"
+                        onchange="if(this.files && this.files[0]) importPublishedAnnouncementsFile(this.files[0]); this.value='';" />
+                </div>
+                
                 <div class="content-editor">
                     <h3>Main Announcement</h3>
                     <div class="form-group">
@@ -2659,6 +2681,17 @@ Join us on your preferred platform</textarea>
             <!-- RESOURCES SECTION -->
             <div id="section-resources" class="admin-section">
                 <h2>📚 Resources</h2>
+                
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; align-items:center;">
+                    <button class="btn-primary" type="button" onclick="exportPublishedResourcesJson()">⬇ Export published_resources.json (Global)</button>
+                    <button class="btn-secondary" type="button" onclick="triggerImportPublishedResources()">⬆ Import published_resources.json</button>
+                    <small style="color: var(--text-secondary); line-height:1.3;">
+                        For worldwide sharing: upload <b>published_resources.json</b> to the same folder as this HTML on your website.
+                    </small>
+                    <input id="importPublishedResourcesInput" type="file" accept="application/json" style="display:none"
+                        onchange="if(this.files && this.files[0]) importPublishedResourcesFile(this.files[0]); this.value='';" />
+                </div>
+                
                 <div class="tabs">
                     <button class="tab-btn active" onclick="switchTab(this, 'books')">Books</button>
                     <button class="tab-btn" onclick="switchTab(this, 'audio')">Audio</button>
@@ -2702,6 +2735,17 @@ Join us on your preferred platform</textarea>
             <!-- FORMS SECTION -->
             <div id="section-forms" class="admin-section">
                 <h2>✉️ Form Submissions</h2>
+                
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; align-items:center;">
+                    <button class="btn-primary" type="button" onclick="exportPublishedFormsJson()">⬇ Export published_forms.json (Global)</button>
+                    <button class="btn-secondary" type="button" onclick="triggerImportPublishedForms()">⬆ Import published_forms.json</button>
+                    <small style="color: var(--text-secondary); line-height:1.3;">
+                        For worldwide sync: upload <b>published_forms.json</b> to the same folder as this HTML on your website.
+                    </small>
+                    <input id="importPublishedFormsInput" type="file" accept="application/json" style="display:none"
+                        onchange="if(this.files && this.files[0]) importPublishedFormsFile(this.files[0]); this.value='';" />
+                </div>
+                
                 <div class="tabs">
                     <button class="tab-btn active" onclick="switchTab(this, 'contact-forms')">Contact Forms</button>
                     <button class="tab-btn" onclick="switchTab(this, 'newsletter')">Newsletter</button>
@@ -2968,6 +3012,163 @@ loadVideoSchedule();
             showNotification('❌ Could not import published_videos.json', 'error');
         }
     }
+
+    // ==================== MUSIC JSON EXPORT/IMPORT ====================
+    function exportPublishedMusicJson() {
+        const music = cache.getMusic() || [];
+        const payload = { music: music };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'published_music.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        showNotification('📥 Exported published_music.json. Upload it to your website to make music global.', 'success');
+    }
+
+    function triggerImportPublishedMusic() {
+        const inp = document.getElementById('importPublishedMusicInput');
+        if (inp) inp.click();
+    }
+
+    async function importPublishedMusicFile(file) {
+        try {
+            const txt = await file.text();
+            const data = JSON.parse(txt);
+            if (!data || !Array.isArray(data.music)) throw new Error('Invalid file');
+            const current = cache.getCache();
+            current.music = data.music.map(m => ({
+                id: m.id || Date.now() + Math.floor(Math.random()*100000),
+                title: m.title || 'Music',
+                artist: m.artist || 'Unknown',
+                url: m.url || '',
+                duration: m.duration || 0,
+            }));
+            cache.setCache(current);
+            loadMusicLibrary();
+            showNotification('✅ Imported music into this browser. Export + upload to publish globally.', 'success');
+        } catch (e) {
+            showNotification('❌ Could not import published_music.json', 'error');
+        }
+    }
+
+    // ==================== ANNOUNCEMENTS JSON EXPORT/IMPORT ====================
+    function exportPublishedAnnouncementsJson() {
+        const announcements = cache.getAnnouncements?.() || [];
+        const payload = { announcements: announcements };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'published_announcements.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        showNotification('📥 Exported published_announcements.json. Upload it to your website to make announcements global.', 'success');
+    }
+
+    function triggerImportPublishedAnnouncements() {
+        const inp = document.getElementById('importPublishedAnnouncementsInput');
+        if (inp) inp.click();
+    }
+
+    async function importPublishedAnnouncementsFile(file) {
+        try {
+            const txt = await file.text();
+            const data = JSON.parse(txt);
+            if (!data || !Array.isArray(data.announcements)) throw new Error('Invalid file');
+            const current = cache.getCache();
+            current.announcements = data.announcements.map(a => ({
+                id: a.id || Date.now() + Math.floor(Math.random()*100000),
+                title: a.title || 'Announcement',
+                content: a.content || '',
+            }));
+            cache.setCache(current);
+            showNotification('✅ Imported announcements into this browser. Export + upload to publish globally.', 'success');
+        } catch (e) {
+            showNotification('❌ Could not import published_announcements.json', 'error');
+        }
+    }
+
+    // ==================== RESOURCES JSON EXPORT/IMPORT ====================
+    function exportPublishedResourcesJson() {
+        const resources = cache.getResources?.() || [];
+        const payload = { resources: resources };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'published_resources.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        showNotification('📥 Exported published_resources.json. Upload it to your website to make resources global.', 'success');
+    }
+
+    function triggerImportPublishedResources() {
+        const inp = document.getElementById('importPublishedResourcesInput');
+        if (inp) inp.click();
+    }
+
+    async function importPublishedResourcesFile(file) {
+        try {
+            const txt = await file.text();
+            const data = JSON.parse(txt);
+            if (!data || !Array.isArray(data.resources)) throw new Error('Invalid file');
+            const current = cache.getCache();
+            current.resources = data.resources.map(r => ({
+                id: r.id || Date.now() + Math.floor(Math.random()*100000),
+                title: r.title || 'Resource',
+                author: r.author || '',
+                url: r.url || '',
+                type: r.type || 'book',
+            }));
+            cache.setCache(current);
+            showNotification('✅ Imported resources into this browser. Export + upload to publish globally.', 'success');
+        } catch (e) {
+            showNotification('❌ Could not import published_resources.json', 'error');
+        }
+    }
+
+    // ==================== FORMS JSON EXPORT/IMPORT ====================
+    function exportPublishedFormsJson() {
+        const forms = cache.getForms?.() || [];
+        const payload = { forms: forms };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'published_forms.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        showNotification('📥 Exported published_forms.json. Upload it to your website to make forms global.', 'success');
+    }
+
+    function triggerImportPublishedForms() {
+        const inp = document.getElementById('importPublishedFormsInput');
+        if (inp) inp.click();
+    }
+
+    async function importPublishedFormsFile(file) {
+        try {
+            const txt = await file.text();
+            const data = JSON.parse(txt);
+            if (!data || !Array.isArray(data.forms)) throw new Error('Invalid file');
+            const current = cache.getCache();
+            current.forms = data.forms.map(f => ({
+                id: f.id || Date.now() + Math.floor(Math.random()*100000),
+                name: f.name || '',
+                email: f.email || '',
+                subject: f.subject || '',
+                message: f.message || '',
+                date: f.date || new Date().toISOString(),
+            }));
+            cache.setCache(current);
+            showNotification('✅ Imported forms into this browser. Export + upload to publish globally.', 'success');
+        } catch (e) {
+            showNotification('❌ Could not import published_forms.json', 'error');
+        }
+    }
+
 
 
 
