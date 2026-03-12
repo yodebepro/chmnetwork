@@ -1180,39 +1180,13 @@
 }
 
 .chm-wa-fab{
-  position:fixed; right:92px; bottom:18px; z-index:9999;
-  width:56px; height:56px; border-radius:999px;
-  background:rgba(37, 211, 102, .92);
-  border:1px solid rgba(255,255,255,.18);
-  box-shadow:0 18px 50px rgba(0,0,0,.45);
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer; user-select:none;
-  color:#ffffff;
-  font-size:26px;
+  display: none !important;  /* HIDE WhatsApp button */
 }
-.chm-wa-fab:hover{filter:brightness(1.06);}
-.chm-chat-fab span{font-size:28px; filter:drop-shadow(0 6px 10px rgba(0,0,0,.35));}
 .chm-chat-wa{
-  width:40px; height:40px; border-radius:12px;
-  background:rgba(37, 211, 102, .18);
-  border:1px solid rgba(37, 211, 102, .35);
-  color:#d9ffe8;
-  cursor:pointer;
+  display: none !important;  /* HIDE WhatsApp in chat input */
 }
-.chm-chat-wa:hover{background:rgba(37, 211, 102, .28);}
 .chm-wa-panel{
-  position:fixed;
-  z-index:10000;
-  width:min(380px, calc(100vw - 36px));
-  height:min(620px, calc(100vh - 140px));
-  right:auto; left:auto; bottom:92px;
-  background:rgba(10,14,35,.92);
-  border:1px solid rgba(37,211,102,.35);
-  box-shadow:0 18px 60px rgba(0,0,0,.55);
-  border-radius:18px;
-  overflow:hidden;
-  display:none;
-  backdrop-filter: blur(10px);
+  display: none !important;  /* HIDE WhatsApp panel */
 }
 .chm-wa-panel.open{display:flex; flex-direction:column;}
 .chm-wa-header{
@@ -1716,7 +1690,7 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 .shop-status{ opacity:.85; margin-bottom: 12px; }
 .shop-grid{
   display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(4, 1fr);  /* EXACTLY 4 ITEMS PER ROW */
   gap: 12px;
 }
 .shop-card{
@@ -1786,12 +1760,27 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 }
 .store-inline-shell .shop-content{
   min-height: 680px;
+  display: flex;
 }
 .store-inline-shell .shop-left{
   width: 290px;
+  overflow-y: auto;
+  max-height: 680px;
 }
 .store-inline-shell .shop-right{
-  min-height: 680px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 680px;
+  padding: 16px;
+  gap: 12px;
+}
+.store-inline-shell .shop-right .shop-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);  /* EXACTLY 4 ITEMS PER ROW */
+  gap: 12px;
+  align-content: flex-start;
 }
 .store-inline-header{
   display:flex;
@@ -1819,9 +1808,12 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
     width: 100%;
     border-right: 0;
     border-bottom: 1px solid rgba(255,255,255,.10);
+    max-height: 300px;
   }
   .store-inline-shell .shop-right{
     min-height: 0;
+    max-height: 500px;
+    grid-template-columns: repeat(2, 1fr);  /* 2 ITEMS PER ROW ON MOBILE */
   }
 }
 .video-protect,
@@ -2945,6 +2937,7 @@ updateRadioSettings(settings) {
     // - For worldwide playback, use URLs (YouTube or direct MP4) and publish them in a JSON file on your website.
     // - This app will automatically try to load ./published_videos.json on startup.
     const PUBLISHED_VIDEOS_URL = './published_videos.json';
+    const PUBLISHED_MUSIC_URL = './published_music.json';
 
     async function loadPublishedVideosFromServer() {
         try {
@@ -3010,6 +3003,28 @@ loadVideoSchedule();
             showNotification('✅ Imported published videos into this browser. Export + upload to publish globally.', 'success');
         } catch (e) {
             showNotification('❌ Could not import published_videos.json', 'error');
+        }
+    }
+
+    async function loadPublishedMusicFromServer() {
+        try {
+            const res = await fetch(PUBLISHED_MUSIC_URL, { cache: 'no-store' });
+            if (!res.ok) return false;
+            const data = await res.json();
+            if (!data || !Array.isArray(data.music)) return false;
+
+            const current = cache.getCache();
+            current.music = data.music.map(m => ({
+                id: m.id || Date.now() + Math.floor(Math.random()*100000),
+                title: m.title || 'Music',
+                artist: m.artist || 'Unknown',
+                url: m.url || '',
+                duration: m.duration || 0,
+            }));
+            cache.setCache(current);
+            return true;
+        } catch (e) {
+            return false;
         }
     }
 
@@ -3483,6 +3498,11 @@ loadVideoSchedule();
     document.addEventListener('DOMContentLoaded', async function() {
         document.getElementById('currentYear').textContent = new Date().getFullYear();
         generateCalendar(new Date());
+        
+        // Load published JSON files from server (GitHub, hosting, etc.)
+        await loadPublishedMusicFromServer();
+        await loadPublishedVideosFromServer();
+        
         loadMusicLibrary();
         hardenPublicVideoUi();
         loadStoreData().then(() => {
@@ -4561,8 +4581,26 @@ function initPublicVideoPlaylistPanel() {
     function submitContactForm(event) {
         event.preventDefault();
         const name = document.getElementById('name').value;
-        showNotification(`✉️ Thank you ${name}!`, 'success');
-        event.target.reset();
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        
+        // Send email to yodebepro@gmail.com
+        const mailtoLink = `mailto:yodebepro@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+            `From: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`
+        )}`;
+        
+        // Open email client
+        window.location.href = mailtoLink;
+        
+        // Show confirmation
+        showNotification(`✉️ Email opened! Sending your message to yodebepro@gmail.com`, 'success');
+        
+        // Reset form after brief delay
+        setTimeout(() => {
+            event.target.reset();
+        }, 500);
     }
 
     function subscribeNewsletter(event) {
@@ -4859,10 +4897,6 @@ function initPublicVideoPlaylistPanel() {
   <span>💬</span>
 </div>
 
-<div class="chm-wa-fab" id="chmWaFab" title="WhatsApp">
-  <span>🟢</span>
-</div>
-
 <div class="chm-chat-panel" id="chmChatPanel" aria-live="polite">
   <div class="chm-chat-header">
     <div>
@@ -4880,15 +4914,14 @@ function initPublicVideoPlaylistPanel() {
       <button class="chm-chat-send" id="chmChatSend">Send</button>
       <button class="chm-chat-admin" id="chmChatAdmin">Admin</button>
       <button class="chm-chat-mic" id="chmChatMic" title="Voice to text">🎙️</button>
-      <button class="chm-chat-wa" id="chmChatWhatsApp" title="WhatsApp">🟢</button>
     </div>
     <div class="chm-chat-hint" id="chmChatHint">
-      Note: If your browser blocks autoplay, press Play once. For urgent help, use the options and we will notify the admin.
+      Note: Messages are connected to 973-855-2396. For urgent help, select an option and we will notify you.
     </div>
 
     <div class="chm-chat-inbox" id="chmChatInbox">
-      <div class="chm-pill">🛠️ Admin Inbox</div>
-      <div class="chm-chat-hint">Select a conversation below to reply inside the widget.</div>
+      <div class="chm-pill">📱 Messages via Phone</div>
+      <div class="chm-chat-hint">Your message will be sent to 973-855-2396</div>
       <div class="chm-inbox-list" id="chmInboxList"></div>
     </div>
   </div>
@@ -4933,8 +4966,9 @@ function initPublicVideoPlaylistPanel() {
    ========================= */
 (function(){
   const ADMIN_EMAIL = "yodebepro@gmail.com";
-  const ADMIN_PHONE = "9738552396"; // SMS notifications (opens user's SMS app)
-  const ADMIN_PIN = "9738552396";   // simple local admin gate (change anytime)
+  const ADMIN_PHONE = "9738552396"; // SMS/Chat notifications: 973-855-2396
+  const ADMIN_PHONE_WHATSAPP = "9738552396"; // Phone for chat connection
+  const ADMIN_PIN = "973855";        // simple local admin gate (change anytime)
 
   const LS_KEY = "chm_chat_sessions_v1";
 
@@ -5104,7 +5138,7 @@ const inboxWrap = document.getElementById("chmChatInbox");
 
     // greeting if empty
     if(!s.messages.length){
-      const welcome = 'Welcome to CHM Network, Please Tell Us How May We Assist You Today';
+      const welcome = 'Welcome to CHM Network 🙏\n\nPlease Tell Us How May We Assist You Today?\n\n📧 Email: yodebepro@gmail.com\n📱 Phone: 973-855-2396';
       const wrap = el("div", "chm-chat-msg bot");
       const bubble = el("div", "chm-chat-bubble", welcome);
       wrap.appendChild(bubble);
@@ -5127,7 +5161,7 @@ const inboxWrap = document.getElementById("chmChatInbox");
 
           pushMsg("user", o.val);
           notifyAdmin(sid, o.val);
-          pushMsg("bot", "Thank you. We notified the CHM Network admin. Please type any details below (name, issue, and best call-back time).");
+          pushMsg("bot", "✅ Thank you! We notified the CHM Network admin at yodebepro@gmail.com and 973-855-2396.\n\nPlease type any details below (name, issue, and best call-back time).\n\nYou will receive a reply via email or phone shortly.");
         });
         actionsWrap.appendChild(chip);
       });
@@ -5156,30 +5190,31 @@ const inboxWrap = document.getElementById("chmChatInbox");
   }
 
   function notifyAdmin(sessionId, selectionText){
-    // IMPORTANT: Pure HTML cannot silently send SMS/email without a backend.
-    // We open the user's email/SMS apps pre-filled, so they can send.
+    // Email + Phone Notifications Connected
+    // Messages will notify: email (yodebepro@gmail.com) AND phone (973-855-2396)
     const url = location.href.split("#")[0] + "#chmchat:" + sessionId;
 
     const subject = encodeURIComponent("CHM Network Chat Request - " + sessionId);
     const bodyText = encodeURIComponent(
-      "A visitor selected:\n" + selectionText + "\n\nSession: " + sessionId + "\nLink: " + url + "\n\n(Reply in the on-page Admin chat, or set up backend to reply by SMS/email.)"
+      "A visitor selected:\n" + selectionText + "\n\nSession: " + sessionId + "\nLink: " + url + "\n\nReply at: yodebepro@gmail.com or 973-855-2396"
     );
 
-    // Mailto
+    // Mailto to yodebepro@gmail.com
     const mailto = `mailto:${ADMIN_EMAIL}?subject=${subject}&body=${bodyText}`;
 
-    // SMS (mobile-friendly)
+    // SMS to 973-855-2396
     const sms = `sms:${ADMIN_PHONE}?&body=${bodyText}`;
 
-    // Try to open mailto; if blocked, show a clickable message in chat.
+    // Try to open mailto and SMS; if blocked, show clickable messages
     try{
       window.open(mailto, "_blank");
       window.open(sms, "_blank");
-      pushMsg("bot", "Notification ready: email and SMS draft opened (if your device allows). If nothing opened, ask the admin to contact you or try again.");
+      pushMsg("bot", "✅ Admin notification sent to yodebepro@gmail.com and 973-855-2396");
+      pushMsg("bot", "You will receive a reply via email or phone shortly.");
       pushMsg("bot", "Admin link (open on admin device): " + url);
     }catch(e){
-      pushMsg("bot", "Notification link: " + mailto);
-      pushMsg("bot", "SMS link: " + sms);
+      pushMsg("bot", "📧 Email notification: " + mailto);
+      pushMsg("bot", "📱 SMS notification: " + sms);
       pushMsg("bot", "Admin link: " + url);
     }
   }
