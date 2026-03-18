@@ -1,3 +1,4 @@
+<!-- CHATBOT_ADMIN_LOCK_ENABLED -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1220,16 +1221,17 @@
   .chm-wa-panel{left:18px; right:18px; width:calc(100vw - 36px);}
 }
 .chm-chat-panel{
-  position:fixed; right:18px; bottom:92px; z-index:9999;
+  position:fixed;
+  left:50%;
+  top:50%;
+  transform:translate(-50%, -50%);
+  right:auto;
+  bottom:auto;
   width:min(420px, calc(100vw - 36px));
-  height: min(620px, calc(100vh - 140px));
-  background:rgba(10,14,35,.88);
-  border:1px solid rgba(0,255,255,.22);
-  box-shadow:0 18px 60px rgba(0,0,0,.55);
-  border-radius:18px;
-  overflow:hidden;
+  height:min(620px, calc(100vh - 140px));
+  max-height:calc(100vh - 24px);
+  z-index:9999;
   display:none;
-  backdrop-filter: blur(10px);
 }
 .chm-chat-panel.open{display:flex; flex-direction:column;}
 .chm-chat-header{
@@ -1899,6 +1901,8 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 .shop-thumb-row img{ width:44px; height:44px; object-fit:contain; background: rgba(0,0,0,.26); border-radius:10px; border:1px solid rgba(255,255,255,.12); }
 
 </style>
+
+
 </head>
 <body>
 
@@ -4672,6 +4676,7 @@ function initPublicVideoPlaylistPanel() {
             switchAdminSection('dashboard');
             showNotification('✓ Logged in!', 'success');
             try{ localStorage.setItem(ADMIN_AUTH_KEY,'1'); }catch(e){}
+            try{ if(window.syncChatAdminUi) window.syncChatAdminUi(); }catch(e){}
             updateAdminStats();
         } else {
             showNotification('❌ Invalid credentials', 'error');
@@ -4680,6 +4685,7 @@ function initPublicVideoPlaylistPanel() {
 
     function logoutAdmin() {
   try{ localStorage.removeItem(ADMIN_AUTH_KEY); }catch(e){}
+  try{ if(window.syncChatAdminUi) window.syncChatAdminUi(); }catch(e){}
   refreshAdminOnlyControls();
   syncStoreSectionAdminButton();
 
@@ -4893,9 +4899,175 @@ function initPublicVideoPlaylistPanel() {
 <!-- =========================
      CHM Chat Widget (embedded)
      ========================= -->
-<div class="chm-chat-fab" id="chmChatFab" title="Chat with CHM Network">
-  <span>💬</span>
+<!-- ================================
+     CHM Speed-Dial FAB (Phone/Email/Facebook/YouTube/Chat)
+     ================================ -->
+<div id="chmSpeedDial" style="
+  position:fixed; right:18px; bottom:18px; z-index:99999;
+  display:flex; flex-direction:column; align-items:flex-end; gap:14px;
+">
+  <!-- Speed-dial items (hidden by default) -->
+  <div id="chmSpeedItems" style="
+    display:flex; flex-direction:column; align-items:flex-end; gap:14px;
+    opacity:0; pointer-events:none;
+    transform:translateY(20px);
+    transition:opacity 0.3s ease, transform 0.3s ease;
+  ">
+    <!-- Phone -->
+    <div style="display:flex; align-items:center; gap:10px;">
+      <span style="
+        background:#fff; color:#333; padding:6px 14px; border-radius:20px;
+        font-size:14px; font-weight:600; box-shadow:0 2px 8px rgba(0,0,0,0.25);
+        white-space:nowrap;
+      ">Phone</span>
+      <a href="tel:+19738552396" style="
+        width:58px; height:58px; border-radius:50%;
+        background:#2ecc40;
+        display:flex; align-items:center; justify-content:center;
+        box-shadow:0 4px 14px rgba(0,0,0,0.35);
+        text-decoration:none; flex-shrink:0;
+      ">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+          <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+        </svg>
+      </a>
+    </div>
+    <!-- Email -->
+    <div style="display:flex; align-items:center; gap:10px;">
+      <span style="
+        background:#fff; color:#333; padding:6px 14px; border-radius:20px;
+        font-size:14px; font-weight:600; box-shadow:0 2px 8px rgba(0,0,0,0.25);
+        white-space:nowrap;
+      ">Email</span>
+      <a href="mailto:yodebepro@gmail.com?subject=Contact%20from%20CHM%20Network%20Site" style="
+        width:58px; height:58px; border-radius:50%;
+        background:#c0166e;
+        display:flex; align-items:center; justify-content:center;
+        box-shadow:0 4px 14px rgba(0,0,0,0.35);
+        text-decoration:none; flex-shrink:0;
+      ">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+      </a>
+    </div>
+    <!-- Facebook -->
+    <div style="display:flex; align-items:center; gap:10px;">
+      <span style="
+        background:#fff; color:#333; padding:6px 14px; border-radius:20px;
+        font-size:14px; font-weight:600; box-shadow:0 2px 8px rgba(0,0,0,0.25);
+        white-space:nowrap;
+      ">Facebook</span>
+      <a href="https://www.facebook.com/chmnetwork.net" target="_blank" rel="noopener" style="
+        width:58px; height:58px; border-radius:50%;
+        background:#1877f2;
+        display:flex; align-items:center; justify-content:center;
+        box-shadow:0 4px 14px rgba(0,0,0,0.35);
+        text-decoration:none; flex-shrink:0;
+      ">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+          <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+        </svg>
+      </a>
+    </div>
+    <!-- YouTube -->
+    <div style="display:flex; align-items:center; gap:10px;">
+      <span style="
+        background:#fff; color:#333; padding:6px 14px; border-radius:20px;
+        font-size:14px; font-weight:600; box-shadow:0 2px 8px rgba(0,0,0,0.25);
+        white-space:nowrap;
+      ">YouTube</span>
+      <a href="https://www.youtube.com/@chmnetwork" target="_blank" rel="noopener" style="
+        width:58px; height:58px; border-radius:50%;
+        background:#ff0000;
+        display:flex; align-items:center; justify-content:center;
+        box-shadow:0 4px 14px rgba(0,0,0,0.35);
+        text-decoration:none; flex-shrink:0;
+      ">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-2.47 12.35 12.35 0 00-7.64 0A4.83 4.83 0 014.41 6.69 49.14 49.14 0 004 12a49.14 49.14 0 00.41 5.31 4.83 4.83 0 003.77 2.47 12.35 12.35 0 007.64 0 4.83 4.83 0 003.77-2.47A49.14 49.14 0 0020 12a49.14 49.14 0 00-.41-5.31zM10 15V9l5 3z"/>
+        </svg>
+      </a>
+    </div>
+    <!-- Chat -->
+    <div style="display:flex; align-items:center; gap:10px;">
+      <span style="
+        background:#fff; color:#333; padding:6px 14px; border-radius:20px;
+        font-size:14px; font-weight:600; box-shadow:0 2px 8px rgba(0,0,0,0.25);
+        white-space:nowrap;
+      ">Chat</span>
+      <button id="chmChatFab" onclick="(function(e){e.stopPropagation();document.getElementById('chmSpeedItems').style.opacity='0';document.getElementById('chmSpeedItems').style.pointerEvents='none';document.getElementById('chmSpeedItems').style.transform='translateY(20px)';document.getElementById('chmSpeedDialMainBtn').innerHTML=chmSdOpenSVG;chmSdOpen=false;if(typeof window.openChat==='function')window.openChat();})(event)" style="
+        width:58px; height:58px; border-radius:50%;
+        background:#1a73e8;
+        display:flex; align-items:center; justify-content:center;
+        box-shadow:0 4px 14px rgba(0,0,0,0.35);
+        border:none; cursor:pointer; flex-shrink:0; position:relative;
+      ">
+        <span style="
+          position:absolute; top:4px; right:4px; width:12px; height:12px;
+          background:#ff3b30; border-radius:50%; border:2px solid #1a73e8;
+        "></span>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main toggle button -->
+  <button id="chmSpeedDialMainBtn" onclick="chmToggleSpeedDial()" style="
+    width:64px; height:64px; border-radius:50%;
+    background:linear-gradient(135deg,#1a73e8,#0097a7);
+    border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 20px rgba(0,0,0,0.4);
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+    flex-shrink:0;
+  " onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'"
+  ></button>
 </div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function(){
+  var chmSdOpen = false;
+  var chmSdOpenSVG = '<svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>';
+  var chmSdCloseSVG = '<svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
+
+  // Set initial icon
+  var mainBtn = document.getElementById('chmSpeedDialMainBtn');
+  if(mainBtn) mainBtn.innerHTML = chmSdOpenSVG;
+
+  window.chmSdOpen = chmSdOpen;
+  window.chmSdOpenSVG = chmSdOpenSVG;
+
+  window.chmToggleSpeedDial = function(){
+    var items = document.getElementById('chmSpeedItems');
+    var btn = document.getElementById('chmSpeedDialMainBtn');
+    if(!items || !btn) return;
+    chmSdOpen = !chmSdOpen;
+    window.chmSdOpen = chmSdOpen;
+    if(chmSdOpen){
+      items.style.opacity = '1';
+      items.style.pointerEvents = 'auto';
+      items.style.transform = 'translateY(0)';
+      btn.innerHTML = chmSdCloseSVG;
+    } else {
+      items.style.opacity = '0';
+      items.style.pointerEvents = 'none';
+      items.style.transform = 'translateY(20px)';
+      btn.innerHTML = chmSdOpenSVG;
+    }
+  };
+
+  // Close when clicking outside
+  document.addEventListener('click', function(e){
+    var dial = document.getElementById('chmSpeedDial');
+    if(dial && !dial.contains(e.target) && window.chmSdOpen){
+      window.chmToggleSpeedDial();
+    }
+  });
+})();
+</script>
 
 <div class="chm-chat-panel" id="chmChatPanel" aria-live="polite">
   <div class="chm-chat-header">
@@ -4912,50 +5084,22 @@ function initPublicVideoPlaylistPanel() {
     <div class="chm-chat-inputrow">
       <input class="chm-chat-input" id="chmChatInput" type="text" placeholder="Type your message..." />
       <button class="chm-chat-send" id="chmChatSend">Send</button>
-      <button class="chm-chat-admin" id="chmChatAdmin">Admin</button>
-      <button class="chm-chat-mic" id="chmChatMic" title="Voice to text">🎙️</button>
+      <button class="chm-chat-admin" id="chmChatAdmin" style="display:none;">Admin</button>
+      <button class="chm-chat-mic" id="chmChatMic" title="Voice to text" style="display:none;">🎙️</button>
     </div>
     <div class="chm-chat-hint" id="chmChatHint">
-      Note: Messages are connected to 973-855-2396. For urgent help, select an option and we will notify you.
+      
     </div>
 
     <div class="chm-chat-inbox" id="chmChatInbox">
       <div class="chm-pill">📱 Messages via Phone</div>
-      <div class="chm-chat-hint">Your message will be sent to 973-855-2396</div>
+      <div class="chm-chat-hint" style="display:none;">Your message will be sent to 929-500-1124</div>
       <div class="chm-inbox-list" id="chmInboxList"></div>
     </div>
   </div>
 
 
-<!-- =========================
-     WhatsApp Widget (Elfsight)
-     ========================= -->
-<div class="chm-wa-panel" id="chmWaPanel" aria-hidden="true">
-  <div class="chm-wa-header">
-    <div>
-      <div class="chm-wa-title">WhatsApp</div>
-      <div class="chm-wa-sub" style="font-size:12px; opacity:.85; margin-top:2px;">Message us on WhatsApp: <strong>+1 973-855-2396</strong></div>
-    </div>
-    <div style="display:flex; gap:8px; align-items:center;">
-      <a class="chm-wa-direct" href="https://wa.me/19738552396" target="_blank" rel="noopener" title="Open WhatsApp chat">Open</a>
-      <div class="chm-wa-close" id="chmWaClose" title="Close">✕</div>
-    </div>
-  </div>
-  <div class="chm-wa-body">
-    <div class="elfsight-app-dceefc20-f8a3-44fb-9349-a818baa1b883" ></div>
-  
-    <div id="chmWaFallback" style="display:none; padding:14px; border:1px dashed rgba(37,211,102,.35); border-radius:12px; margin-top:10px;">
-      <div style="font-weight:800; margin-bottom:6px;">WhatsApp is loading…</div>
-      <div style="font-size:13px; opacity:.9; margin-bottom:10px;">If it doesn’t appear, tap below to message us directly.</div>
-      <a href="https://wa.me/19738552396" target="_blank" rel="noopener"
-         style="display:inline-block; padding:10px 14px; border-radius:10px; background:rgba(37,211,102,.22); border:1px solid rgba(37,211,102,.35); color:#eafff4; text-decoration:none; font-weight:800;">
-        Open WhatsApp Chat
-      </a>
-    </div>
-  </div>
-</div>
 
-<script src="https://elfsightcdn.com/platform.js" async></script>
 
 </div>
 
@@ -4965,388 +5109,304 @@ function initPublicVideoPlaylistPanel() {
    CHM Chat Widget (embedded)
    ========================= */
 (function(){
-  const ADMIN_EMAIL = "yodebepro@gmail.com";
-  const ADMIN_PHONE = "9738552396"; // SMS/Chat notifications: 973-855-2396
-  const ADMIN_PHONE_WHATSAPP = "9738552396"; // Phone for chat connection
-  const ADMIN_PIN = "973855";        // simple local admin gate (change anytime)
+  /* =====================================================
+     CHM Chat — clean rewrite
+     Public : Send visible, Admin+Mic hidden
+     Admin  : Send + Admin + Mic all visible & working
+     ===================================================== */
 
-  const LS_KEY = "chm_chat_sessions_v1";
+  const ADMIN_EMAIL        = "yodebepro@gmail.com";
+  const ADMIN_PHONE        = "9295001124";   // chatbot SMS line
+  const ADMIN_PHONE_DIAL   = "9738552396";   // phone menu dial number
+  const ADMIN_PIN          = "973855";
+  const LS_KEY             = "chm_chat_sessions_v1";
 
-  const fab = document.getElementById("chmChatFab");
-  const waFab = document.getElementById("chmWaFab");
-  const panel = document.getElementById("chmChatPanel");
+  // ── DOM refs ──────────────────────────────────────────
+  const fab      = document.getElementById("chmChatFab");
+  const panel    = document.getElementById("chmChatPanel");
   const closeBtn = document.getElementById("chmChatClose");
-  const body = document.getElementById("chmChatBody");
-  const input = document.getElementById("chmChatInput");
-  const sendBtn = document.getElementById("chmChatSend");
+  const body     = document.getElementById("chmChatBody");
+  const input    = document.getElementById("chmChatInput");
+  const sendBtn  = document.getElementById("chmChatSend");
   const adminBtn = document.getElementById("chmChatAdmin");
-  const micBtn = document.getElementById("chmChatMic");
-  const waBtn = document.getElementById("chmChatWhatsApp");
-  const waPanel = document.getElementById("chmWaPanel");
-  const waClose = document.getElementById("chmWaClose");
+  const micBtn   = document.getElementById("chmChatMic");
+  const inboxWrap= document.getElementById("chmChatInbox");
 
-  function positionWhatsAppPanel(){
-    if(!waPanel) return;
-    // Anchor next to the WhatsApp floating button
-    const btn = waFab || waBtn;
-    const margin = 12;
-    if(btn){
-      const r = btn.getBoundingClientRect();
-      const width = Math.min(380, window.innerWidth - 36);
-      const height = Math.min(620, window.innerHeight - 140);
-      const left = Math.max(18, Math.min(window.innerWidth - width - 18, r.left - width - margin));
-      const top = Math.max(18, Math.min(window.innerHeight - height - 92, r.top - height - margin));
-      waPanel.style.width = width + "px";
-      waPanel.style.height = height + "px";
-      waPanel.style.left = left + "px";
-      waPanel.style.top = top + "px";
-      waPanel.style.right = "auto";
-      waPanel.style.bottom = "auto";
-    }else{
-      // Fallback bottom-right
-      waPanel.style.left = "auto";
-      waPanel.style.top = "auto";
-      waPanel.style.right = "18px";
-      waPanel.style.bottom = "92px";
-    }
-  }
+  let isAdmin        = false;
+  let activeSessionId= null;
 
-function toggleWhatsAppPanel(force){
-    if(!waPanel) return;
-    const shouldOpen = (typeof force === "boolean") ? force : !waPanel.classList.contains("open");
-    if(shouldOpen){
-      // Open WhatsApp only (do not open CHM chat at the same time)
-      panel.classList.remove("open");
-
-      // Ensure Elfsight platform script is present (in case it was blocked or removed)
-      if(!document.querySelector('script[src="https://elfsightcdn.com/platform.js"]')){
-        const s = document.createElement("script");
-        s.src = "https://elfsightcdn.com/platform.js";
-        s.async = true;
-        document.head.appendChild(s);
-      }
-
-      // Show panel and position it near the WhatsApp button (not overlapping the chat panel)
-      waPanel.classList.add("open");
-      waPanel.setAttribute("aria-hidden","false");
-      positionWhatsAppPanel();
-
-      // If the widget is still empty, give it a small nudge by re-attaching the container once.
-      if(!waPanel.dataset.elfsightNudged){
-        const app = waPanel.querySelector('[class*="elfsight-app-"]');
-        if(app){
-          waPanel.dataset.elfsightNudged = "1";
-          const clone = app.cloneNode(true);
-          app.replaceWith(clone);
-        }
-      }
-      // If Elfsight content doesn't render quickly, show a direct WhatsApp fallback link.
-      setTimeout(()=>{
-        try{
-          const app = waPanel.querySelector('.elfsight-app-dceefc20-f8a3-44fb-9349-a818baa1b883');
-          const fallback = document.getElementById("chmWaFallback");
-          // Heuristic: if Elfsight hasn't injected anything inside the app div, show fallback.
-          const empty = !app || !(app.children && app.children.length) || app.innerText.trim()==="";
-          if(fallback){
-            fallback.style.display = empty ? "block" : "none";
-          }
-        }catch(e){}
-      }, 1200);
-
-    }else{
-      waPanel.classList.remove("open");
-      waPanel.setAttribute("aria-hidden","true");
-    }
-  }
-const inboxWrap = document.getElementById("chmChatInbox");
-  const inboxList = document.getElementById("chmInboxList");
-
-  let isAdmin = false;
-  let activeSessionId = null;
-
-  function nowIso(){
-    return new Date().toISOString();
-  }
+  // ── Utility ───────────────────────────────────────────
+  function nowIso(){ return new Date().toISOString(); }
 
   function loadSessions(){
-    try{
-      const raw = localStorage.getItem(LS_KEY);
-      if(!raw) return {};
-      return JSON.parse(raw);
-    }catch(e){
-      return {};
-    }
+    try{ const r=localStorage.getItem(LS_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; }
   }
-
-  function saveSessions(sessions){
-    localStorage.setItem(LS_KEY, JSON.stringify(sessions));
-  }
+  function saveSessions(s){ try{ localStorage.setItem(LS_KEY,JSON.stringify(s)); }catch(e){} }
 
   function ensureSession(){
-    const sessions = loadSessions();
+    let sessions = loadSessions();
     if(activeSessionId && sessions[activeSessionId]) return activeSessionId;
-
-    // Try URL hash session
-    const hash = (location.hash || "").trim();
+    const hash = (location.hash||"").trim();
     const m = hash.match(/chmchat:([a-zA-Z0-9_-]+)/);
-    if(m && sessions[m[1]]){ activeSessionId = m[1]; return activeSessionId; }
-
-    // Create new session
-    const id = "CHM-" + Math.random().toString(36).slice(2,8).toUpperCase() + "-" + Date.now().toString().slice(-4);
-    sessions[id] = {
-      id,
-      createdAt: nowIso(),
-      topic: "",
-      status: "open",
-      messages: []
-    };
+    if(m && sessions[m[1]]){ activeSessionId=m[1]; return activeSessionId; }
+    const id = "CHM-"+Math.random().toString(36).slice(2,8).toUpperCase()+"-"+Date.now().toString().slice(-4);
+    sessions[id] = { id, createdAt:nowIso(), topic:"", status:"open", messages:[] };
     saveSessions(sessions);
     activeSessionId = id;
-    location.hash = "chmchat:" + id;
+    try{ location.hash = "chmchat:"+id; }catch(e){}
     return id;
   }
 
+  // ── Core message push (BUG FIX: ensureSession FIRST, then reload) ──
   function pushMsg(role, text){
-    const sessions = loadSessions();
-    const sid = ensureSession();
-    sessions[sid].messages.push({ role, text, at: nowIso() });
+    const sid = ensureSession();            // create session if needed
+    const sessions = loadSessions();        // reload AFTER so new session exists
+    if(!sessions[sid]) return;
+    sessions[sid].messages.push({ role, text, at:nowIso() });
     saveSessions(sessions);
     renderConversation(sid);
   }
 
-  function clearBody(){
-    while(body.firstChild) body.removeChild(body.firstChild);
-  }
-
-  function el(tag, cls, txt){
-    const n = document.createElement(tag);
-    if(cls) n.className = cls;
-    if(typeof txt === "string") n.textContent = txt;
+  function el(tag,cls,txt){
+    const n=document.createElement(tag);
+    if(cls) n.className=cls;
+    if(typeof txt==="string") n.textContent=txt;
     return n;
   }
+  function scrollBottom(){ body.scrollTop=body.scrollHeight; }
+  function clearBody(){ while(body.firstChild) body.removeChild(body.firstChild); }
 
-  function scrollBottom(){
-    body.scrollTop = body.scrollHeight;
-  }
-
+  // ── Render a conversation ──────────────────────────────
   function renderConversation(sid){
     const sessions = loadSessions();
     const s = sessions[sid];
     if(!s) return;
-
     clearBody();
 
-    // greeting if empty
     if(!s.messages.length){
-      const welcome = 'Welcome to CHM Network 🙏\n\nPlease Tell Us How May We Assist You Today?\n\n📧 Email: yodebepro@gmail.com\n📱 Phone: 973-855-2396';
-      const wrap = el("div", "chm-chat-msg bot");
-      const bubble = el("div", "chm-chat-bubble", welcome);
-      wrap.appendChild(bubble);
+      const welcome = "Welcome to CHM Network \uD83D\uDE4F\n\nPlease tell us how we may assist you today?\n\n\uD83D\uDCE7 Email: yodebepro@gmail.com\n\uD83D\uDCF1 Chatbot line: 929-500-1124\n\uD83D\uDCDE Phone: 973-855-2396";
+      const wrap = el("div","chm-chat-msg bot");
+      wrap.appendChild(el("div","chm-chat-bubble",welcome));
       body.appendChild(wrap);
 
-      const actionsWrap = el("div", "chm-chat-actions");
+      const actionsWrap = el("div","chm-chat-actions");
       const opts = [
-        {key:"Technical difficulties (Radio/TV Not Playing)", val:"1-) Technical difficulties (Radio/TV Not Playing)"},
-        {key:"Live Customer Service", val:"2-) Live Customer Service"},
-        {key:"I need someone to pray with me or for me", val:"3-) I need someone to pray with me or for me"},
-        {key:"All Others", val:"4-) All Others"},
+        { label:"\uD83D\uDCDE Request a call back",  val:"call_back" },
+        { label:"\uD83D\uDCE7 Send us an email",     val:"email" },
+        { label:"\uD83D\uDE4F Prayer request",        val:"prayer" },
+        { label:"\uD83D\uDCE2 General inquiry",       val:"inquiry" }
       ];
       opts.forEach(o=>{
-        const chip = el("button", "chm-chip", o.val);
-        chip.addEventListener("click", ()=>{
+        const btn = document.createElement("button");
+        btn.className = "chm-chat-opt-btn";
+        btn.textContent = o.label;
+        btn.onclick = ()=>{
           const sessions2 = loadSessions();
-          const s2 = sessions2[sid];
-          s2.topic = o.key;
-          saveSessions(sessions2);
-
-          pushMsg("user", o.val);
-          notifyAdmin(sid, o.val);
-          pushMsg("bot", "✅ Thank you! We notified the CHM Network admin at yodebepro@gmail.com and 973-855-2396.\n\nPlease type any details below (name, issue, and best call-back time).\n\nYou will receive a reply via email or phone shortly.");
-        });
-        actionsWrap.appendChild(chip);
+          if(sessions2[sid]){
+            sessions2[sid].topic = o.val;
+            saveSessions(sessions2);
+          }
+          pushMsg("user", o.label);
+          const sms  = "sms:"+ADMIN_PHONE+"?body="+encodeURIComponent("[CHM Chat] Topic: "+o.label+" | Session: "+sid);
+          const mailto = "mailto:"+ADMIN_EMAIL+"?subject="+encodeURIComponent("[CHM Chat] "+o.label)+"&body="+encodeURIComponent("Session: "+sid+"\nTopic: "+o.label+"\nTime: "+nowIso());
+          pushMsg("bot","\u2705 Thank you! We notified the CHM Network team.\n\nPlease type any details below (name, issue, best call-back time).\n\nWe will reply via email or phone shortly.");
+          try{ window.open(sms,"_blank"); }catch(e){}
+          setTimeout(()=>{ try{ window.open(mailto,"_blank"); }catch(e){}; },800);
+        };
+        actionsWrap.appendChild(btn);
       });
       body.appendChild(actionsWrap);
-      scrollBottom();
-      return;
     }
 
-    // render messages
-    s.messages.forEach(m=>{
-      const wrap = el("div", "chm-chat-msg " + (m.role === "user" ? "user" : "bot"));
-      const bubble = el("div", "chm-chat-bubble", m.text);
+    s.messages.forEach(msg=>{
+      const wrap = el("div","chm-chat-msg "+(msg.role==="user"?"user":"bot"));
+      const bubble = el("div","chm-chat-bubble",msg.text);
       wrap.appendChild(bubble);
       body.appendChild(wrap);
     });
 
-    // admin hint
+    // Admin reply row (only in admin mode)
     if(isAdmin){
-      const hint = el("div","chm-chat-hint",
-        "Admin mode: reply here. Visitors will see your replies on the same device/browser. (For true multi-device chat + SMS/email replies, you need a backend.)"
-      );
-      body.appendChild(hint);
+      const sessions2 = loadSessions();
+      const allSessions = Object.values(sessions2);
+      if(allSessions.length > 1 || (s.messages.length && s.messages[0].role==="user")){
+        const replyNote = el("div","chm-chat-hint","Admin: type reply above and press Send \u2191");
+        body.appendChild(replyNote);
+      }
     }
 
     scrollBottom();
   }
 
-  function notifyAdmin(sessionId, selectionText){
-    // Email + Phone Notifications Connected
-    // Messages will notify: email (yodebepro@gmail.com) AND phone (973-855-2396)
-    const url = location.href.split("#")[0] + "#chmchat:" + sessionId;
-
-    const subject = encodeURIComponent("CHM Network Chat Request - " + sessionId);
-    const bodyText = encodeURIComponent(
-      "A visitor selected:\n" + selectionText + "\n\nSession: " + sessionId + "\nLink: " + url + "\n\nReply at: yodebepro@gmail.com or 973-855-2396"
-    );
-
-    // Mailto to yodebepro@gmail.com
-    const mailto = `mailto:${ADMIN_EMAIL}?subject=${subject}&body=${bodyText}`;
-
-    // SMS to 973-855-2396
-    const sms = `sms:${ADMIN_PHONE}?&body=${bodyText}`;
-
-    // Try to open mailto and SMS; if blocked, show clickable messages
-    try{
-      window.open(mailto, "_blank");
-      window.open(sms, "_blank");
-      pushMsg("bot", "✅ Admin notification sent to yodebepro@gmail.com and 973-855-2396");
-      pushMsg("bot", "You will receive a reply via email or phone shortly.");
-      pushMsg("bot", "Admin link (open on admin device): " + url);
-    }catch(e){
-      pushMsg("bot", "📧 Email notification: " + mailto);
-      pushMsg("bot", "📱 SMS notification: " + sms);
-      pushMsg("bot", "Admin link: " + url);
-    }
-  }
-
+  // ── Inbox (admin view of all sessions) ────────────────
   function renderInbox(){
+    const list = document.getElementById("chmInboxList");
+    if(!list) return;
+    list.innerHTML = "";
     const sessions = loadSessions();
-    const ids = Object.keys(sessions).sort((a,b)=> (sessions[b].createdAt||"").localeCompare(sessions[a].createdAt||""));
-    inboxList.innerHTML = "";
-
-    if(!ids.length){
-      const empty = el("div","chm-chat-hint","No conversations yet.");
-      inboxList.appendChild(empty);
+    const all = Object.values(sessions).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));
+    if(!all.length){
+      list.appendChild(el("div","chm-chat-hint","No conversations yet."));
       return;
     }
-
-    ids.forEach(id=>{
-      const s = sessions[id];
-      const last = (s.messages && s.messages.length) ? s.messages[s.messages.length-1].text : "(no messages yet)";
-      const item = el("div","chm-inbox-item");
-      const row1 = el("div","row1");
-      const idEl = el("div","id", id);
-      const tag = el("div","tag", s.topic ? s.topic : "New");
-      row1.appendChild(idEl);
-      row1.appendChild(tag);
-
-      const preview = el("div","preview", last.slice(0,80) + (last.length>80 ? "…" : ""));
-      item.appendChild(row1);
-      item.appendChild(preview);
-
-      item.addEventListener("click", ()=>{
-        activeSessionId = id;
-        location.hash = "chmchat:" + id;
-        renderConversation(id);
-      });
-
-      inboxList.appendChild(item);
+    all.forEach(s=>{
+      const last = s.messages[s.messages.length-1];
+      const item = document.createElement("div");
+      item.className = "chm-inbox-item" + (s.id===activeSessionId?" active":"");
+      item.innerHTML = "<strong>"+s.id+"</strong><span>"+(last?last.text.slice(0,40):"(empty)")+"</span>";
+      item.onclick = ()=>{
+        activeSessionId = s.id;
+        renderConversation(s.id);
+        renderInbox();
+      };
+      list.appendChild(item);
     });
   }
 
+  // ── Show/hide buttons based on mode ───────────────────
+  function applyAdminUi(){
+    if(adminBtn){
+      adminBtn.style.display = isAdmin ? "inline-flex" : "none";
+    }
+    if(micBtn){
+      micBtn.style.display = isAdmin ? "inline-flex" : "none";
+    }
+    if(inboxWrap){
+      inboxWrap.style.display = isAdmin ? "block" : "none";
+    }
+    if(isAdmin) renderInbox();
+  }
+  window.syncChatAdminUi = applyAdminUi;
+
+  // ── Open / close chat panel ───────────────────────────
   function openChat(){
-    // Open CHM chat only
-    if(waPanel) waPanel.classList.remove("open");
+    if(!panel) return;
     panel.classList.add("open");
+    applyAdminUi();
     const sid = ensureSession();
     renderConversation(sid);
-    if(isAdmin){
-      inboxWrap.style.display = "block";
-      renderInbox();
-    }else{
-      inboxWrap.style.display = "none";
-    }
+    if(input) input.focus();
   }
-
   function closeChat(){
+    if(!panel) return;
     panel.classList.remove("open");
   }
 
-  fab.addEventListener("click", openChat);
-  closeBtn.addEventListener("click", closeChat);
-  if(waFab){ waFab.addEventListener("click", (e)=>{ e.preventDefault(); e.stopPropagation(); toggleWhatsAppPanel(); }); }
-  if(waBtn){ waBtn.addEventListener("click", ()=>toggleWhatsAppPanel()); }
-  if(waClose){ waClose.addEventListener("click", ()=>toggleWhatsAppPanel(false)); }
-  window.addEventListener("resize", ()=>{ if(waPanel && waPanel.classList.contains("open")) positionWhatsAppPanel(); });
+  // Expose so speed-dial onclick can call it
+  window.openChat = openChat;
 
+  if(fab){ fab.addEventListener("click", function(e){ e.stopPropagation(); openChat(); }); }
+  if(closeBtn){ closeBtn.addEventListener("click", closeChat); }
+
+  // ── Send button (works for BOTH public and admin) ─────
   sendBtn.addEventListener("click", ()=>{
-    const txt = (input.value || "").trim();
+    const txt = (input.value||"").trim();
     if(!txt) return;
-    pushMsg("user", txt);
     input.value = "";
-    // basic bot acknowledger for public
+    pushMsg(isAdmin ? "bot" : "user", txt);
     if(!isAdmin){
-      pushMsg("bot", "Thank you. We received your message. If you need urgent help, select an option above or include your call-back time.");
+      // public visitor: auto-acknowledge + SMS draft
+      setTimeout(()=>{
+        pushMsg("bot","Thank you! We received your message and will get back to you soon.");
+        const smsLink = "sms:"+ADMIN_PHONE+"?body="+encodeURIComponent("[CHM Chat] Visitor: "+txt+" | Session: "+activeSessionId);
+        try{ window.open(smsLink,"_blank"); }catch(e){}
+      }, 300);
+    } else {
+      // admin reply: show confirmation
+      setTimeout(()=>{
+        pushMsg("bot","\uD83D\uDCE4 Reply sent to visitor session.");
+      }, 200);
     }
   });
 
   input.addEventListener("keydown", (e)=>{
-    if(e.key === "Enter"){
-      e.preventDefault();
-      sendBtn.click();
-    }
+    if(e.key==="Enter"){ e.preventDefault(); sendBtn.click(); }
   });
 
+  // ── Admin PIN Modal ───────────────────────────────────
+  const chmAdminOverlay = document.createElement("div");
+  chmAdminOverlay.id = "chmAdminOverlay";
+  chmAdminOverlay.style.cssText = "display:none;position:absolute;inset:0;z-index:99999;background:rgba(0,0,0,0.82);backdrop-filter:blur(4px);align-items:center;justify-content:center;border-radius:inherit;";
+  chmAdminOverlay.innerHTML = `
+    <div style="background:linear-gradient(145deg,#0f1923,#162330);border:1px solid rgba(0,199,255,0.25);border-radius:16px;padding:28px 24px;width:240px;box-shadow:0 12px 40px rgba(0,0,0,0.6);text-align:center;">
+      <div style="font-size:2rem;margin-bottom:8px;">&#x1F510;</div>
+      <div style="font-weight:800;font-size:1rem;color:#e0f7ff;margin-bottom:4px;">Admin Access</div>
+      <div style="font-size:11px;color:rgba(200,230,255,0.55);margin-bottom:18px;">CHM Network Chatbot</div>
+      <input id="chmAdminPinInput" type="password" placeholder="Enter passcode" maxlength="30"
+        style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(0,199,255,0.3);color:#fff;font-size:15px;letter-spacing:3px;outline:none;margin-bottom:10px;" />
+      <div id="chmAdminPinError" style="color:#ff5e5e;font-size:12px;min-height:18px;margin-bottom:8px;"></div>
+      <button id="chmAdminPinSubmit" style="width:100%;padding:11px;border-radius:10px;background:linear-gradient(135deg,#00c7ff,#0097a7);color:#fff;font-weight:800;font-size:14px;border:none;cursor:pointer;margin-bottom:10px;">Unlock</button>
+      <button id="chmAdminPinCancel" style="width:100%;padding:9px;border-radius:10px;background:rgba(255,255,255,0.06);color:rgba(200,230,255,0.65);font-size:13px;border:1px solid rgba(255,255,255,0.1);cursor:pointer;">Cancel</button>
+    </div>`;
+  if(panel){ panel.style.position="relative"; panel.appendChild(chmAdminOverlay); }
+
+  function showPinModal(){
+    chmAdminOverlay.style.display="flex";
+    document.getElementById("chmAdminPinInput").value="";
+    document.getElementById("chmAdminPinError").textContent="";
+    setTimeout(()=>{ const i=document.getElementById("chmAdminPinInput"); if(i) i.focus(); },80);
+  }
+  function hidePinModal(){ chmAdminOverlay.style.display="none"; }
+
+  document.getElementById("chmAdminPinSubmit").addEventListener("click",()=>{
+    const val=(document.getElementById("chmAdminPinInput").value||"").trim();
+    if(val===ADMIN_PIN){
+      isAdmin=true;
+      applyAdminUi();
+      const sid=ensureSession();
+      renderConversation(sid);
+      hidePinModal();
+    } else {
+      document.getElementById("chmAdminPinError").textContent="Incorrect passcode. Try again.";
+      document.getElementById("chmAdminPinInput").value="";
+      document.getElementById("chmAdminPinInput").focus();
+    }
+  });
+  document.getElementById("chmAdminPinInput").addEventListener("keydown",(e)=>{
+    if(e.key==="Enter") document.getElementById("chmAdminPinSubmit").click();
+  });
+  document.getElementById("chmAdminPinCancel").addEventListener("click", hidePinModal);
+
+  // Admin button — opens PIN modal (toggles back to public if already admin)
   adminBtn.addEventListener("click", ()=>{
-    const pin = prompt("Admin PIN:");
-    if(pin === null) return;
-    if(pin.trim() === ADMIN_PIN){
-      isAdmin = true;
-      inboxWrap.style.display = "block";
-      renderInbox();
-      pushMsg("bot", "Admin mode enabled.");
-    }else{
-      alert("Incorrect PIN.");
+    if(isAdmin){
+      isAdmin=false;
+      applyAdminUi();
+      const sid=ensureSession();
+      renderConversation(sid);
+    } else {
+      showPinModal();
     }
   });
 
-  // Voice to text (Chrome/Edge mostly)
+  // ── Microphone (admin only after PIN) ─────────────────
   let recognition = null;
   function initSpeech(){
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if(!SpeechRecognition) return null;
-    const r = new SpeechRecognition();
-    r.lang = "en-US";
-    r.interimResults = false;
-    r.maxAlternatives = 1;
-    r.onresult = (event)=>{
-      const t = event.results[0][0].transcript;
-      input.value = (input.value ? (input.value + " ") : "") + t;
+    const SR = window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(!SR) return null;
+    const r = new SR();
+    r.lang="en-US"; r.interimResults=false; r.maxAlternatives=1;
+    r.onresult=(event)=>{
+      const t=event.results[0][0].transcript;
+      input.value=(input.value?(input.value+" "):"")+t;
       input.focus();
     };
-    r.onerror = ()=>{};
+    r.onerror=()=>{};
     return r;
   }
 
-  micBtn.addEventListener("click", ()=>{
-    if(!isAdmin){
-      alert("Voice-to-text is available for admin replies. Tap Admin first.");
-      return;
-    }
-    if(!recognition) recognition = initSpeech();
-    if(!recognition){
-      alert("Voice recognition is not supported on this browser.");
-      return;
-    }
+  micBtn.addEventListener("click",()=>{
+    if(!isAdmin){ showPinModal(); return; }
+    if(!recognition) recognition=initSpeech();
+    if(!recognition){ alert("Voice recognition is not supported on this browser."); return; }
     try{ recognition.start(); }catch(e){}
   });
 
-  // Auto-open if hash includes session
-  window.addEventListener("load", ()=>{
-    const h = (location.hash||"");
-    if(h.includes("chmchat:")){
-      openChat();
-    }
+  // ── Auto-open if URL hash has session ─────────────────
+  window.addEventListener("load",()=>{
+    applyAdminUi();
+    const h=(location.hash||"");
+    if(h.includes("chmchat:")){ openChat(); }
   });
 })();
 
@@ -7530,12 +7590,67 @@ function escapeAttr(str){ return escapeHtml(str).replaceAll('\n',' '); }
       </div>
 
       <div style="margin-top:12px; font-size:.95rem; opacity:.85;">
-        Tip: For “automatic transactions to your account”, paste your payment link for each item (Stripe Payment Link, PayPal, Shopify, Gumroad, etc.).
-        The <b>Buy</b> button will open that checkout link.
-      </div>
-    </div>
-  </div>
-</div>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-</body>
-</html>
+        Tip: For “automatic transactions to your account”, paste your payment link for each item (Stripe Payment Link, PayPal, Shopify, Gumroa
+<script id="chatAdminSecurityScript">
+// 🔒 Chatbot admin protection
+const CHAT_ADMIN_PASSWORD = "CHM2026";
+
+function openChatAdmin() {
+  try {
+    if (localStorage.getItem('CHM_ADMIN_AUTH') !== '1') {
+      return;
+    }
+  } catch(e) {
+    return;
+  }
+
+  const input = window.prompt("Enter Admin Passcode:");
+  if (!input) return;
+
+  if (input === CHAT_ADMIN_PASSWORD) {
+    const adminPanel =
+      document.getElementById('chatAdminPanel') ||
+      document.getElementById('chmChatAdminPanel') ||
+      document.getElementById('chatbotAdminPanel') ||
+      document.querySelector('.chat-admin-panel');
+
+    if (adminPanel) {
+      adminPanel.style.display = 'block';
+      adminPanel.classList.add('open');
+      adminPanel.classList.remove('hidden');
+      window.alert("Access Granted");
+    } else {
+      window.alert("Admin panel not found.");
+    }
+  } else {
+    window.alert("Access Denied");
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const fabMainBtn =
+    document.getElementById('fabMainBtn') ||
+    document.getElementById('chmContactLaunchBtn') ||
+    document.getElementById('chmChatFab');
+
+  let clickCount = 0;
+  let clickTimer = null;
+
+  if (fabMainBtn) {
+    fabMainBtn.addEventListener('click', () => {
+      clickCount++;
+      if (clickTimer) clearTimeout(clickTimer);
+      clickTimer = setTimeout(() => { clickCount = 0; }, 2000);
+
+      if (clickCount >= 5) {
+        clickCount = 0;
+        try {
+          if (localStorage.getItem('CHM_ADMIN_AUTH') === '1') {
+            openChatAdmin();
+          }
+        } catch(e) {}
+      }
+    });
+  }
+});
+</script>
