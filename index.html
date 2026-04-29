@@ -2368,6 +2368,7 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
             <a class="admin-nav" data-section="announcements" onclick="switchAdminSection('announcements')">📢 Announcements</a>
             <a class="admin-nav" data-section="resources" onclick="switchAdminSection('resources')">📚 Resources</a>
             <a class="admin-nav" data-section="forms" onclick="switchAdminSection('forms')">✉️ Forms</a>
+            <a class="admin-nav" data-section="chatbot" onclick="switchAdminSection('chatbot')">💬 Chatbot</a>
             <h3>System</h3>
             <a class="admin-nav" data-section="settings" onclick="switchAdminSection('settings')">⚙️ Settings</a>
             <a class="admin-nav" data-section="cache" onclick="switchAdminSection('cache')">💾 Cache</a>
@@ -2765,6 +2766,23 @@ Join us on your preferred platform</textarea>
                 <div id="newsletter" class="tab-content">
                     <h3 style="color: var(--primary-color);">Newsletter Subscribers</h3>
                     <p style="color: var(--text-secondary);">0 subscribers</p>
+                </div>
+            </div>
+
+
+            <!-- CHATBOT ADMIN SECTION -->
+            <div id="section-chatbot" class="admin-section">
+                <h2>💬 Chatbot Admin</h2>
+                <div class="content-editor">
+                    <h3>Live Chat Control</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                        Public visitors will not see an Admin button. Admin chat tools are available here only after you log in.
+                    </p>
+                    <button class="btn-primary" onclick="enableChmChatAdminFromPanel()">Open Admin Chat Inbox</button>
+                    <button class="btn-secondary" onclick="showNotification('Admin SMS number: 973-855-2396', 'success')">SMS Number: 973-855-2396</button>
+                    <p style="color: var(--text-secondary); margin-top: 14px;">
+                        Direct phone texting requires a live SMS service such as Twilio or Firebase/Supabase + SMS API. This static build keeps the visitor chatbox connected to the admin phone link and admin inbox, without showing admin controls publicly.
+                    </p>
                 </div>
             </div>
 
@@ -4727,12 +4745,8 @@ function initPublicVideoPlaylistPanel() {
 <!-- =========================
      CHM Chat Widget (embedded)
      ========================= -->
-<div class="chm-chat-fab" id="chmChatFab" title="Chat with CHM Network">
+<div class="chm-chat-fab" id="chmChatFab" title="Chat with CHM Network Support">
   <span>💬</span>
-</div>
-
-<div class="chm-wa-fab" id="chmWaFab" title="WhatsApp">
-  <span>🟢</span>
 </div>
 
 <div class="chm-chat-panel" id="chmChatPanel" aria-live="polite">
@@ -4750,9 +4764,7 @@ function initPublicVideoPlaylistPanel() {
     <div class="chm-chat-inputrow">
       <input class="chm-chat-input" id="chmChatInput" type="text" placeholder="Type your message..." />
       <button class="chm-chat-send" id="chmChatSend">Send</button>
-      <button class="chm-chat-admin" id="chmChatAdmin">Admin</button>
       <button class="chm-chat-mic" id="chmChatMic" title="Voice to text">🎙️</button>
-      <button class="chm-chat-wa" id="chmChatWhatsApp" title="WhatsApp">🟢</button>
     </div>
     <div class="chm-chat-hint" id="chmChatHint">
       Note: If your browser blocks autoplay, press Play once. For urgent help, use the options and we will notify the admin.
@@ -4766,36 +4778,6 @@ function initPublicVideoPlaylistPanel() {
   </div>
 
 
-<!-- =========================
-     WhatsApp Widget (Elfsight)
-     ========================= -->
-<div class="chm-wa-panel" id="chmWaPanel" aria-hidden="true">
-  <div class="chm-wa-header">
-    <div>
-      <div class="chm-wa-title">WhatsApp</div>
-      <div class="chm-wa-sub" style="font-size:12px; opacity:.85; margin-top:2px;">Message us on WhatsApp: <strong>+1 973-855-2396</strong></div>
-    </div>
-    <div style="display:flex; gap:8px; align-items:center;">
-      <a class="chm-wa-direct" href="https://wa.me/19738552396" target="_blank" rel="noopener" title="Open WhatsApp chat">Open</a>
-      <div class="chm-wa-close" id="chmWaClose" title="Close">✕</div>
-    </div>
-  </div>
-  <div class="chm-wa-body">
-    <div class="elfsight-app-dceefc20-f8a3-44fb-9349-a818baa1b883" ></div>
-  
-    <div id="chmWaFallback" style="display:none; padding:14px; border:1px dashed rgba(37,211,102,.35); border-radius:12px; margin-top:10px;">
-      <div style="font-weight:800; margin-bottom:6px;">WhatsApp is loading…</div>
-      <div style="font-size:13px; opacity:.9; margin-bottom:10px;">If it doesn’t appear, tap below to message us directly.</div>
-      <a href="https://wa.me/19738552396" target="_blank" rel="noopener"
-         style="display:inline-block; padding:10px 14px; border-radius:10px; background:rgba(37,211,102,.22); border:1px solid rgba(37,211,102,.35); color:#eafff4; text-decoration:none; font-weight:800;">
-        Open WhatsApp Chat
-      </a>
-    </div>
-  </div>
-</div>
-
-<script src="https://elfsightcdn.com/platform.js" async></script>
-
 </div>
 
 <script>
@@ -4805,23 +4787,23 @@ function initPublicVideoPlaylistPanel() {
    ========================= */
 (function(){
   const ADMIN_EMAIL = "yodebepro@gmail.com";
-  const ADMIN_PHONE = "9738552396"; // SMS notifications (opens user's SMS app)
+  const ADMIN_PHONE = "9738552396"; // Admin phone for direct SMS link
   const ADMIN_PIN = "9738552396";   // simple local admin gate (change anytime)
 
   const LS_KEY = "chm_chat_sessions_v1";
 
   const fab = document.getElementById("chmChatFab");
-  const waFab = document.getElementById("chmWaFab");
+  const waFab = null;
   const panel = document.getElementById("chmChatPanel");
   const closeBtn = document.getElementById("chmChatClose");
   const body = document.getElementById("chmChatBody");
   const input = document.getElementById("chmChatInput");
   const sendBtn = document.getElementById("chmChatSend");
-  const adminBtn = document.getElementById("chmChatAdmin");
+  const adminBtn = document.getElementById("chmChatAdmin") || document.createElement("button");
   const micBtn = document.getElementById("chmChatMic");
-  const waBtn = document.getElementById("chmChatWhatsApp");
-  const waPanel = document.getElementById("chmWaPanel");
-  const waClose = document.getElementById("chmWaClose");
+  const waBtn = null;
+  const waPanel = null;
+  const waClose = null;
 
   function positionWhatsAppPanel(){
     if(!waPanel) return;
@@ -4899,7 +4881,9 @@ function toggleWhatsAppPanel(force){
 const inboxWrap = document.getElementById("chmChatInbox");
   const inboxList = document.getElementById("chmInboxList");
 
-  let isAdmin = false;
+  let isAdmin = (function(){
+    try { return localStorage.getItem("CHM_ADMIN_AUTH") === "1"; } catch(e){ return false; }
+  })();
   let activeSessionId = null;
 
   function nowIso(){
@@ -5028,8 +5012,8 @@ const inboxWrap = document.getElementById("chmChatInbox");
   }
 
   function notifyAdmin(sessionId, selectionText){
-    // IMPORTANT: Pure HTML cannot silently send SMS/email without a backend.
-    // We open the user's email/SMS apps pre-filled, so they can send.
+    // IMPORTANT: Pure static HTML cannot silently send SMS from the server without an SMS backend.
+    // This creates a direct SMS link to the admin phone and opens it when the browser/device allows.
     const url = location.href.split("#")[0] + "#chmchat:" + sessionId;
 
     const subject = encodeURIComponent("CHM Network Chat Request - " + sessionId);
@@ -5047,8 +5031,8 @@ const inboxWrap = document.getElementById("chmChatInbox");
     try{
       window.open(mailto, "_blank");
       window.open(sms, "_blank");
-      pushMsg("bot", "Notification ready: email and SMS draft opened (if your device allows). If nothing opened, ask the admin to contact you or try again.");
-      pushMsg("bot", "Admin link (open on admin device): " + url);
+      pushMsg("bot", "Direct admin notification opened for phone number 973-855-2396 if your device allows SMS links.");
+      pushMsg("bot", "Admin chat link: " + url);
     }catch(e){
       pushMsg("bot", "Notification link: " + mailto);
       pushMsg("bot", "SMS link: " + sms);
@@ -5121,9 +5105,11 @@ const inboxWrap = document.getElementById("chmChatInbox");
     if(!txt) return;
     pushMsg("user", txt);
     input.value = "";
-    // basic bot acknowledger for public
+    // Public visitor message: notify admin with direct phone link and keep chat open
     if(!isAdmin){
-      pushMsg("bot", "Thank you. We received your message. If you need urgent help, select an option above or include your call-back time.");
+      const sid = ensureSession();
+      notifyAdmin(sid, txt);
+      pushMsg("bot", "Thank you. Your message was prepared for direct notification to the admin phone number 973-855-2396. Please keep this chat open for replies.");
     }
   });
 
@@ -5134,18 +5120,16 @@ const inboxWrap = document.getElementById("chmChatInbox");
     }
   });
 
-  adminBtn.addEventListener("click", ()=>{
-    const pin = prompt("Admin PIN:");
-    if(pin === null) return;
-    if(pin.trim() === ADMIN_PIN){
-      isAdmin = true;
-      inboxWrap.style.display = "block";
-      renderInbox();
-      pushMsg("bot", "Admin mode enabled.");
-    }else{
-      alert("Incorrect PIN.");
-    }
-  });
+  // Admin controls are intentionally not shown on the public chatbox.
+  // Admin chat is opened only from the logged-in Admin Panel.
+  window.enableChmChatAdminFromPanel = function(){
+    try { localStorage.setItem("CHM_ADMIN_AUTH","1"); } catch(e){}
+    isAdmin = true;
+    openChat();
+    inboxWrap.style.display = "block";
+    renderInbox();
+    pushMsg("bot", "Admin chat inbox opened from the Admin Panel.");
+  };
 
   // Voice to text (Chrome/Edge mostly)
   let recognition = null;
@@ -7546,6 +7530,87 @@ function escapeAttr(str){ return escapeHtml(str).replaceAll('\n',' '); }
 </script>
 
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<!-- LOCKED UPDATE: WhatsApp removed; CHM chatbot restored/kept active. JSON/global media system unchanged. -->
+
+<!-- LOCKED UPDATE: Public chatbot Admin button removed. Admin chat tools moved to Admin Panel. Admin phone link set to 973-855-2396. -->
+
+<script>
+/* LOCKED FIX: Public chatbot send button fallback.
+   This does not change the layout. It only guarantees the Send button works even if another script stops early. */
+(function(){
+  function byId(id){ return document.getElementById(id); }
+
+  function openChatBox(){
+    const panel = byId("chmChatPanel") || byId("chm-chat-panel") || document.querySelector(".chm-chat-panel");
+    if(panel){ panel.classList.add("active"); panel.style.display = "block"; }
+  }
+
+  function appendChatMessage(role, text){
+    const box = byId("chmChatMessages") || byId("chm-chat-messages") || document.querySelector(".chm-chat-messages");
+    if(!box) return;
+    const div = document.createElement("div");
+    div.className = "chm-msg " + (role === "user" ? "user" : "bot");
+    div.textContent = text;
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function sendPublicChatMessage(){
+    const input = byId("chmChatInput") || byId("chm-chat-input") || document.querySelector(".chm-chat-input input, #chmChatText, textarea#chmChatInput");
+    if(!input) return false;
+    const text = (input.value || "").trim();
+    if(!text) return false;
+
+    appendChatMessage("user", text);
+    input.value = "";
+
+    const phone = "9738552396";
+    const page = window.location.href.split("#")[0];
+    const adminLink = page + (page.includes("?") ? "&" : "?") + "chat=admin";
+    const smsBody = encodeURIComponent("CHM Network website chat message: " + text + "\nOpen admin chat: " + adminLink);
+    const smsLink = "sms:" + phone + "?&body=" + smsBody;
+
+    try {
+      localStorage.setItem("CHM_LAST_PUBLIC_CHAT_MESSAGE", JSON.stringify({
+        message: text,
+        time: new Date().toISOString(),
+        adminLink: adminLink,
+        phone: "973-855-2396"
+      }));
+    } catch(e) {}
+
+    appendChatMessage("bot", "Thank you. Your message was received. Admin phone notification is linked to 973-855-2396.");
+    appendChatMessage("bot", "Admin chat link: " + adminLink);
+
+    // Try opening SMS only after the message is visibly sent.
+    try { window.location.href = smsLink; } catch(e) {}
+    return true;
+  }
+
+  document.addEventListener("click", function(e){
+    const target = e.target;
+    if(!target) return;
+    if(target.id === "chmChatSend" || target.id === "chm-chat-send" || target.closest("#chmChatSend, #chm-chat-send")){
+      e.preventDefault();
+      e.stopPropagation();
+      openChatBox();
+      sendPublicChatMessage();
+    }
+  }, true);
+
+  document.addEventListener("keydown", function(e){
+    const target = e.target;
+    if(!target) return;
+    const isChatInput = target.id === "chmChatInput" || target.id === "chm-chat-input" || target.id === "chmChatText";
+    if(isChatInput && e.key === "Enter" && !e.shiftKey){
+      e.preventDefault();
+      sendPublicChatMessage();
+    }
+  }, true);
+})();
+</script>
+
 </body>
 </html>
 <!-- GLOBAL MEDIA JSON SYNC PATCH -->
