@@ -1,3 +1,4 @@
+<!-- CHATBOT_ADMIN_LOCK_ENABLED -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1180,39 +1181,13 @@
 }
 
 .chm-wa-fab{
-  position:fixed; right:92px; bottom:18px; z-index:9999;
-  width:56px; height:56px; border-radius:999px;
-  background:rgba(37, 211, 102, .92);
-  border:1px solid rgba(255,255,255,.18);
-  box-shadow:0 18px 50px rgba(0,0,0,.45);
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer; user-select:none;
-  color:#ffffff;
-  font-size:26px;
+  display: none !important;  /* HIDE WhatsApp button */
 }
-.chm-wa-fab:hover{filter:brightness(1.06);}
-.chm-chat-fab span{font-size:28px; filter:drop-shadow(0 6px 10px rgba(0,0,0,.35));}
 .chm-chat-wa{
-  width:40px; height:40px; border-radius:12px;
-  background:rgba(37, 211, 102, .18);
-  border:1px solid rgba(37, 211, 102, .35);
-  color:#d9ffe8;
-  cursor:pointer;
+  display: none !important;  /* HIDE WhatsApp in chat input */
 }
-.chm-chat-wa:hover{background:rgba(37, 211, 102, .28);}
 .chm-wa-panel{
-  position:fixed;
-  z-index:10000;
-  width:min(380px, calc(100vw - 36px));
-  height:min(620px, calc(100vh - 140px));
-  right:auto; left:auto; bottom:92px;
-  background:rgba(10,14,35,.92);
-  border:1px solid rgba(37,211,102,.35);
-  box-shadow:0 18px 60px rgba(0,0,0,.55);
-  border-radius:18px;
-  overflow:hidden;
-  display:none;
-  backdrop-filter: blur(10px);
+  display: none !important;  /* HIDE WhatsApp panel */
 }
 .chm-wa-panel.open{display:flex; flex-direction:column;}
 .chm-wa-header{
@@ -1246,16 +1221,17 @@
   .chm-wa-panel{left:18px; right:18px; width:calc(100vw - 36px);}
 }
 .chm-chat-panel{
-  position:fixed; right:18px; bottom:92px; z-index:9999;
+  position:fixed;
+  left:50%;
+  top:50%;
+  transform:translate(-50%, -50%);
+  right:auto;
+  bottom:auto;
   width:min(420px, calc(100vw - 36px));
-  height: min(620px, calc(100vh - 140px));
-  background:rgba(10,14,35,.88);
-  border:1px solid rgba(0,255,255,.22);
-  box-shadow:0 18px 60px rgba(0,0,0,.55);
-  border-radius:18px;
-  overflow:hidden;
+  height:min(620px, calc(100vh - 140px));
+  max-height:calc(100vh - 24px);
+  z-index:9999;
   display:none;
-  backdrop-filter: blur(10px);
 }
 .chm-chat-panel.open{display:flex; flex-direction:column;}
 .chm-chat-header{
@@ -1716,7 +1692,7 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 .shop-status{ opacity:.85; margin-bottom: 12px; }
 .shop-grid{
   display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(4, 1fr);  /* EXACTLY 4 ITEMS PER ROW */
   gap: 12px;
 }
 .shop-card{
@@ -1786,12 +1762,27 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 }
 .store-inline-shell .shop-content{
   min-height: 680px;
+  display: flex;
 }
 .store-inline-shell .shop-left{
   width: 290px;
+  overflow-y: auto;
+  max-height: 680px;
 }
 .store-inline-shell .shop-right{
-  min-height: 680px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 680px;
+  padding: 16px;
+  gap: 12px;
+}
+.store-inline-shell .shop-right .shop-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);  /* EXACTLY 4 ITEMS PER ROW */
+  gap: 12px;
+  align-content: flex-start;
 }
 .store-inline-header{
   display:flex;
@@ -1819,9 +1810,12 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
     width: 100%;
     border-right: 0;
     border-bottom: 1px solid rgba(255,255,255,.10);
+    max-height: 300px;
   }
   .store-inline-shell .shop-right{
     min-height: 0;
+    max-height: 500px;
+    grid-template-columns: repeat(2, 1fr);  /* 2 ITEMS PER ROW ON MOBILE */
   }
 }
 .video-protect,
@@ -1907,6 +1901,8 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 .shop-thumb-row img{ width:44px; height:44px; object-fit:contain; background: rgba(0,0,0,.26); border-radius:10px; border:1px solid rgba(255,255,255,.12); }
 
 </style>
+
+
 </head>
 <body>
 
@@ -1927,7 +1923,7 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
                     <li><a href="#zoom" onclick="scrollToSection('zoom')">Zoom & Conference</a></li>
                     <li><a href="#resources" onclick="scrollToSection('resources')">Resources</a></li>
                     <li><a href="#contact" onclick="scrollToSection('contact')">Contact</a></li>
-                    <!-- Admin access moved off the public page. Go to /admin or /admin.html to log in. -->
+                    <li><button class="btn-primary" onclick="showAdminLogin()">Admin</button></li>
                 </ul>
                 <div id="siteTools" class="site-tools">
                     <button class="tool-btn" id="openGlobalSearchBtn" title="Search (Ctrl+K)">🔎</button>
@@ -2368,7 +2364,6 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
             <a class="admin-nav" data-section="announcements" onclick="switchAdminSection('announcements')">📢 Announcements</a>
             <a class="admin-nav" data-section="resources" onclick="switchAdminSection('resources')">📚 Resources</a>
             <a class="admin-nav" data-section="forms" onclick="switchAdminSection('forms')">✉️ Forms</a>
-            <a class="admin-nav" data-section="chatbot" onclick="switchAdminSection('chatbot')">💬 Chatbot</a>
             <h3>System</h3>
             <a class="admin-nav" data-section="settings" onclick="switchAdminSection('settings')">⚙️ Settings</a>
             <a class="admin-nav" data-section="cache" onclick="switchAdminSection('cache')">💾 Cache</a>
@@ -2387,15 +2382,15 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
                 <h2>Dashboard Overview</h2>
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="number" id="statTotalVisitors">0</div>
+                        <div class="number">1,247</div>
                         <div class="label">Total Visitors</div>
                     </div>
                     <div class="stat-card">
-                        <div class="number" id="statLiveListeners">0</div>
+                        <div class="number">342</div>
                         <div class="label">Live Listeners</div>
                     </div>
                     <div class="stat-card">
-                        <div class="number" id="statVideoViews">0</div>
+                        <div class="number">89</div>
                         <div class="label">Video Views</div>
                     </div>
                     <div class="stat-card">
@@ -2420,43 +2415,6 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
                     <button class="btn-primary" onclick="openStoreAdminForCategory('electronics')" style="height: 50px;">💻 Edit Electronics</button>
                     <button class="btn-primary" onclick="openStoreAdminForCategory('other')" style="height: 50px;">📦 Edit Other</button>
                     <button class="btn-secondary" onclick="openStoreAdminForCategory('all')" style="height: 50px;">🛍️ Manage All</button>
-                </div>
-
-                <div class="content-editor" style="margin-top: 24px;">
-                    <h3>📊 Viewer Analytics & Sync Snapshot</h3>
-                    <p style="color: var(--text-secondary); margin-bottom: 16px;">
-                        Automatic TV play counts, store activity, and sync events for this locked static build.
-                    </p>
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="number" id="analyticsPageviews">0</div>
-                            <div class="label">Page Views</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="number" id="analyticsVideoPlays">0</div>
-                            <div class="label">TV Plays</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="number" id="analyticsRadioStarts">0</div>
-                            <div class="label">Radio Starts</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="number" id="analyticsStoreBuys">0</div>
-                            <div class="label">Store Buy Clicks</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="number" id="analyticsPurchases">0</div>
-                            <div class="label">Purchase Opens</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="number" id="analyticsLastSync">—</div>
-                            <div class="label">Last Video Sync</div>
-                        </div>
-                    </div>
-                    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px;">
-                        <button class="btn-primary" type="button" onclick="exportAnalyticsSnapshot()">⬇ Export Analytics Snapshot</button>
-                        <button class="btn-secondary" type="button" onclick="resetAnalyticsSnapshot()">♻ Reset Analytics</button>
-                    </div>
                 </div>
 
             </div>
@@ -2612,6 +2570,17 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 
                 <div id="music-list" class="tab-content active">
                     <h3 style="color: var(--primary-color); margin-bottom: 20px;">Your Music Tracks</h3>
+                    
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; align-items:center;">
+                        <button class="btn-primary" type="button" onclick="exportPublishedMusicJson()">⬇ Export published_music.json (Global)</button>
+                        <button class="btn-secondary" type="button" onclick="triggerImportPublishedMusic()">⬆ Import published_music.json</button>
+                        <small style="color: var(--text-secondary); line-height:1.3;">
+                            For worldwide playback: upload <b>published_music.json</b> to the same folder as this HTML on your website.
+                            (Local uploads saved in the browser remain device-specific.)
+                        </small>
+                        <input id="importPublishedMusicInput" type="file" accept="application/json" style="display:none"
+                            onchange="if(this.files && this.files[0]) importPublishedMusicFile(this.files[0]); this.value='';" />
+                    </div>
                     <div id="musicAdminList" style="max-height: 500px; overflow-y: auto;">
                         <!-- Music items -->
                     </div>
@@ -2674,6 +2643,17 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
             <!-- ANNOUNCEMENTS SECTION -->
             <div id="section-announcements" class="admin-section">
                 <h2>📢 Announcements</h2>
+                
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; align-items:center;">
+                    <button class="btn-primary" type="button" onclick="exportPublishedAnnouncementsJson()">⬇ Export published_announcements.json (Global)</button>
+                    <button class="btn-secondary" type="button" onclick="triggerImportPublishedAnnouncements()">⬆ Import published_announcements.json</button>
+                    <small style="color: var(--text-secondary); line-height:1.3;">
+                        For worldwide updates: upload <b>published_announcements.json</b> to the same folder as this HTML on your website.
+                    </small>
+                    <input id="importPublishedAnnouncementsInput" type="file" accept="application/json" style="display:none"
+                        onchange="if(this.files && this.files[0]) importPublishedAnnouncementsFile(this.files[0]); this.value='';" />
+                </div>
+                
                 <div class="content-editor">
                     <h3>Main Announcement</h3>
                     <div class="form-group">
@@ -2697,6 +2677,17 @@ Join us on your preferred platform</textarea>
             <!-- RESOURCES SECTION -->
             <div id="section-resources" class="admin-section">
                 <h2>📚 Resources</h2>
+                
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; align-items:center;">
+                    <button class="btn-primary" type="button" onclick="exportPublishedResourcesJson()">⬇ Export published_resources.json (Global)</button>
+                    <button class="btn-secondary" type="button" onclick="triggerImportPublishedResources()">⬆ Import published_resources.json</button>
+                    <small style="color: var(--text-secondary); line-height:1.3;">
+                        For worldwide sharing: upload <b>published_resources.json</b> to the same folder as this HTML on your website.
+                    </small>
+                    <input id="importPublishedResourcesInput" type="file" accept="application/json" style="display:none"
+                        onchange="if(this.files && this.files[0]) importPublishedResourcesFile(this.files[0]); this.value='';" />
+                </div>
+                
                 <div class="tabs">
                     <button class="tab-btn active" onclick="switchTab(this, 'books')">Books</button>
                     <button class="tab-btn" onclick="switchTab(this, 'audio')">Audio</button>
@@ -2740,6 +2731,17 @@ Join us on your preferred platform</textarea>
             <!-- FORMS SECTION -->
             <div id="section-forms" class="admin-section">
                 <h2>✉️ Form Submissions</h2>
+                
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; align-items:center;">
+                    <button class="btn-primary" type="button" onclick="exportPublishedFormsJson()">⬇ Export published_forms.json (Global)</button>
+                    <button class="btn-secondary" type="button" onclick="triggerImportPublishedForms()">⬆ Import published_forms.json</button>
+                    <small style="color: var(--text-secondary); line-height:1.3;">
+                        For worldwide sync: upload <b>published_forms.json</b> to the same folder as this HTML on your website.
+                    </small>
+                    <input id="importPublishedFormsInput" type="file" accept="application/json" style="display:none"
+                        onchange="if(this.files && this.files[0]) importPublishedFormsFile(this.files[0]); this.value='';" />
+                </div>
+                
                 <div class="tabs">
                     <button class="tab-btn active" onclick="switchTab(this, 'contact-forms')">Contact Forms</button>
                     <button class="tab-btn" onclick="switchTab(this, 'newsletter')">Newsletter</button>
@@ -2766,23 +2768,6 @@ Join us on your preferred platform</textarea>
                 <div id="newsletter" class="tab-content">
                     <h3 style="color: var(--primary-color);">Newsletter Subscribers</h3>
                     <p style="color: var(--text-secondary);">0 subscribers</p>
-                </div>
-            </div>
-
-
-            <!-- CHATBOT ADMIN SECTION -->
-            <div id="section-chatbot" class="admin-section">
-                <h2>💬 Chatbot Admin</h2>
-                <div class="content-editor">
-                    <h3>Live Chat Control</h3>
-                    <p style="color: var(--text-secondary); margin-bottom: 16px;">
-                        Public visitors will not see an Admin button. Admin chat tools are available here only after you log in.
-                    </p>
-                    <button class="btn-primary" onclick="enableChmChatAdminFromPanel()">Open Admin Chat Inbox</button>
-                    <button class="btn-secondary" onclick="showNotification('Admin SMS number: 973-855-2396', 'success')">SMS Number: 973-855-2396</button>
-                    <p style="color: var(--text-secondary); margin-top: 14px;">
-                        Direct phone texting requires a live SMS service such as Twilio or Firebase/Supabase + SMS API. This static build keeps the visitor chatbox connected to the admin phone link and admin inbox, without showing admin controls publicly.
-                    </p>
                 </div>
             </div>
 
@@ -2956,6 +2941,7 @@ updateRadioSettings(settings) {
     // - For worldwide playback, use URLs (YouTube or direct MP4) and publish them in a JSON file on your website.
     // - This app will automatically try to load ./published_videos.json on startup.
     const PUBLISHED_VIDEOS_URL = './published_videos.json';
+    const PUBLISHED_MUSIC_URL = './published_music.json';
 
     async function loadPublishedVideosFromServer() {
         try {
@@ -3023,6 +3009,185 @@ loadVideoSchedule();
             showNotification('❌ Could not import published_videos.json', 'error');
         }
     }
+
+    async function loadPublishedMusicFromServer() {
+        try {
+            const res = await fetch(PUBLISHED_MUSIC_URL, { cache: 'no-store' });
+            if (!res.ok) return false;
+            const data = await res.json();
+            if (!data || !Array.isArray(data.music)) return false;
+
+            const current = cache.getCache();
+            current.music = data.music.map(m => ({
+                id: m.id || Date.now() + Math.floor(Math.random()*100000),
+                title: m.title || 'Music',
+                artist: m.artist || 'Unknown',
+                url: m.url || '',
+                duration: m.duration || 0,
+            }));
+            cache.setCache(current);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    // ==================== MUSIC JSON EXPORT/IMPORT ====================
+    function exportPublishedMusicJson() {
+        const music = cache.getMusic() || [];
+        const payload = { music: music };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'published_music.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        showNotification('📥 Exported published_music.json. Upload it to your website to make music global.', 'success');
+    }
+
+    function triggerImportPublishedMusic() {
+        const inp = document.getElementById('importPublishedMusicInput');
+        if (inp) inp.click();
+    }
+
+    async function importPublishedMusicFile(file) {
+        try {
+            const txt = await file.text();
+            const data = JSON.parse(txt);
+            if (!data || !Array.isArray(data.music)) throw new Error('Invalid file');
+            const current = cache.getCache();
+            current.music = data.music.map(m => ({
+                id: m.id || Date.now() + Math.floor(Math.random()*100000),
+                title: m.title || 'Music',
+                artist: m.artist || 'Unknown',
+                url: m.url || '',
+                duration: m.duration || 0,
+            }));
+            cache.setCache(current);
+            loadMusicLibrary();
+            showNotification('✅ Imported music into this browser. Export + upload to publish globally.', 'success');
+        } catch (e) {
+            showNotification('❌ Could not import published_music.json', 'error');
+        }
+    }
+
+    // ==================== ANNOUNCEMENTS JSON EXPORT/IMPORT ====================
+    function exportPublishedAnnouncementsJson() {
+        const announcements = cache.getAnnouncements?.() || [];
+        const payload = { announcements: announcements };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'published_announcements.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        showNotification('📥 Exported published_announcements.json. Upload it to your website to make announcements global.', 'success');
+    }
+
+    function triggerImportPublishedAnnouncements() {
+        const inp = document.getElementById('importPublishedAnnouncementsInput');
+        if (inp) inp.click();
+    }
+
+    async function importPublishedAnnouncementsFile(file) {
+        try {
+            const txt = await file.text();
+            const data = JSON.parse(txt);
+            if (!data || !Array.isArray(data.announcements)) throw new Error('Invalid file');
+            const current = cache.getCache();
+            current.announcements = data.announcements.map(a => ({
+                id: a.id || Date.now() + Math.floor(Math.random()*100000),
+                title: a.title || 'Announcement',
+                content: a.content || '',
+            }));
+            cache.setCache(current);
+            showNotification('✅ Imported announcements into this browser. Export + upload to publish globally.', 'success');
+        } catch (e) {
+            showNotification('❌ Could not import published_announcements.json', 'error');
+        }
+    }
+
+    // ==================== RESOURCES JSON EXPORT/IMPORT ====================
+    function exportPublishedResourcesJson() {
+        const resources = cache.getResources?.() || [];
+        const payload = { resources: resources };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'published_resources.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        showNotification('📥 Exported published_resources.json. Upload it to your website to make resources global.', 'success');
+    }
+
+    function triggerImportPublishedResources() {
+        const inp = document.getElementById('importPublishedResourcesInput');
+        if (inp) inp.click();
+    }
+
+    async function importPublishedResourcesFile(file) {
+        try {
+            const txt = await file.text();
+            const data = JSON.parse(txt);
+            if (!data || !Array.isArray(data.resources)) throw new Error('Invalid file');
+            const current = cache.getCache();
+            current.resources = data.resources.map(r => ({
+                id: r.id || Date.now() + Math.floor(Math.random()*100000),
+                title: r.title || 'Resource',
+                author: r.author || '',
+                url: r.url || '',
+                type: r.type || 'book',
+            }));
+            cache.setCache(current);
+            showNotification('✅ Imported resources into this browser. Export + upload to publish globally.', 'success');
+        } catch (e) {
+            showNotification('❌ Could not import published_resources.json', 'error');
+        }
+    }
+
+    // ==================== FORMS JSON EXPORT/IMPORT ====================
+    function exportPublishedFormsJson() {
+        const forms = cache.getForms?.() || [];
+        const payload = { forms: forms };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'published_forms.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        showNotification('📥 Exported published_forms.json. Upload it to your website to make forms global.', 'success');
+    }
+
+    function triggerImportPublishedForms() {
+        const inp = document.getElementById('importPublishedFormsInput');
+        if (inp) inp.click();
+    }
+
+    async function importPublishedFormsFile(file) {
+        try {
+            const txt = await file.text();
+            const data = JSON.parse(txt);
+            if (!data || !Array.isArray(data.forms)) throw new Error('Invalid file');
+            const current = cache.getCache();
+            current.forms = data.forms.map(f => ({
+                id: f.id || Date.now() + Math.floor(Math.random()*100000),
+                name: f.name || '',
+                email: f.email || '',
+                subject: f.subject || '',
+                message: f.message || '',
+                date: f.date || new Date().toISOString(),
+            }));
+            cache.setCache(current);
+            showNotification('✅ Imported forms into this browser. Export + upload to publish globally.', 'success');
+        } catch (e) {
+            showNotification('❌ Could not import published_forms.json', 'error');
+        }
+    }
+
 
 
 
@@ -3337,6 +3502,11 @@ loadVideoSchedule();
     document.addEventListener('DOMContentLoaded', async function() {
         document.getElementById('currentYear').textContent = new Date().getFullYear();
         generateCalendar(new Date());
+        
+        // Load published JSON files from server (GitHub, hosting, etc.)
+        await loadPublishedMusicFromServer();
+        await loadPublishedVideosFromServer();
+        
         loadMusicLibrary();
         hardenPublicVideoUi();
         loadStoreData().then(() => {
@@ -3399,7 +3569,6 @@ loadVideoSchedule();
         });
 
         updateAdminStats();
-        openAdminFromBrowserRoute();
     });
 
     // ==================== RADIO PLAYER ====================
@@ -4416,8 +4585,26 @@ function initPublicVideoPlaylistPanel() {
     function submitContactForm(event) {
         event.preventDefault();
         const name = document.getElementById('name').value;
-        showNotification(`✉️ Thank you ${name}!`, 'success');
-        event.target.reset();
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        
+        // Send email to yodebepro@gmail.com
+        const mailtoLink = `mailto:yodebepro@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+            `From: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`
+        )}`;
+        
+        // Open email client
+        window.location.href = mailtoLink;
+        
+        // Show confirmation
+        showNotification(`✉️ Email opened! Sending your message to yodebepro@gmail.com`, 'success');
+        
+        // Reset form after brief delay
+        setTimeout(() => {
+            event.target.reset();
+        }, 500);
     }
 
     function subscribeNewsletter(event) {
@@ -4475,40 +4662,6 @@ function initPublicVideoPlaylistPanel() {
 
     function closeAdminLogin() {
         document.getElementById('adminLoginModal').classList.remove('active');
-        if (isAdminUrl()) {
-            try { history.replaceState(null, '', getPublicBasePath()); } catch(e) {}
-        }
-    }
-
-    function isAdminUrl() {
-        const path = (window.location.pathname || '').toLowerCase();
-        const search = (window.location.search || '').toLowerCase();
-        const hash = (window.location.hash || '').toLowerCase();
-        return path.endsWith('/admin') || path.endsWith('/admin/') || path.endsWith('/admin.html') || search.includes('admin=1') || hash === '#admin';
-    }
-
-    function getPublicBasePath() {
-        let path = window.location.pathname || '/';
-        const lower = path.toLowerCase();
-        if (lower.endsWith('/admin.html')) path = path.slice(0, -10);
-        else if (lower.endsWith('/admin/')) path = path.slice(0, -7);
-        else if (lower.endsWith('/admin')) path = path.slice(0, -6);
-        return path || '/';
-    }
-
-    function openAdminFromBrowserRoute() {
-        if (!isAdminUrl()) return;
-        const publicSite = document.getElementById('publicSite');
-        const adminDashboard = document.getElementById('adminDashboard');
-        if (typeof isAdminAuthed === 'function' && isAdminAuthed()) {
-            if (publicSite) publicSite.classList.add('hidden');
-            if (adminDashboard) adminDashboard.classList.remove('hidden');
-            switchAdminSection('dashboard');
-            updateAdminStats();
-            try { history.replaceState(null, '', 'admin'); } catch(e) {}
-        } else {
-            showAdminLogin();
-        }
     }
 
     function handleAdminLogin(event) {
@@ -4523,6 +4676,7 @@ function initPublicVideoPlaylistPanel() {
             switchAdminSection('dashboard');
             showNotification('✓ Logged in!', 'success');
             try{ localStorage.setItem(ADMIN_AUTH_KEY,'1'); }catch(e){}
+            try{ if(window.syncChatAdminUi) window.syncChatAdminUi(); }catch(e){}
             updateAdminStats();
         } else {
             showNotification('❌ Invalid credentials', 'error');
@@ -4531,6 +4685,7 @@ function initPublicVideoPlaylistPanel() {
 
     function logoutAdmin() {
   try{ localStorage.removeItem(ADMIN_AUTH_KEY); }catch(e){}
+  try{ if(window.syncChatAdminUi) window.syncChatAdminUi(); }catch(e){}
   refreshAdminOnlyControls();
   syncStoreSectionAdminButton();
 
@@ -4538,7 +4693,6 @@ function initPublicVideoPlaylistPanel() {
             document.getElementById('adminDashboard').classList.add('hidden');
             document.getElementById('publicSite').classList.remove('hidden');
             document.body.scrollTop = 0;
-            try { history.replaceState(null, '', getPublicBasePath()); } catch(e) {}
             showNotification('✓ Logged out', 'success');
         }
     }
@@ -4745,9 +4899,175 @@ function initPublicVideoPlaylistPanel() {
 <!-- =========================
      CHM Chat Widget (embedded)
      ========================= -->
-<div class="chm-chat-fab" id="chmChatFab" title="Chat with CHM Network Support">
-  <span>💬</span>
+<!-- ================================
+     CHM Speed-Dial FAB (Phone/Email/Facebook/YouTube/Chat)
+     ================================ -->
+<div id="chmSpeedDial" style="
+  position:fixed; right:18px; bottom:18px; z-index:99999;
+  display:flex; flex-direction:column; align-items:flex-end; gap:14px;
+">
+  <!-- Speed-dial items (hidden by default) -->
+  <div id="chmSpeedItems" style="
+    display:flex; flex-direction:column; align-items:flex-end; gap:14px;
+    opacity:0; pointer-events:none;
+    transform:translateY(20px);
+    transition:opacity 0.3s ease, transform 0.3s ease;
+  ">
+    <!-- Phone -->
+    <div style="display:flex; align-items:center; gap:10px;">
+      <span style="
+        background:#fff; color:#333; padding:6px 14px; border-radius:20px;
+        font-size:14px; font-weight:600; box-shadow:0 2px 8px rgba(0,0,0,0.25);
+        white-space:nowrap;
+      ">Phone</span>
+      <a href="tel:+19738552396" style="
+        width:58px; height:58px; border-radius:50%;
+        background:#2ecc40;
+        display:flex; align-items:center; justify-content:center;
+        box-shadow:0 4px 14px rgba(0,0,0,0.35);
+        text-decoration:none; flex-shrink:0;
+      ">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+          <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+        </svg>
+      </a>
+    </div>
+    <!-- Email -->
+    <div style="display:flex; align-items:center; gap:10px;">
+      <span style="
+        background:#fff; color:#333; padding:6px 14px; border-radius:20px;
+        font-size:14px; font-weight:600; box-shadow:0 2px 8px rgba(0,0,0,0.25);
+        white-space:nowrap;
+      ">Email</span>
+      <a href="mailto:yodebepro@gmail.com?subject=Contact%20from%20CHM%20Network%20Site" style="
+        width:58px; height:58px; border-radius:50%;
+        background:#c0166e;
+        display:flex; align-items:center; justify-content:center;
+        box-shadow:0 4px 14px rgba(0,0,0,0.35);
+        text-decoration:none; flex-shrink:0;
+      ">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+          <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+      </a>
+    </div>
+    <!-- Facebook -->
+    <div style="display:flex; align-items:center; gap:10px;">
+      <span style="
+        background:#fff; color:#333; padding:6px 14px; border-radius:20px;
+        font-size:14px; font-weight:600; box-shadow:0 2px 8px rgba(0,0,0,0.25);
+        white-space:nowrap;
+      ">Facebook</span>
+      <a href="https://www.facebook.com/chmnetwork.net" target="_blank" rel="noopener" style="
+        width:58px; height:58px; border-radius:50%;
+        background:#1877f2;
+        display:flex; align-items:center; justify-content:center;
+        box-shadow:0 4px 14px rgba(0,0,0,0.35);
+        text-decoration:none; flex-shrink:0;
+      ">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+          <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+        </svg>
+      </a>
+    </div>
+    <!-- YouTube -->
+    <div style="display:flex; align-items:center; gap:10px;">
+      <span style="
+        background:#fff; color:#333; padding:6px 14px; border-radius:20px;
+        font-size:14px; font-weight:600; box-shadow:0 2px 8px rgba(0,0,0,0.25);
+        white-space:nowrap;
+      ">YouTube</span>
+      <a href="https://www.youtube.com/@chmnetwork" target="_blank" rel="noopener" style="
+        width:58px; height:58px; border-radius:50%;
+        background:#ff0000;
+        display:flex; align-items:center; justify-content:center;
+        box-shadow:0 4px 14px rgba(0,0,0,0.35);
+        text-decoration:none; flex-shrink:0;
+      ">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-2.47 12.35 12.35 0 00-7.64 0A4.83 4.83 0 014.41 6.69 49.14 49.14 0 004 12a49.14 49.14 0 00.41 5.31 4.83 4.83 0 003.77 2.47 12.35 12.35 0 007.64 0 4.83 4.83 0 003.77-2.47A49.14 49.14 0 0020 12a49.14 49.14 0 00-.41-5.31zM10 15V9l5 3z"/>
+        </svg>
+      </a>
+    </div>
+    <!-- Chat -->
+    <div style="display:flex; align-items:center; gap:10px;">
+      <span style="
+        background:#fff; color:#333; padding:6px 14px; border-radius:20px;
+        font-size:14px; font-weight:600; box-shadow:0 2px 8px rgba(0,0,0,0.25);
+        white-space:nowrap;
+      ">Chat</span>
+      <button id="chmChatFab" onclick="(function(e){e.stopPropagation();document.getElementById('chmSpeedItems').style.opacity='0';document.getElementById('chmSpeedItems').style.pointerEvents='none';document.getElementById('chmSpeedItems').style.transform='translateY(20px)';document.getElementById('chmSpeedDialMainBtn').innerHTML=chmSdOpenSVG;chmSdOpen=false;if(typeof window.openChat==='function')window.openChat();})(event)" style="
+        width:58px; height:58px; border-radius:50%;
+        background:#1a73e8;
+        display:flex; align-items:center; justify-content:center;
+        box-shadow:0 4px 14px rgba(0,0,0,0.35);
+        border:none; cursor:pointer; flex-shrink:0; position:relative;
+      ">
+        <span style="
+          position:absolute; top:4px; right:4px; width:12px; height:12px;
+          background:#ff3b30; border-radius:50%; border:2px solid #1a73e8;
+        "></span>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main toggle button -->
+  <button id="chmSpeedDialMainBtn" onclick="chmToggleSpeedDial()" style="
+    width:64px; height:64px; border-radius:50%;
+    background:linear-gradient(135deg,#1a73e8,#0097a7);
+    border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 20px rgba(0,0,0,0.4);
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+    flex-shrink:0;
+  " onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'"
+  ></button>
 </div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function(){
+  var chmSdOpen = false;
+  var chmSdOpenSVG = '<svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>';
+  var chmSdCloseSVG = '<svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
+
+  // Set initial icon
+  var mainBtn = document.getElementById('chmSpeedDialMainBtn');
+  if(mainBtn) mainBtn.innerHTML = chmSdOpenSVG;
+
+  window.chmSdOpen = chmSdOpen;
+  window.chmSdOpenSVG = chmSdOpenSVG;
+
+  window.chmToggleSpeedDial = function(){
+    var items = document.getElementById('chmSpeedItems');
+    var btn = document.getElementById('chmSpeedDialMainBtn');
+    if(!items || !btn) return;
+    chmSdOpen = !chmSdOpen;
+    window.chmSdOpen = chmSdOpen;
+    if(chmSdOpen){
+      items.style.opacity = '1';
+      items.style.pointerEvents = 'auto';
+      items.style.transform = 'translateY(0)';
+      btn.innerHTML = chmSdCloseSVG;
+    } else {
+      items.style.opacity = '0';
+      items.style.pointerEvents = 'none';
+      items.style.transform = 'translateY(20px)';
+      btn.innerHTML = chmSdOpenSVG;
+    }
+  };
+
+  // Close when clicking outside
+  document.addEventListener('click', function(e){
+    var dial = document.getElementById('chmSpeedDial');
+    if(dial && !dial.contains(e.target) && window.chmSdOpen){
+      window.chmToggleSpeedDial();
+    }
+  });
+})();
+</script>
 
 <div class="chm-chat-panel" id="chmChatPanel" aria-live="polite">
   <div class="chm-chat-header">
@@ -4764,18 +5084,21 @@ function initPublicVideoPlaylistPanel() {
     <div class="chm-chat-inputrow">
       <input class="chm-chat-input" id="chmChatInput" type="text" placeholder="Type your message..." />
       <button class="chm-chat-send" id="chmChatSend">Send</button>
-      <button class="chm-chat-mic" id="chmChatMic" title="Voice to text">🎙️</button>
+      <button class="chm-chat-admin" id="chmChatAdmin" style="display:none;">Admin</button>
+      <button class="chm-chat-mic" id="chmChatMic" title="Voice to text" style="display:none;">🎙️</button>
     </div>
     <div class="chm-chat-hint" id="chmChatHint">
-      Note: If your browser blocks autoplay, press Play once. For urgent help, use the options and we will notify the admin.
+      
     </div>
 
     <div class="chm-chat-inbox" id="chmChatInbox">
-      <div class="chm-pill">🛠️ Admin Inbox</div>
-      <div class="chm-chat-hint">Select a conversation below to reply inside the widget.</div>
+      <div class="chm-pill">📱 Messages via Phone</div>
+      <div class="chm-chat-hint" style="display:none;">Your message will be sent to 929-500-1124</div>
       <div class="chm-inbox-list" id="chmInboxList"></div>
     </div>
   </div>
+
+
 
 
 </div>
@@ -4786,388 +5109,304 @@ function initPublicVideoPlaylistPanel() {
    CHM Chat Widget (embedded)
    ========================= */
 (function(){
-  const ADMIN_EMAIL = "yodebepro@gmail.com";
-  const ADMIN_PHONE = "9738552396"; // Admin phone for direct SMS link
-  const ADMIN_PIN = "9738552396";   // simple local admin gate (change anytime)
+  /* =====================================================
+     CHM Chat — clean rewrite
+     Public : Send visible, Admin+Mic hidden
+     Admin  : Send + Admin + Mic all visible & working
+     ===================================================== */
 
-  const LS_KEY = "chm_chat_sessions_v1";
+  const ADMIN_EMAIL        = "yodebepro@gmail.com";
+  const ADMIN_PHONE        = "9295001124";   // chatbot SMS line
+  const ADMIN_PHONE_DIAL   = "9738552396";   // phone menu dial number
+  const ADMIN_PIN          = "973855";
+  const LS_KEY             = "chm_chat_sessions_v1";
 
-  const fab = document.getElementById("chmChatFab");
-  const waFab = null;
-  const panel = document.getElementById("chmChatPanel");
+  // ── DOM refs ──────────────────────────────────────────
+  const fab      = document.getElementById("chmChatFab");
+  const panel    = document.getElementById("chmChatPanel");
   const closeBtn = document.getElementById("chmChatClose");
-  const body = document.getElementById("chmChatBody");
-  const input = document.getElementById("chmChatInput");
-  const sendBtn = document.getElementById("chmChatSend");
-  const adminBtn = document.getElementById("chmChatAdmin") || document.createElement("button");
-  const micBtn = document.getElementById("chmChatMic");
-  const waBtn = null;
-  const waPanel = null;
-  const waClose = null;
+  const body     = document.getElementById("chmChatBody");
+  const input    = document.getElementById("chmChatInput");
+  const sendBtn  = document.getElementById("chmChatSend");
+  const adminBtn = document.getElementById("chmChatAdmin");
+  const micBtn   = document.getElementById("chmChatMic");
+  const inboxWrap= document.getElementById("chmChatInbox");
 
-  function positionWhatsAppPanel(){
-    if(!waPanel) return;
-    // Anchor next to the WhatsApp floating button
-    const btn = waFab || waBtn;
-    const margin = 12;
-    if(btn){
-      const r = btn.getBoundingClientRect();
-      const width = Math.min(380, window.innerWidth - 36);
-      const height = Math.min(620, window.innerHeight - 140);
-      const left = Math.max(18, Math.min(window.innerWidth - width - 18, r.left - width - margin));
-      const top = Math.max(18, Math.min(window.innerHeight - height - 92, r.top - height - margin));
-      waPanel.style.width = width + "px";
-      waPanel.style.height = height + "px";
-      waPanel.style.left = left + "px";
-      waPanel.style.top = top + "px";
-      waPanel.style.right = "auto";
-      waPanel.style.bottom = "auto";
-    }else{
-      // Fallback bottom-right
-      waPanel.style.left = "auto";
-      waPanel.style.top = "auto";
-      waPanel.style.right = "18px";
-      waPanel.style.bottom = "92px";
-    }
-  }
+  let isAdmin        = false;
+  let activeSessionId= null;
 
-function toggleWhatsAppPanel(force){
-    if(!waPanel) return;
-    const shouldOpen = (typeof force === "boolean") ? force : !waPanel.classList.contains("open");
-    if(shouldOpen){
-      // Open WhatsApp only (do not open CHM chat at the same time)
-      panel.classList.remove("open");
-
-      // Ensure Elfsight platform script is present (in case it was blocked or removed)
-      if(!document.querySelector('script[src="https://elfsightcdn.com/platform.js"]')){
-        const s = document.createElement("script");
-        s.src = "https://elfsightcdn.com/platform.js";
-        s.async = true;
-        document.head.appendChild(s);
-      }
-
-      // Show panel and position it near the WhatsApp button (not overlapping the chat panel)
-      waPanel.classList.add("open");
-      waPanel.setAttribute("aria-hidden","false");
-      positionWhatsAppPanel();
-
-      // If the widget is still empty, give it a small nudge by re-attaching the container once.
-      if(!waPanel.dataset.elfsightNudged){
-        const app = waPanel.querySelector('[class*="elfsight-app-"]');
-        if(app){
-          waPanel.dataset.elfsightNudged = "1";
-          const clone = app.cloneNode(true);
-          app.replaceWith(clone);
-        }
-      }
-      // If Elfsight content doesn't render quickly, show a direct WhatsApp fallback link.
-      setTimeout(()=>{
-        try{
-          const app = waPanel.querySelector('.elfsight-app-dceefc20-f8a3-44fb-9349-a818baa1b883');
-          const fallback = document.getElementById("chmWaFallback");
-          // Heuristic: if Elfsight hasn't injected anything inside the app div, show fallback.
-          const empty = !app || !(app.children && app.children.length) || app.innerText.trim()==="";
-          if(fallback){
-            fallback.style.display = empty ? "block" : "none";
-          }
-        }catch(e){}
-      }, 1200);
-
-    }else{
-      waPanel.classList.remove("open");
-      waPanel.setAttribute("aria-hidden","true");
-    }
-  }
-const inboxWrap = document.getElementById("chmChatInbox");
-  const inboxList = document.getElementById("chmInboxList");
-
-  let isAdmin = (function(){
-    try { return localStorage.getItem("CHM_ADMIN_AUTH") === "1"; } catch(e){ return false; }
-  })();
-  let activeSessionId = null;
-
-  function nowIso(){
-    return new Date().toISOString();
-  }
+  // ── Utility ───────────────────────────────────────────
+  function nowIso(){ return new Date().toISOString(); }
 
   function loadSessions(){
-    try{
-      const raw = localStorage.getItem(LS_KEY);
-      if(!raw) return {};
-      return JSON.parse(raw);
-    }catch(e){
-      return {};
-    }
+    try{ const r=localStorage.getItem(LS_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; }
   }
-
-  function saveSessions(sessions){
-    localStorage.setItem(LS_KEY, JSON.stringify(sessions));
-  }
+  function saveSessions(s){ try{ localStorage.setItem(LS_KEY,JSON.stringify(s)); }catch(e){} }
 
   function ensureSession(){
-    const sessions = loadSessions();
+    let sessions = loadSessions();
     if(activeSessionId && sessions[activeSessionId]) return activeSessionId;
-
-    // Try URL hash session
-    const hash = (location.hash || "").trim();
+    const hash = (location.hash||"").trim();
     const m = hash.match(/chmchat:([a-zA-Z0-9_-]+)/);
-    if(m && sessions[m[1]]){ activeSessionId = m[1]; return activeSessionId; }
-
-    // Create new session
-    const id = "CHM-" + Math.random().toString(36).slice(2,8).toUpperCase() + "-" + Date.now().toString().slice(-4);
-    sessions[id] = {
-      id,
-      createdAt: nowIso(),
-      topic: "",
-      status: "open",
-      messages: []
-    };
+    if(m && sessions[m[1]]){ activeSessionId=m[1]; return activeSessionId; }
+    const id = "CHM-"+Math.random().toString(36).slice(2,8).toUpperCase()+"-"+Date.now().toString().slice(-4);
+    sessions[id] = { id, createdAt:nowIso(), topic:"", status:"open", messages:[] };
     saveSessions(sessions);
     activeSessionId = id;
-    location.hash = "chmchat:" + id;
+    try{ location.hash = "chmchat:"+id; }catch(e){}
     return id;
   }
 
+  // ── Core message push (BUG FIX: ensureSession FIRST, then reload) ──
   function pushMsg(role, text){
-    const sessions = loadSessions();
-    const sid = ensureSession();
-    sessions[sid].messages.push({ role, text, at: nowIso() });
+    const sid = ensureSession();            // create session if needed
+    const sessions = loadSessions();        // reload AFTER so new session exists
+    if(!sessions[sid]) return;
+    sessions[sid].messages.push({ role, text, at:nowIso() });
     saveSessions(sessions);
     renderConversation(sid);
   }
 
-  function clearBody(){
-    while(body.firstChild) body.removeChild(body.firstChild);
-  }
-
-  function el(tag, cls, txt){
-    const n = document.createElement(tag);
-    if(cls) n.className = cls;
-    if(typeof txt === "string") n.textContent = txt;
+  function el(tag,cls,txt){
+    const n=document.createElement(tag);
+    if(cls) n.className=cls;
+    if(typeof txt==="string") n.textContent=txt;
     return n;
   }
+  function scrollBottom(){ body.scrollTop=body.scrollHeight; }
+  function clearBody(){ while(body.firstChild) body.removeChild(body.firstChild); }
 
-  function scrollBottom(){
-    body.scrollTop = body.scrollHeight;
-  }
-
+  // ── Render a conversation ──────────────────────────────
   function renderConversation(sid){
     const sessions = loadSessions();
     const s = sessions[sid];
     if(!s) return;
-
     clearBody();
 
-    // greeting if empty
     if(!s.messages.length){
-      const welcome = 'Welcome to CHM Network, Please Tell Us How May We Assist You Today';
-      const wrap = el("div", "chm-chat-msg bot");
-      const bubble = el("div", "chm-chat-bubble", welcome);
-      wrap.appendChild(bubble);
+      const welcome = "Welcome to CHM Network \uD83D\uDE4F\n\nPlease tell us how we may assist you today?\n\n\uD83D\uDCE7 Email: yodebepro@gmail.com\n\uD83D\uDCF1 Chatbot line: 929-500-1124\n\uD83D\uDCDE Phone: 973-855-2396";
+      const wrap = el("div","chm-chat-msg bot");
+      wrap.appendChild(el("div","chm-chat-bubble",welcome));
       body.appendChild(wrap);
 
-      const actionsWrap = el("div", "chm-chat-actions");
+      const actionsWrap = el("div","chm-chat-actions");
       const opts = [
-        {key:"Technical difficulties (Radio/TV Not Playing)", val:"1-) Technical difficulties (Radio/TV Not Playing)"},
-        {key:"Live Customer Service", val:"2-) Live Customer Service"},
-        {key:"I need someone to pray with me or for me", val:"3-) I need someone to pray with me or for me"},
-        {key:"All Others", val:"4-) All Others"},
+        { label:"\uD83D\uDCDE Request a call back",  val:"call_back" },
+        { label:"\uD83D\uDCE7 Send us an email",     val:"email" },
+        { label:"\uD83D\uDE4F Prayer request",        val:"prayer" },
+        { label:"\uD83D\uDCE2 General inquiry",       val:"inquiry" }
       ];
       opts.forEach(o=>{
-        const chip = el("button", "chm-chip", o.val);
-        chip.addEventListener("click", ()=>{
+        const btn = document.createElement("button");
+        btn.className = "chm-chat-opt-btn";
+        btn.textContent = o.label;
+        btn.onclick = ()=>{
           const sessions2 = loadSessions();
-          const s2 = sessions2[sid];
-          s2.topic = o.key;
-          saveSessions(sessions2);
-
-          pushMsg("user", o.val);
-          notifyAdmin(sid, o.val);
-          pushMsg("bot", "Thank you. We notified the CHM Network admin. Please type any details below (name, issue, and best call-back time).");
-        });
-        actionsWrap.appendChild(chip);
+          if(sessions2[sid]){
+            sessions2[sid].topic = o.val;
+            saveSessions(sessions2);
+          }
+          pushMsg("user", o.label);
+          const sms  = "sms:"+ADMIN_PHONE+"?body="+encodeURIComponent("[CHM Chat] Topic: "+o.label+" | Session: "+sid);
+          const mailto = "mailto:"+ADMIN_EMAIL+"?subject="+encodeURIComponent("[CHM Chat] "+o.label)+"&body="+encodeURIComponent("Session: "+sid+"\nTopic: "+o.label+"\nTime: "+nowIso());
+          pushMsg("bot","\u2705 Thank you! We notified the CHM Network team.\n\nPlease type any details below (name, issue, best call-back time).\n\nWe will reply via email or phone shortly.");
+          try{ window.open(sms,"_blank"); }catch(e){}
+          setTimeout(()=>{ try{ window.open(mailto,"_blank"); }catch(e){}; },800);
+        };
+        actionsWrap.appendChild(btn);
       });
       body.appendChild(actionsWrap);
-      scrollBottom();
-      return;
     }
 
-    // render messages
-    s.messages.forEach(m=>{
-      const wrap = el("div", "chm-chat-msg " + (m.role === "user" ? "user" : "bot"));
-      const bubble = el("div", "chm-chat-bubble", m.text);
+    s.messages.forEach(msg=>{
+      const wrap = el("div","chm-chat-msg "+(msg.role==="user"?"user":"bot"));
+      const bubble = el("div","chm-chat-bubble",msg.text);
       wrap.appendChild(bubble);
       body.appendChild(wrap);
     });
 
-    // admin hint
+    // Admin reply row (only in admin mode)
     if(isAdmin){
-      const hint = el("div","chm-chat-hint",
-        "Admin mode: reply here. Visitors will see your replies on the same device/browser. (For true multi-device chat + SMS/email replies, you need a backend.)"
-      );
-      body.appendChild(hint);
+      const sessions2 = loadSessions();
+      const allSessions = Object.values(sessions2);
+      if(allSessions.length > 1 || (s.messages.length && s.messages[0].role==="user")){
+        const replyNote = el("div","chm-chat-hint","Admin: type reply above and press Send \u2191");
+        body.appendChild(replyNote);
+      }
     }
 
     scrollBottom();
   }
 
-  function notifyAdmin(sessionId, selectionText){
-    // IMPORTANT: Pure static HTML cannot silently send SMS from the server without an SMS backend.
-    // This creates a direct SMS link to the admin phone and opens it when the browser/device allows.
-    const url = location.href.split("#")[0] + "#chmchat:" + sessionId;
-
-    const subject = encodeURIComponent("CHM Network Chat Request - " + sessionId);
-    const bodyText = encodeURIComponent(
-      "A visitor selected:\n" + selectionText + "\n\nSession: " + sessionId + "\nLink: " + url + "\n\n(Reply in the on-page Admin chat, or set up backend to reply by SMS/email.)"
-    );
-
-    // Mailto
-    const mailto = `mailto:${ADMIN_EMAIL}?subject=${subject}&body=${bodyText}`;
-
-    // SMS (mobile-friendly)
-    const sms = `sms:${ADMIN_PHONE}?&body=${bodyText}`;
-
-    // Try to open mailto; if blocked, show a clickable message in chat.
-    try{
-      window.open(mailto, "_blank");
-      window.open(sms, "_blank");
-      pushMsg("bot", "Direct admin notification opened for phone number 973-855-2396 if your device allows SMS links.");
-      pushMsg("bot", "Admin chat link: " + url);
-    }catch(e){
-      pushMsg("bot", "Notification link: " + mailto);
-      pushMsg("bot", "SMS link: " + sms);
-      pushMsg("bot", "Admin link: " + url);
-    }
-  }
-
+  // ── Inbox (admin view of all sessions) ────────────────
   function renderInbox(){
+    const list = document.getElementById("chmInboxList");
+    if(!list) return;
+    list.innerHTML = "";
     const sessions = loadSessions();
-    const ids = Object.keys(sessions).sort((a,b)=> (sessions[b].createdAt||"").localeCompare(sessions[a].createdAt||""));
-    inboxList.innerHTML = "";
-
-    if(!ids.length){
-      const empty = el("div","chm-chat-hint","No conversations yet.");
-      inboxList.appendChild(empty);
+    const all = Object.values(sessions).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));
+    if(!all.length){
+      list.appendChild(el("div","chm-chat-hint","No conversations yet."));
       return;
     }
-
-    ids.forEach(id=>{
-      const s = sessions[id];
-      const last = (s.messages && s.messages.length) ? s.messages[s.messages.length-1].text : "(no messages yet)";
-      const item = el("div","chm-inbox-item");
-      const row1 = el("div","row1");
-      const idEl = el("div","id", id);
-      const tag = el("div","tag", s.topic ? s.topic : "New");
-      row1.appendChild(idEl);
-      row1.appendChild(tag);
-
-      const preview = el("div","preview", last.slice(0,80) + (last.length>80 ? "…" : ""));
-      item.appendChild(row1);
-      item.appendChild(preview);
-
-      item.addEventListener("click", ()=>{
-        activeSessionId = id;
-        location.hash = "chmchat:" + id;
-        renderConversation(id);
-      });
-
-      inboxList.appendChild(item);
+    all.forEach(s=>{
+      const last = s.messages[s.messages.length-1];
+      const item = document.createElement("div");
+      item.className = "chm-inbox-item" + (s.id===activeSessionId?" active":"");
+      item.innerHTML = "<strong>"+s.id+"</strong><span>"+(last?last.text.slice(0,40):"(empty)")+"</span>";
+      item.onclick = ()=>{
+        activeSessionId = s.id;
+        renderConversation(s.id);
+        renderInbox();
+      };
+      list.appendChild(item);
     });
   }
 
+  // ── Show/hide buttons based on mode ───────────────────
+  function applyAdminUi(){
+    if(adminBtn){
+      adminBtn.style.display = isAdmin ? "inline-flex" : "none";
+    }
+    if(micBtn){
+      micBtn.style.display = isAdmin ? "inline-flex" : "none";
+    }
+    if(inboxWrap){
+      inboxWrap.style.display = isAdmin ? "block" : "none";
+    }
+    if(isAdmin) renderInbox();
+  }
+  window.syncChatAdminUi = applyAdminUi;
+
+  // ── Open / close chat panel ───────────────────────────
   function openChat(){
-    // Open CHM chat only
-    if(waPanel) waPanel.classList.remove("open");
+    if(!panel) return;
     panel.classList.add("open");
+    applyAdminUi();
     const sid = ensureSession();
     renderConversation(sid);
-    if(isAdmin){
-      inboxWrap.style.display = "block";
-      renderInbox();
-    }else{
-      inboxWrap.style.display = "none";
-    }
+    if(input) input.focus();
   }
-
   function closeChat(){
+    if(!panel) return;
     panel.classList.remove("open");
   }
 
-  fab.addEventListener("click", openChat);
-  closeBtn.addEventListener("click", closeChat);
-  if(waFab){ waFab.addEventListener("click", (e)=>{ e.preventDefault(); e.stopPropagation(); toggleWhatsAppPanel(); }); }
-  if(waBtn){ waBtn.addEventListener("click", ()=>toggleWhatsAppPanel()); }
-  if(waClose){ waClose.addEventListener("click", ()=>toggleWhatsAppPanel(false)); }
-  window.addEventListener("resize", ()=>{ if(waPanel && waPanel.classList.contains("open")) positionWhatsAppPanel(); });
+  // Expose so speed-dial onclick can call it
+  window.openChat = openChat;
 
+  if(fab){ fab.addEventListener("click", function(e){ e.stopPropagation(); openChat(); }); }
+  if(closeBtn){ closeBtn.addEventListener("click", closeChat); }
+
+  // ── Send button (works for BOTH public and admin) ─────
   sendBtn.addEventListener("click", ()=>{
-    const txt = (input.value || "").trim();
+    const txt = (input.value||"").trim();
     if(!txt) return;
-    pushMsg("user", txt);
     input.value = "";
-    // Public visitor message: notify admin with direct phone link and keep chat open
+    pushMsg(isAdmin ? "bot" : "user", txt);
     if(!isAdmin){
-      const sid = ensureSession();
-      notifyAdmin(sid, txt);
-      pushMsg("bot", "Thank you. Your message was prepared for direct notification to the admin phone number 973-855-2396. Please keep this chat open for replies.");
+      // public visitor: auto-acknowledge + SMS draft
+      setTimeout(()=>{
+        pushMsg("bot","Thank you! We received your message and will get back to you soon.");
+        const smsLink = "sms:"+ADMIN_PHONE+"?body="+encodeURIComponent("[CHM Chat] Visitor: "+txt+" | Session: "+activeSessionId);
+        try{ window.open(smsLink,"_blank"); }catch(e){}
+      }, 300);
+    } else {
+      // admin reply: show confirmation
+      setTimeout(()=>{
+        pushMsg("bot","\uD83D\uDCE4 Reply sent to visitor session.");
+      }, 200);
     }
   });
 
   input.addEventListener("keydown", (e)=>{
-    if(e.key === "Enter"){
-      e.preventDefault();
-      sendBtn.click();
+    if(e.key==="Enter"){ e.preventDefault(); sendBtn.click(); }
+  });
+
+  // ── Admin PIN Modal ───────────────────────────────────
+  const chmAdminOverlay = document.createElement("div");
+  chmAdminOverlay.id = "chmAdminOverlay";
+  chmAdminOverlay.style.cssText = "display:none;position:absolute;inset:0;z-index:99999;background:rgba(0,0,0,0.82);backdrop-filter:blur(4px);align-items:center;justify-content:center;border-radius:inherit;";
+  chmAdminOverlay.innerHTML = `
+    <div style="background:linear-gradient(145deg,#0f1923,#162330);border:1px solid rgba(0,199,255,0.25);border-radius:16px;padding:28px 24px;width:240px;box-shadow:0 12px 40px rgba(0,0,0,0.6);text-align:center;">
+      <div style="font-size:2rem;margin-bottom:8px;">&#x1F510;</div>
+      <div style="font-weight:800;font-size:1rem;color:#e0f7ff;margin-bottom:4px;">Admin Access</div>
+      <div style="font-size:11px;color:rgba(200,230,255,0.55);margin-bottom:18px;">CHM Network Chatbot</div>
+      <input id="chmAdminPinInput" type="password" placeholder="Enter passcode" maxlength="30"
+        style="width:100%;box-sizing:border-box;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(0,199,255,0.3);color:#fff;font-size:15px;letter-spacing:3px;outline:none;margin-bottom:10px;" />
+      <div id="chmAdminPinError" style="color:#ff5e5e;font-size:12px;min-height:18px;margin-bottom:8px;"></div>
+      <button id="chmAdminPinSubmit" style="width:100%;padding:11px;border-radius:10px;background:linear-gradient(135deg,#00c7ff,#0097a7);color:#fff;font-weight:800;font-size:14px;border:none;cursor:pointer;margin-bottom:10px;">Unlock</button>
+      <button id="chmAdminPinCancel" style="width:100%;padding:9px;border-radius:10px;background:rgba(255,255,255,0.06);color:rgba(200,230,255,0.65);font-size:13px;border:1px solid rgba(255,255,255,0.1);cursor:pointer;">Cancel</button>
+    </div>`;
+  if(panel){ panel.style.position="relative"; panel.appendChild(chmAdminOverlay); }
+
+  function showPinModal(){
+    chmAdminOverlay.style.display="flex";
+    document.getElementById("chmAdminPinInput").value="";
+    document.getElementById("chmAdminPinError").textContent="";
+    setTimeout(()=>{ const i=document.getElementById("chmAdminPinInput"); if(i) i.focus(); },80);
+  }
+  function hidePinModal(){ chmAdminOverlay.style.display="none"; }
+
+  document.getElementById("chmAdminPinSubmit").addEventListener("click",()=>{
+    const val=(document.getElementById("chmAdminPinInput").value||"").trim();
+    if(val===ADMIN_PIN){
+      isAdmin=true;
+      applyAdminUi();
+      const sid=ensureSession();
+      renderConversation(sid);
+      hidePinModal();
+    } else {
+      document.getElementById("chmAdminPinError").textContent="Incorrect passcode. Try again.";
+      document.getElementById("chmAdminPinInput").value="";
+      document.getElementById("chmAdminPinInput").focus();
+    }
+  });
+  document.getElementById("chmAdminPinInput").addEventListener("keydown",(e)=>{
+    if(e.key==="Enter") document.getElementById("chmAdminPinSubmit").click();
+  });
+  document.getElementById("chmAdminPinCancel").addEventListener("click", hidePinModal);
+
+  // Admin button — opens PIN modal (toggles back to public if already admin)
+  adminBtn.addEventListener("click", ()=>{
+    if(isAdmin){
+      isAdmin=false;
+      applyAdminUi();
+      const sid=ensureSession();
+      renderConversation(sid);
+    } else {
+      showPinModal();
     }
   });
 
-  // Admin controls are intentionally not shown on the public chatbox.
-  // Admin chat is opened only from the logged-in Admin Panel.
-  window.enableChmChatAdminFromPanel = function(){
-    try { localStorage.setItem("CHM_ADMIN_AUTH","1"); } catch(e){}
-    isAdmin = true;
-    openChat();
-    inboxWrap.style.display = "block";
-    renderInbox();
-    pushMsg("bot", "Admin chat inbox opened from the Admin Panel.");
-  };
-
-  // Voice to text (Chrome/Edge mostly)
+  // ── Microphone (admin only after PIN) ─────────────────
   let recognition = null;
   function initSpeech(){
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if(!SpeechRecognition) return null;
-    const r = new SpeechRecognition();
-    r.lang = "en-US";
-    r.interimResults = false;
-    r.maxAlternatives = 1;
-    r.onresult = (event)=>{
-      const t = event.results[0][0].transcript;
-      input.value = (input.value ? (input.value + " ") : "") + t;
+    const SR = window.SpeechRecognition||window.webkitSpeechRecognition;
+    if(!SR) return null;
+    const r = new SR();
+    r.lang="en-US"; r.interimResults=false; r.maxAlternatives=1;
+    r.onresult=(event)=>{
+      const t=event.results[0][0].transcript;
+      input.value=(input.value?(input.value+" "):"")+t;
       input.focus();
     };
-    r.onerror = ()=>{};
+    r.onerror=()=>{};
     return r;
   }
 
-  micBtn.addEventListener("click", ()=>{
-    if(!isAdmin){
-      alert("Voice-to-text is available for admin replies. Tap Admin first.");
-      return;
-    }
-    if(!recognition) recognition = initSpeech();
-    if(!recognition){
-      alert("Voice recognition is not supported on this browser.");
-      return;
-    }
+  micBtn.addEventListener("click",()=>{
+    if(!isAdmin){ showPinModal(); return; }
+    if(!recognition) recognition=initSpeech();
+    if(!recognition){ alert("Voice recognition is not supported on this browser."); return; }
     try{ recognition.start(); }catch(e){}
   });
 
-  // Auto-open if hash includes session
-  window.addEventListener("load", ()=>{
-    const h = (location.hash||"");
-    if(h.includes("chmchat:")){
-      openChat();
-    }
+  // ── Auto-open if URL hash has session ─────────────────
+  window.addEventListener("load",()=>{
+    applyAdminUi();
+    const h=(location.hash||"");
+    if(h.includes("chmchat:")){ openChat(); }
   });
 })();
 
@@ -7351,336 +7590,67 @@ function escapeAttr(str){ return escapeHtml(str).replaceAll('\n',' '); }
       </div>
 
       <div style="margin-top:12px; font-size:.95rem; opacity:.85;">
-        Tip: For “automatic transactions to your account”, paste your payment link for each item (Stripe Payment Link, PayPal, Shopify, Gumroad, etc.).
-        The <b>Buy</b> button will open that checkout link.
-      </div>
-    </div>
-  </div>
-</div>
-    
-<script>
-(function(){
-  const ANALYTICS_KEY = 'chmnetwork.analytics.v1';
+        Tip: For “automatic transactions to your account”, paste your payment link for each item (Stripe Payment Link, PayPal, Shopify, Gumroa
+<script id="chatAdminSecurityScript">
+// 🔒 Chatbot admin protection
+const CHAT_ADMIN_PASSWORD = "CHM2026";
 
-  function readAnalytics(){
-    try{
-      const base = {
-        pageViews: 0,
-        tvPlays: 0,
-        radioStarts: 0,
-        storeBuyClicks: 0,
-        purchaseOpens: 0,
-        videoViews: 0,
-        lastVideoSync: ''
-      };
-      const raw = localStorage.getItem(ANALYTICS_KEY);
-      if(!raw) return base;
-      return Object.assign(base, JSON.parse(raw) || {});
-    }catch(e){
-      return {
-        pageViews: 0,
-        tvPlays: 0,
-        radioStarts: 0,
-        storeBuyClicks: 0,
-        purchaseOpens: 0,
-        videoViews: 0,
-        lastVideoSync: ''
-      };
+function openChatAdmin() {
+  try {
+    if (localStorage.getItem('CHM_ADMIN_AUTH') !== '1') {
+      return;
     }
+  } catch(e) {
+    return;
   }
 
-  function saveAnalytics(data){
-    try{ localStorage.setItem(ANALYTICS_KEY, JSON.stringify(data)); }catch(e){}
-  }
+  const input = window.prompt("Enter Admin Passcode:");
+  if (!input) return;
 
-  function markSync(){
-    const a = readAnalytics();
-    a.lastVideoSync = new Date().toLocaleString();
-    saveAnalytics(a);
-    updateAnalyticsUi();
-  }
+  if (input === CHAT_ADMIN_PASSWORD) {
+    const adminPanel =
+      document.getElementById('chatAdminPanel') ||
+      document.getElementById('chmChatAdminPanel') ||
+      document.getElementById('chatbotAdminPanel') ||
+      document.querySelector('.chat-admin-panel');
 
-  function incrementAnalytics(field, amount){
-    const a = readAnalytics();
-    a[field] = Number(a[field] || 0) + (amount || 1);
-    if(field === 'tvPlays'){ a.videoViews = Number(a.videoViews || 0) + (amount || 1); }
-    saveAnalytics(a);
-    updateAnalyticsUi();
-  }
-
-  function updateAnalyticsUi(){
-    const a = readAnalytics();
-    const setText = (id, value) => {
-      const el = document.getElementById(id);
-      if(el) el.textContent = value;
-    };
-    setText('analyticsPageviews', a.pageViews || 0);
-    setText('analyticsVideoPlays', a.tvPlays || 0);
-    setText('analyticsRadioStarts', a.radioStarts || 0);
-    setText('analyticsStoreBuys', a.storeBuyClicks || 0);
-    setText('analyticsPurchases', a.purchaseOpens || 0);
-    setText('analyticsLastSync', a.lastVideoSync || '—');
-
-    setText('statTotalVisitors', a.pageViews || 0);
-    setText('statLiveListeners', a.radioStarts || 0);
-    setText('statVideoViews', a.videoViews || 0);
-  }
-
-  window.exportAnalyticsSnapshot = function(){
-    const payload = readAnalytics();
-    const blob = new Blob([JSON.stringify(payload, null, 2)], {type: 'application/json'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'analytics_snapshot.json';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
-    if(typeof showNotification === 'function'){
-      showNotification('📊 Analytics snapshot exported.', 'success');
+    if (adminPanel) {
+      adminPanel.style.display = 'block';
+      adminPanel.classList.add('open');
+      adminPanel.classList.remove('hidden');
+      window.alert("Access Granted");
+    } else {
+      window.alert("Admin panel not found.");
     }
-  };
-
-  window.resetAnalyticsSnapshot = function(){
-    if(!confirm('Reset analytics snapshot for this site copy?')) return;
-    saveAnalytics({
-      pageViews: 0,
-      tvPlays: 0,
-      radioStarts: 0,
-      storeBuyClicks: 0,
-      purchaseOpens: 0,
-      videoViews: 0,
-      lastVideoSync: ''
-    });
-    sessionStorage.removeItem('chmnetwork.analytics.sessionPageView');
-    updateAnalyticsUi();
-    if(typeof showNotification === 'function'){
-      showNotification('♻ Analytics snapshot reset.', 'success');
-    }
-  };
-
-  if(!sessionStorage.getItem('chmnetwork.analytics.sessionPageView')){
-    incrementAnalytics('pageViews', 1);
-    sessionStorage.setItem('chmnetwork.analytics.sessionPageView', '1');
-  }else{
-    updateAnalyticsUi();
+  } else {
+    window.alert("Access Denied");
   }
+}
 
-  document.addEventListener('DOMContentLoaded', function(){
-    updateAnalyticsUi();
+document.addEventListener('DOMContentLoaded', () => {
+  const fabMainBtn =
+    document.getElementById('fabMainBtn') ||
+    document.getElementById('chmContactLaunchBtn') ||
+    document.getElementById('chmChatFab');
 
-    const radioPlayer = document.getElementById('radioPlayer');
-    if(radioPlayer && !radioPlayer.dataset.analyticsBound){
-      radioPlayer.dataset.analyticsBound = '1';
-      radioPlayer.addEventListener('play', function(){
-        incrementAnalytics('radioStarts', 1);
-      });
-    }
+  let clickCount = 0;
+  let clickTimer = null;
 
-    const videoPlayer = document.getElementById('videoPlayer');
-    if(videoPlayer && !videoPlayer.dataset.analyticsBound){
-      videoPlayer.dataset.analyticsBound = '1';
-      videoPlayer.addEventListener('play', function(){
-        incrementAnalytics('tvPlays', 1);
-      });
-    }
+  if (fabMainBtn) {
+    fabMainBtn.addEventListener('click', () => {
+      clickCount++;
+      if (clickTimer) clearTimeout(clickTimer);
+      clickTimer = setTimeout(() => { clickCount = 0; }, 2000);
 
-    document.querySelectorAll('.purchaseBtn, #purchaseBtn').forEach(function(btn){
-      if(btn.dataset.analyticsBound) return;
-      btn.dataset.analyticsBound = '1';
-      btn.addEventListener('click', function(){
-        incrementAnalytics('purchaseOpens', 1);
-      });
-    });
-
-    document.body.addEventListener('click', function(e){
-      const buyBtn = e.target.closest('.shop-card .btn-primary, .product-card .btn-primary');
-      if(buyBtn && /buy/i.test((buyBtn.textContent || '').trim())){
-        incrementAnalytics('storeBuyClicks', 1);
+      if (clickCount >= 5) {
+        clickCount = 0;
+        try {
+          if (localStorage.getItem('CHM_ADMIN_AUTH') === '1') {
+            openChatAdmin();
+          }
+        } catch(e) {}
       }
-    }, true);
-  });
-
-  const wrappedNames = ['playPublicVideoById','saveVideoSchedule','publishTvSourceSettings','exportPublishedVideosJson','importPublishedVideosFile'];
-  function wrapFunction(name, afterFn){
-    const original = window[name];
-    if(typeof original !== 'function' || original.__analyticsWrapped) return;
-    const wrapped = function(){
-      const result = original.apply(this, arguments);
-      try{ afterFn.apply(this, arguments); }catch(e){}
-      return result;
-    };
-    wrapped.__analyticsWrapped = true;
-    window[name] = wrapped;
+    });
   }
-
-  const waitWrap = setInterval(function(){
-    wrapFunction('playPublicVideoById', function(){ incrementAnalytics('tvPlays', 1); });
-    wrapFunction('saveVideoSchedule', function(){ markSync(); });
-    wrapFunction('publishTvSourceSettings', function(){ markSync(); });
-    wrapFunction('exportPublishedVideosJson', function(){ markSync(); });
-    wrapFunction('importPublishedVideosFile', function(){ markSync(); });
-    wrapFunction('openPurchase', function(){ incrementAnalytics('purchaseOpens', 1); });
-    wrapFunction('buyStoreItem', function(){ incrementAnalytics('storeBuyClicks', 1); });
-    if(typeof window.playPublicVideoById === 'function' && typeof window.buyStoreItem === 'function'){
-      clearInterval(waitWrap);
-    }
-  }, 300);
-})();
-</script>
-
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-<!-- LOCKED UPDATE: WhatsApp removed; CHM chatbot restored/kept active. JSON/global media system unchanged. -->
-
-<!-- LOCKED UPDATE: Public chatbot Admin button removed. Admin chat tools moved to Admin Panel. Admin phone link set to 973-855-2396. -->
-
-
-<script>
-/* LOCKED UPDATE: Direct chatbot backend delivery.
-   Public Send button no longer opens SMS/email apps.
-   It posts directly to /api/chat/message.
-   Backend sends SMS notification to admin phone 973-855-2396 and stores the chat session. */
-(function(){
-  const ADMIN_PHONE_DISPLAY = "973-855-2396";
-
-  function byId(id){ return document.getElementById(id); }
-
-  function getMessagesBox(){
-    return byId("chmChatMessages") || byId("chm-chat-messages") || document.querySelector(".chm-chat-messages");
-  }
-
-  function getInput(){
-    return byId("chmChatInput") || byId("chm-chat-input") || byId("chmChatText") || document.querySelector(".chm-chat-input input, textarea#chmChatInput");
-  }
-
-  function appendChatMessage(role, text){
-    const box = getMessagesBox();
-    if(!box) return;
-    const div = document.createElement("div");
-    div.className = "chm-msg " + (role === "user" ? "user" : "bot");
-    div.textContent = text;
-    box.appendChild(div);
-    box.scrollTop = box.scrollHeight;
-  }
-
-  function getVisitorSessionId(){
-    let sid = "";
-    try { sid = localStorage.getItem("CHM_VISITOR_CHAT_SESSION") || ""; } catch(e) {}
-    if(!sid){
-      sid = "chat_" + Date.now() + "_" + Math.random().toString(36).slice(2, 9);
-      try { localStorage.setItem("CHM_VISITOR_CHAT_SESSION", sid); } catch(e) {}
-    }
-    return sid;
-  }
-
-  async function sendDirectMessage(){
-    const input = getInput();
-    if(!input) return false;
-
-    const text = (input.value || "").trim();
-    if(!text) return false;
-
-    const sessionId = getVisitorSessionId();
-    appendChatMessage("user", text);
-    input.value = "";
-
-    try {
-      const response = await fetch("/api/chat/message", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          sessionId,
-          message: text,
-          pageUrl: window.location.href.split("#")[0],
-          userAgent: navigator.userAgent,
-          sentAt: new Date().toISOString()
-        })
-      });
-
-      const data = await response.json().catch(() => ({}));
-
-      if(response.ok && data.ok){
-        appendChatMessage("bot", "Message sent directly. Pastor/Admin has been notified at " + ADMIN_PHONE_DISPLAY + ".");
-      } else {
-        appendChatMessage("bot", "The direct chat server is not connected yet. Please ask the admin to start the backend server.");
-        console.error("Chat API error:", data);
-      }
-    } catch(error){
-      appendChatMessage("bot", "The direct chat server is not reachable yet. Once the backend is deployed, messages will go straight to " + ADMIN_PHONE_DISPLAY + " without opening another app.");
-      console.error("Chat API unreachable:", error);
-    }
-
-    return true;
-  }
-
-  // Override public Send button with direct backend delivery.
-  document.addEventListener("click", function(e){
-    const target = e.target;
-    if(!target) return;
-    if(target.id === "chmChatSend" || target.id === "chm-chat-send" || target.closest("#chmChatSend, #chm-chat-send")){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      sendDirectMessage();
-    }
-  }, true);
-
-  document.addEventListener("keydown", function(e){
-    const target = e.target;
-    if(!target) return;
-    const isChatInput = target.id === "chmChatInput" || target.id === "chm-chat-input" || target.id === "chmChatText";
-    if(isChatInput && e.key === "Enter" && !e.shiftKey){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      sendDirectMessage();
-    }
-  }, true);
-
-  // Admin panel helper: open sessions from backend if admin section exists.
-  window.loadDirectChatSessions = async function(){
-    try {
-      const res = await fetch("/api/chat/sessions");
-      const data = await res.json();
-      console.log("Chat sessions:", data);
-      return data;
-    } catch(e) {
-      console.error("Cannot load chat sessions. Backend not reachable.", e);
-      return { ok:false, sessions:[] };
-    }
-  };
-})();
-</script>
-
-</body>
-</html>
-<!-- GLOBAL MEDIA JSON SYNC PATCH -->
-<script>
-(function(){
- const PV='./published_videos.json', PM='./published_music.json', PR='./published_radio.json', PT='./published_tv_settings.json';
- const PORTABLE_LIMIT=25*1024*1024;
- function n(msg,type){try{showNotification(msg,type||'success')}catch(e){console.log(msg)}}
- function dl(name,payload){const b=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u)}
- function vids(d){const a=Array.isArray(d)?d:(Array.isArray(d&&d.videos)?d.videos:[]);return a.map(v=>({id:v.id||Date.now()+Math.floor(Math.random()*99999),title:v.title||'Video',url:v.url||'',startTime:v.startTime||new Date().toISOString(),duration:v.duration||300,loop:!!v.loop,type:v.type||(typeof detectVideoType==='function'?detectVideoType(v.url||''):'video'),addedAt:v.addedAt||new Date().toISOString()})).filter(v=>v.url)}
- function mus(d){const a=Array.isArray(d)?d:(Array.isArray(d&&d.music)?d.music:(Array.isArray(d&&d.tracks)?d.tracks:[]));return a.map(m=>({id:m.id||Date.now()+Math.floor(Math.random()*99999),title:m.title||'Music Track',artist:m.artist||'CHM Network',url:m.url||'',duration:m.duration||'',addedAt:m.addedAt||new Date().toISOString()})).filter(m=>m.url)}
- function part(k,v){try{const c=cache.getCache();c[k]=v;localStorage.setItem(cache.storageKey,JSON.stringify({...c,lastUpdated:new Date().toISOString()}));return true}catch(e){return false}}
- async function get(u){const r=await fetch(u,{cache:'no-store'});if(!r.ok)throw Error(u);return r.json()}
- window.loadPublishedVideosFromServer=async()=>{try{const x=vids(await get(PV));if(!x.length)return false;part('videos',x);return true}catch(e){return false}};
- window.loadPublishedMusicFromServer=async()=>{try{const x=mus(await get(PM));if(!x.length)return false;part('music',x);return true}catch(e){return false}};
- window.loadPublishedRadioFromServer=async()=>{try{const d=await get(PR),s=d.radioSettings||d.radio||d;part('radioSettings',{url:s.url||s.streamUrl||'https://c13.radioboss.fm:8254/stream',program:s.program||s.currentProgram||'Live Stream'});return true}catch(e){return false}};
- window.loadPublishedTvSettingsFromServer=async()=>{try{const d=await get(PT),s=d.tvSettings||d.tv||d;setTvMode(s.mode||'scheduled');setTvEmbed(s.embed||s.liveEmbed||'');setTvYoutubeChannelId(s.youtubeChannelId||s.channelId||'');setTvYoutubeAutoTakeover(!!(s.youtubeAutoTakeover||s.autoTakeover));return true}catch(e){return false}};
- window.loadAllPublishedGlobalJson=async()=>{await loadPublishedVideosFromServer();await loadPublishedMusicFromServer();await loadPublishedRadioFromServer();await loadPublishedTvSettingsFromServer()};
- window.exportPublishedVideosJson=()=>{dl('published_videos.json',{videos:cache.getVideos()||[],generatedAt:new Date().toISOString()});n('Exported published_videos.json. Upload it beside index.html for worldwide video playback.')};
- window.exportMusicJson=()=>{dl('published_music.json',{music:cache.getMusic()||[],generatedAt:new Date().toISOString()});n('Exported published_music.json. Upload it beside index.html for worldwide music playback.')};
- window.exportRadioJson=()=>{dl('published_radio.json',{radioSettings:cache.getRadioSettings(),generatedAt:new Date().toISOString()});n('Exported published_radio.json. Upload it beside index.html.')};
- window.exportTvSettingsJson=()=>{dl('published_tv_settings.json',{tvSettings:{mode:getTvMode(),embed:getTvEmbed(),youtubeChannelId:getTvYoutubeChannelId(),youtubeAutoTakeover:getTvYoutubeAutoTakeover()},generatedAt:new Date().toISOString()});n('Exported published_tv_settings.json. Upload it beside index.html.')};
- window.importMusicJsonFile=async f=>{try{const x=mus(JSON.parse(await f.text()));if(!x.length)throw Error('bad');part('music',x);loadMusicLibrary();n('Imported music JSON.')}catch(e){n('Could not import published_music.json','error')}};
- window.importRadioJsonFile=async f=>{try{const d=JSON.parse(await f.text()),s=d.radioSettings||d.radio||d;part('radioSettings',{url:s.url||s.streamUrl||'https://c13.radioboss.fm:8254/stream',program:s.program||s.currentProgram||'Live Stream'});setupRadioPlayer();n('Imported radio JSON.')}catch(e){n('Could not import radio JSON','error')}};
- window.importTvSettingsJsonFile=async f=>{try{const d=JSON.parse(await f.text()),s=d.tvSettings||d.tv||d;setTvMode(s.mode||'scheduled');setTvEmbed(s.embed||s.liveEmbed||'');setTvYoutubeChannelId(s.youtubeChannelId||s.channelId||'');setTvYoutubeAutoTakeover(!!(s.youtubeAutoTakeover||s.autoTakeover));initTvSourceAdminUI();applyTvSourcePublic();n('Imported TV settings JSON.')}catch(e){n('Could not import TV JSON','error')}};
- const opm=window.publishMusic;window.publishMusic=function(){if(opm)opm();exportMusicJson();n('Upload published_music.json beside index.html so everyone worldwide sees it.')};
- const opr=window.publishRadioSettings;window.publishRadioSettings=function(){if(opr)opr();exportRadioJson();n('Upload published_radio.json beside index.html so everyone worldwide sees it.')};
- const opt=window.publishTvSourceSettings;window.publishTvSourceSettings=function(){if(opt)opt();exportTvSettingsJson();n('Upload published_tv_settings.json beside index.html so everyone worldwide sees it.')};
- const oss=window.safeStoreMedia;window.safeStoreMedia=async function(storeName,file){if(file&&file.size<=PORTABLE_LIMIT){return await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej(r.error);r.readAsDataURL(file)})}n('Large upload saved locally. For global playback, upload the file to YouTube/hosting/CDN and paste its URL.','error');return oss?oss(storeName,file):URL.createObjectURL(file)};
- function ui(){const m=document.getElementById('musicAdminList');if(m&&!document.getElementById('globalMusicJsonControls')){const d=document.createElement('div');d.id='globalMusicJsonControls';d.style.cssText='display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px 0;align-items:center;';d.innerHTML='<button class="btn-primary" type="button" onclick="exportMusicJson()">⬇ Export published_music.json</button><button class="btn-secondary" type="button" onclick="document.getElementById(\'importMusicJsonInput\').click()">⬆ Import published_music.json</button><input id="importMusicJsonInput" type="file" accept="application/json" style="display:none" onchange="if(this.files&&this.files[0]) importMusicJsonFile(this.files[0]); this.value=\'\';"><small style="color:var(--text-secondary)">Upload published_music.json beside index.html to make music global.</small>';m.parentNode.insertBefore(d,m)}const rb=document.querySelector('#section-radio button[onclick="saveRadioSettings()"]');if(rb&&!document.getElementById('importRadioJsonInput'))rb.insertAdjacentHTML('afterend',' <button class="btn-secondary" type="button" onclick="exportRadioJson()">⬇ Export published_radio.json</button> <button class="btn-secondary" type="button" onclick="document.getElementById(\'importRadioJsonInput\').click()">⬆ Import Radio JSON</button><input id="importRadioJsonInput" type="file" accept="application/json" style="display:none" onchange="if(this.files&&this.files[0]) importRadioJsonFile(this.files[0]); this.value=\'\';">');const tb=document.querySelector('button[onclick="publishTvSourceSettings()"]');if(tb&&!document.getElementById('importTvSettingsJsonInput'))tb.insertAdjacentHTML('afterend',' <button class="btn-secondary" type="button" onclick="exportTvSettingsJson()">⬇ Export TV JSON</button> <button class="btn-secondary" type="button" onclick="document.getElementById(\'importTvSettingsJsonInput\').click()">⬆ Import TV JSON</button><input id="importTvSettingsJsonInput" type="file" accept="application/json" style="display:none" onchange="if(this.files&&this.files[0]) importTvSettingsJsonFile(this.files[0]); this.value=\'\';">')}
- document.addEventListener('DOMContentLoaded',async()=>{await loadAllPublishedGlobalJson();try{loadMusicLibrary();loadVideoSchedule();setupRadioPlayer();initTvSourceAdminUI();applyTvSourcePublic();syncPublicVideoPlaylist().then(()=>renderPublicVideoPlaylist(document.getElementById('videoPlaylistSearch')?.value||''))}catch(e){}ui()});
-})();
+});
 </script>
