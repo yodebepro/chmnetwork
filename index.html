@@ -7535,19 +7535,27 @@ function escapeAttr(str){ return escapeHtml(str).replaceAll('\n',' '); }
 
 <!-- LOCKED UPDATE: Public chatbot Admin button removed. Admin chat tools moved to Admin Panel. Admin phone link set to 973-855-2396. -->
 
+
 <script>
-/* LOCKED FIX: Public chatbot send button fallback.
-   This does not change the layout. It only guarantees the Send button works even if another script stops early. */
+/* LOCKED UPDATE: Direct chatbot backend delivery.
+   Public Send button no longer opens SMS/email apps.
+   It posts directly to /api/chat/message.
+   Backend sends SMS notification to admin phone 973-855-2396 and stores the chat session. */
 (function(){
+  const ADMIN_PHONE_DISPLAY = "973-855-2396";
+
   function byId(id){ return document.getElementById(id); }
 
-  function openChatBox(){
-    const panel = byId("chmChatPanel") || byId("chm-chat-panel") || document.querySelector(".chm-chat-panel");
-    if(panel){ panel.classList.add("active"); panel.style.display = "block"; }
+  function getMessagesBox(){
+    return byId("chmChatMessages") || byId("chm-chat-messages") || document.querySelector(".chm-chat-messages");
+  }
+
+  function getInput(){
+    return byId("chmChatInput") || byId("chm-chat-input") || byId("chmChatText") || document.querySelector(".chm-chat-input input, textarea#chmChatInput");
   }
 
   function appendChatMessage(role, text){
-    const box = byId("chmChatMessages") || byId("chm-chat-messages") || document.querySelector(".chm-chat-messages");
+    const box = getMessagesBox();
     if(!box) return;
     const div = document.createElement("div");
     div.className = "chm-msg " + (role === "user" ? "user" : "bot");
@@ -7556,46 +7564,64 @@ function escapeAttr(str){ return escapeHtml(str).replaceAll('\n',' '); }
     box.scrollTop = box.scrollHeight;
   }
 
-  function sendPublicChatMessage(){
-    const input = byId("chmChatInput") || byId("chm-chat-input") || document.querySelector(".chm-chat-input input, #chmChatText, textarea#chmChatInput");
+  function getVisitorSessionId(){
+    let sid = "";
+    try { sid = localStorage.getItem("CHM_VISITOR_CHAT_SESSION") || ""; } catch(e) {}
+    if(!sid){
+      sid = "chat_" + Date.now() + "_" + Math.random().toString(36).slice(2, 9);
+      try { localStorage.setItem("CHM_VISITOR_CHAT_SESSION", sid); } catch(e) {}
+    }
+    return sid;
+  }
+
+  async function sendDirectMessage(){
+    const input = getInput();
     if(!input) return false;
+
     const text = (input.value || "").trim();
     if(!text) return false;
 
+    const sessionId = getVisitorSessionId();
     appendChatMessage("user", text);
     input.value = "";
 
-    const phone = "9738552396";
-    const page = window.location.href.split("#")[0];
-    const adminLink = page + (page.includes("?") ? "&" : "?") + "chat=admin";
-    const smsBody = encodeURIComponent("CHM Network website chat message: " + text + "\nOpen admin chat: " + adminLink);
-    const smsLink = "sms:" + phone + "?&body=" + smsBody;
-
     try {
-      localStorage.setItem("CHM_LAST_PUBLIC_CHAT_MESSAGE", JSON.stringify({
-        message: text,
-        time: new Date().toISOString(),
-        adminLink: adminLink,
-        phone: "973-855-2396"
-      }));
-    } catch(e) {}
+      const response = await fetch("/api/chat/message", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sessionId,
+          message: text,
+          pageUrl: window.location.href.split("#")[0],
+          userAgent: navigator.userAgent,
+          sentAt: new Date().toISOString()
+        })
+      });
 
-    appendChatMessage("bot", "Thank you. Your message was received. Admin phone notification is linked to 973-855-2396.");
-    appendChatMessage("bot", "Admin chat link: " + adminLink);
+      const data = await response.json().catch(() => ({}));
 
-    // Try opening SMS only after the message is visibly sent.
-    try { window.location.href = smsLink; } catch(e) {}
+      if(response.ok && data.ok){
+        appendChatMessage("bot", "Message sent directly. Pastor/Admin has been notified at " + ADMIN_PHONE_DISPLAY + ".");
+      } else {
+        appendChatMessage("bot", "The direct chat server is not connected yet. Please ask the admin to start the backend server.");
+        console.error("Chat API error:", data);
+      }
+    } catch(error){
+      appendChatMessage("bot", "The direct chat server is not reachable yet. Once the backend is deployed, messages will go straight to " + ADMIN_PHONE_DISPLAY + " without opening another app.");
+      console.error("Chat API unreachable:", error);
+    }
+
     return true;
   }
 
+  // Override public Send button with direct backend delivery.
   document.addEventListener("click", function(e){
     const target = e.target;
     if(!target) return;
     if(target.id === "chmChatSend" || target.id === "chm-chat-send" || target.closest("#chmChatSend, #chm-chat-send")){
       e.preventDefault();
-      e.stopPropagation();
-      openChatBox();
-      sendPublicChatMessage();
+      e.stopImmediatePropagation();
+      sendDirectMessage();
     }
   }, true);
 
@@ -7605,9 +7631,23 @@ function escapeAttr(str){ return escapeHtml(str).replaceAll('\n',' '); }
     const isChatInput = target.id === "chmChatInput" || target.id === "chm-chat-input" || target.id === "chmChatText";
     if(isChatInput && e.key === "Enter" && !e.shiftKey){
       e.preventDefault();
-      sendPublicChatMessage();
+      e.stopImmediatePropagation();
+      sendDirectMessage();
     }
   }, true);
+
+  // Admin panel helper: open sessions from backend if admin section exists.
+  window.loadDirectChatSessions = async function(){
+    try {
+      const res = await fetch("/api/chat/sessions");
+      const data = await res.json();
+      console.log("Chat sessions:", data);
+      return data;
+    } catch(e) {
+      console.error("Cannot load chat sessions. Backend not reachable.", e);
+      return { ok:false, sessions:[] };
+    }
+  };
 })();
 </script>
 
