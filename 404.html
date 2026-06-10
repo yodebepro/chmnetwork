@@ -8,14 +8,14 @@
   var path = (window.location.pathname || "").toLowerCase().replace(/\/+$/, "");
   var origin = window.location.origin;
   var repoBase = "";
-
-  // Works for custom domain root and GitHub project pages.
   var parts = window.location.pathname.split("/").filter(Boolean);
+
+  // If hosted on GitHub project pages, keep repository base.
   if(origin.indexOf("github.io") !== -1 && parts.length > 0){
     repoBase = "/" + parts[0];
   }
 
-  if(path.endsWith("/admin") || path.endsWith("/admin/index.html") || path.endsWith("/admin.html") || path.endsWith("/login.html")){
+  if(path.endsWith("/admin") || path.endsWith("/admin/") || path.endsWith("/admin.html") || path.endsWith("/login.html")){
     window.location.replace(origin + repoBase + "/index.html?admin=1");
   } else {
     window.location.replace(origin + repoBase + "/index.html");
