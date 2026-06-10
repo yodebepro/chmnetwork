@@ -2,28 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>CHM Network Redirect</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CHM Network Admin</title>
 <script>
-(function(){
-  var path = (window.location.pathname || "").toLowerCase().replace(/\/+$/, "");
-  var origin = window.location.origin;
-  var repoBase = "";
-
-  // Works for custom domain root and GitHub project pages.
-  var parts = window.location.pathname.split("/").filter(Boolean);
-  if(origin.indexOf("github.io") !== -1 && parts.length > 0){
-    repoBase = "/" + parts[0];
-  }
-
-  if(path.endsWith("/admin") || path.endsWith("/admin/index.html") || path.endsWith("/admin.html") || path.endsWith("/login.html")){
-    window.location.replace(origin + repoBase + "/index.html?admin=1");
-  } else {
-    window.location.replace(origin + repoBase + "/index.html");
-  }
-})();
+window.location.replace("index.html?admin=1");
 </script>
 </head>
 <body>
-<p>Redirecting...</p>
+<p>Opening CHM Network admin login...</p>
+<p><a href="index.html?admin=1">Continue to Admin Login</a></p>
 </body>
 </html>
