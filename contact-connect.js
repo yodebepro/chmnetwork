@@ -1,0 +1,1 @@
+/* Disabled. Contact now sends directly through contact-direct-send.js and contact.html submitContact(). */

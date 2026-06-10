@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Messages | CHM Admin</title><link rel="stylesheet" href="admin.css"/><script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script></head><body><div class="admin-wrap">
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <img src="logo-dark.png" alt="CHM" class="brand-logo" onerror="this.outerHTML='<div class=&quot;brand-logo-fallback&quot;>✝</div>'"/>
+    <div class="brand-text"><span class="brand-name">CHM Church of God</span><span class="brand-sub">Admin Panel</span></div>
+  </div>
+  <div class="sidebar-conn"><span class="firebase-status status-offline">🟡 Checking…</span></div>
+  <div class="sidebar-section"><div class="sidebar-section-label">Main</div>
+    <a href="dashboard.html" class="sidebar-link"><span class="icon">🏠</span> Dashboard</a>
+    <a href="true-cms.html" class="sidebar-link"><span class="icon">🌍</span> Global Publisher</a>
+    <a href="github-setup.html" class="sidebar-link"><span class="icon">🔑</span> GitHub Setup</a>
+  </div>
+  <div class="sidebar-section"><div class="sidebar-section-label">Content</div>
+    <a href="adm-announcements.html" class="sidebar-link"><span class="icon">📢</span> Announcements</a>
+    <a href="adm-events.html" class="sidebar-link"><span class="icon">📅</span> Events</a>
+    <a href="adm-sermons.html" class="sidebar-link"><span class="icon">🎙</span> Sermons</a>
+    <a href="adm-gallery.html" class="sidebar-link"><span class="icon">🖼</span> Gallery</a>
+    <a href="pages.html" class="sidebar-link"><span class="icon">📄</span> Page Content</a>
+    <a href="adm-departments.html" class="sidebar-link"><span class="icon">&#127970;</span> Departments</a>
+    <a href="navigation.html" class="sidebar-link"><span class="icon">🧭</span> Navigation</a>
+  </div>
+  <div class="sidebar-section"><div class="sidebar-section-label">People</div>
+    <a href="adm-leaders.html" class="sidebar-link"><span class="icon">👤</span> Leadership</a>
+    <a href="members.html" class="sidebar-link"><span class="icon">👥</span> Members</a>
+    <a href="adm-teams.html" class="sidebar-link"><span class="icon">&#128101;</span> Teams</a>
+    <a href="adm-about.html" class="sidebar-link"><span class="icon">&#8505;</span> About Page</a>
+    <a href="adm-ministries.html" class="sidebar-link"><span class="icon">⛪</span> Ministries</a>
+  </div>
+  <div class="sidebar-section"><div class="sidebar-section-label">Inbox</div>
+    <a href="prayer-requests.html" class="sidebar-link"><span class="icon">🙏</span> Prayer Requests</a>
+    <a href="messages.html" class="sidebar-link"><span class="icon">✉️</span> Messages</a>
+    <a href="giving.html" class="sidebar-link"><span class="icon">💰</span> Giving Records</a>
+  </div>
+  <div class="sidebar-section"><div class="sidebar-section-label">System</div>
+    <a href="settings.html" class="sidebar-link"><span class="icon">⚙️</span> Settings & Colors</a>
+    <a href="index.html" class="sidebar-link" target="_blank"><span class="icon">🌐</span> View Public Site ↗</a>
+  </div>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-avatar">A</div>
+      <div><span class="sidebar-user-name">Administrator</span><span class="sidebar-user-role">Super Admin</span></div>
+      <button class="sidebar-logout" data-logout title="Sign Out">⏻</button>
+    </div>
+  </div>
+</aside>
+<div class="main-content"><div class="top-bar"><div class="top-bar-left"><button class="hamburger" id="hamburger"><span></span><span></span><span></span></button><h1 class="top-bar-title">✉️ Messages</h1></div><div class="top-bar-actions"><button class="btn btn-danger-soft btn-sm" onclick="clearAllMsgs()">🗑 Clear All</button></div></div><div class="page-body"><div class="filter-bar">
+  <div class="chips" id="msgC"><button class="chip active" data-f="">All</button><button class="chip" data-f="unread">Unread</button><button class="chip" data-f="read">Read</button></div>
+  <div class="search-box"><span class="si">🔍</span><input type="text" id="msgQ" placeholder="Search messages…"/></div>
+</div><div class="card"><div class="table-wrap"><table><thead><tr><th>From</th><th>Email</th><th>Subject</th><th>Preview</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead><tbody id="msgB"></tbody></table></div></div>
+<div class="modal-overlay" id="msgMod"><div class="modal">
+  <div class="modal-header"><h2 class="modal-title">📨 Message Details</h2><button class="modal-close" data-close="msgMod">✕</button></div>
+  <div class="modal-body" id="msgBdy"></div>
+  <div class="modal-footer"><button class="btn btn-outline btn-sm" data-close="msgMod">Close</button><a href="" id="msgRpl" class="btn btn-publish btn-sm" style="text-decoration:none;">✉️ Reply via Email</a></div>
+</div></div></div></div></div><script src="admin.js"></script>
+<script>requireAuth();
+const MSGC = 'messages';
+
+async function msgLoad() {
+  const data = await cmsGet(MSGC);
+  const fChip = document.querySelector('#msgC .chip.active');
+  const fVal = fChip ? fChip.dataset.f : '';
+  const q = document.getElementById('msgQ')?.value.toLowerCase() || '';
+  const fil = data.filter(m=>(!fVal||m._status===fVal)&&(!q||(m.name||'').toLowerCase().includes(q)||(m.subject||'').toLowerCase().includes(q)));
+
+  document.getElementById('msgB').innerHTML = fil.length ? fil.map(m=>`<tr style="${m._status==='unread'?'background:#fdf6e8;':''}">
+    <td class="td-primary" style="${m._status==='unread'?'font-weight:800;':''}">${m.name||'—'}</td>
+    <td class="td-muted">${m.email||'—'}</td>
+    <td>${m.subject||'—'}</td>
+    <td class="td-muted">${(m.message||'').slice(0,45)}…</td>
+    <td class="td-muted">${m.date||'—'}</td>
+    <td>${badge(m._status||'unread')}</td>
+    <td><div class="row-actions">
+      <button class="act act-view" onclick="viewMsg('${m.id}')">👁 View</button>
+      ${m.email?`<a href="mailto:${m.email}?subject=Re: ${encodeURIComponent(m.subject||'')}" class="act act-edit">✉️ Reply</a>`:''}
+      <button class="act act-delete" onclick="confirmDel(()=>cmsDelete('${MSGC}','${m.id}').then(()=>{toast('Deleted','error');msgLoad()}))">🗑</button>
+    </div></td>
+  </tr>`).join('')
+  : '<tr><td colspan="7" style="text-align:center;padding:2.5rem;color:var(--text-muted);">No messages yet. When visitors fill out the contact form, messages appear here.</td></tr>';
+}
+
+async function viewMsg(id) {
+  const data = await loadData();
+  const m = (data[MSGC]||[]).find(x=>x.id===id);
+  if(!m) return;
+  // Mark as read
+  const idx = (data[MSGC]||[]).findIndex(x=>x.id===id);
+  if(idx>=0 && data[MSGC][idx]._status==='unread'){
+    data[MSGC][idx]._status='read';
+    await pushToGitHub();
+  }
+  document.getElementById('msgBdy').innerHTML=`
+    <div style="display:grid;grid-template-columns:80px 1fr;gap:.6rem 1rem;background:var(--off-white);padding:1.1rem;border-radius:var(--radius);margin-bottom:1rem;font-size:.85rem;">
+      <span style="color:var(--text-muted);font-weight:700;">From:</span><span style="font-family:var(--font-display);font-weight:700;font-size:1rem;">${m.name||'—'}</span>
+      <span style="color:var(--text-muted);font-weight:700;">Email:</span><span>${m.email||'—'}</span>
+      <span style="color:var(--text-muted);font-weight:700;">Phone:</span><span>${m.phone||'—'}</span>
+      <span style="color:var(--text-muted);font-weight:700;">Subject:</span><span>${m.subject||'—'}</span>
+      <span style="color:var(--text-muted);font-weight:700;">Date:</span><span>${m.date||'—'}</span>
+    </div>
+    <div style="font-size:.9rem;line-height:1.8;border-left:3px solid var(--gold);padding-left:1rem;">${m.message||''}</div>`;
+  document.getElementById('msgRpl').href=`mailto:${m.email||''}?subject=Re: ${encodeURIComponent(m.subject||'')}`;
+  openModal('msgMod');
+  msgLoad();
+}
+
+async function clearAllMsgs(){
+  if(!window.confirm('Clear ALL messages?')) return;
+  const d=await loadData(); d[MSGC]=[];
+  await pushToGitHub(); toast('All cleared','warning'); msgLoad();
+}
+
+document.querySelectorAll('#msgC .chip').forEach(c=>c.addEventListener('click',()=>{
+  document.querySelectorAll('#msgC .chip').forEach(x=>x.classList.remove('active'));
+  c.classList.add('active'); msgLoad();
+}));
+document.getElementById('msgQ')?.addEventListener('input', msgLoad);
+msgLoad();
+</script>
+
+
+<script src="contact-direct-send.js"></script>
+
+<script src="chm-true-cms.js"></script>
+
+<script src="chm-admin-button-fix.js"></script>
+</body></html>
