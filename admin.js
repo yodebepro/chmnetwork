@@ -1,5 +1,5 @@
 /* CHM CHURCH OF GOD — Admin CMS | Global Publishing + Persistent Storage */
-const ADMIN_USER = 'admin', ADMIN_PASS = 'CHM@2024', SESSION_KEY = 'chm_admin_v5';
+const ADMIN_USER = 'chmadmin', ADMIN_PASS = 'CHMGod2026!', SESSION_KEY = 'chm_admin_v5';
 
 // ── AUTH ───────────────────────────────────────────────────────
 function isLoggedIn(){ return sessionStorage.getItem(SESSION_KEY)==='true'; }

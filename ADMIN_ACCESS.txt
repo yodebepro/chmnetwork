@@ -1,14 +1,26 @@
-CHM CHURCH OF GOD ADMIN ACCESS
+CHM CHURCH OF GOD ADMIN ACCESS — FIXED BASELINE
 
-Hidden admin URL after publishing:
+Admin URLs after publishing to GitHub Pages:
 /admin/
-
-Direct login page:
 /admin/login.html
+/admin.html
+/login.html
 
-Username: chmadmin
-Password: CHMGod2026!
+Primary username: chmadmin
+Primary password: CHMGod2026!
 
-Important:
-This is a static GitHub-style demo login using browser-side protection.
-For true production-grade security, use the full backend version with server-side authentication.
+Legacy login also supported:
+Username: admin
+Password: CHM@2024
+
+Important GitHub upload rule:
+Upload ALL files and folders to the ROOT of the repository.
+The admin folder must exist exactly as:
+admin/index.html
+admin/login.html
+
+Custom domain included:
+CNAME = chmnetwork.com
+
+This is still a static GitHub-style demo login using browser-side protection.
+For true production-grade security, use backend/server authentication.

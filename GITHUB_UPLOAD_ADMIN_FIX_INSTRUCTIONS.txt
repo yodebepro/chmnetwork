@@ -1,0 +1,29 @@
+UPLOAD INSTRUCTIONS — ADMIN FIX
+
+1. Unzip this package.
+2. Open the folder CHM-Church-of-God-main.
+3. Upload EVERYTHING inside that folder to the ROOT of your GitHub repository.
+4. Make sure GitHub shows these exact files/folders in the root:
+   - index.html
+   - login.html
+   - dashboard.html
+   - admin.html
+   - admin/index.html
+   - admin/login.html
+   - admin.js
+   - CNAME
+5. Commit changes.
+6. Wait 2–5 minutes for GitHub Pages to rebuild.
+7. Test:
+   https://chmnetwork.com/admin/
+   https://chmnetwork.com/admin/login.html
+   https://chmnetwork.com/admin.html
+   https://chmnetwork.com/login.html
+
+Login:
+Username: chmadmin
+Password: CHMGod2026!
+
+Legacy backup login:
+Username: admin
+Password: CHM@2024
