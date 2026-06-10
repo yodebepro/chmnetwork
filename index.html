@@ -7672,3 +7672,67 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
+
+<script>
+/* CHM NETWORK BASELINE FIX: Admin URL route support for GitHub Pages
+   Works with:
+   /admin/
+   /admin/index.html
+   /admin.html
+   /login.html
+   /index.html?admin=1
+*/
+(function(){
+  function isAdminRoute(){
+    var path = (window.location.pathname || "").toLowerCase().replace(/\/+$/, "");
+    var params = new URLSearchParams(window.location.search || "");
+    return (
+      params.get("admin") === "1" ||
+      path.endsWith("/admin") ||
+      path.endsWith("/admin/index.html") ||
+      path.endsWith("/admin.html") ||
+      path.endsWith("/login.html")
+    );
+  }
+
+  function openAdminAccess(){
+    if(!isAdminRoute()) return;
+
+    // Keep visitor on the real index file and open the current admin login.
+    try {
+      if(typeof showAdminLogin === "function"){
+        showAdminLogin();
+        return;
+      }
+    } catch(e){}
+
+    var loginModal = document.getElementById("adminLoginModal");
+    if(loginModal){
+      loginModal.classList.add("active");
+      loginModal.style.display = "flex";
+      return;
+    }
+
+    var publicSite = document.getElementById("publicSite");
+    var adminDashboard = document.getElementById("adminDashboard");
+    if(publicSite && adminDashboard){
+      publicSite.classList.add("hidden");
+      adminDashboard.classList.remove("hidden");
+      if(typeof switchAdminSection === "function") switchAdminSection("dashboard");
+      return;
+    }
+
+    var adminPanel = document.querySelector(".admin-panel, #adminPanel, #admin, [data-admin-panel]");
+    if(adminPanel){
+      adminPanel.classList.remove("hidden");
+      adminPanel.style.display = "block";
+    }
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", function(){ setTimeout(openAdminAccess, 150); });
+  } else {
+    setTimeout(openAdminAccess, 150);
+  }
+})();
+</script>
