@@ -2,10 +2,10 @@
   {
     "id": 1,
     "name": "Channel 1",
-    "type": "",
-    "url": "",
-    "title": "",
-    "description": "",
+    "type": "youtube",
+    "url": "https://youtu.be/ajLt7gcs3zM?si=0pLQjjOSYWJOYaXu",
+    "title": "God Will Meet You Half Way",
+    "description": "THE VOICE - S2, Episode 4 — God Will Meet You Half Way, Pastor David Marcel",
     "autoplay": true
   },
   {
