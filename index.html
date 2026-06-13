@@ -1900,8 +1900,79 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 .shop-thumb-row{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
 .shop-thumb-row img{ width:44px; height:44px; object-fit:contain; background: rgba(0,0,0,.26); border-radius:10px; border:1px solid rgba(255,255,255,.12); }
 
+
+
+/* === CHM LOCKED UPDATE: New YODEBEPRO 11-Channel TV + Horizontal Radio Layout === */
+#live.live-section { padding-top: 42px; }
+.ytv-shell { max-width: 1480px; margin: 0 auto; }
+.ytv-layout { display: grid; grid-template-columns: 118px minmax(0, 1fr); gap: 18px; align-items: stretch; }
+.ytv-channel-rail { background: rgba(10,14,39,0.86); border: 2px solid var(--primary-color); border-radius: 14px; overflow: hidden; box-shadow: 0 0 28px rgba(0,188,212,0.18); }
+.ytv-channel-title { padding: 12px 6px; text-align: center; color: var(--accent-gold); font-weight: 800; border-bottom: 1px solid rgba(0,188,212,0.45); font-size: .9rem; letter-spacing: .03em; }
+.ytv-channel-btn { width: 100%; min-height: 58px; border-radius: 0; background: rgba(26,31,58,.92); color: var(--text-light); border-bottom: 1px solid rgba(0,188,212,0.35); font-weight: 800; box-shadow: none; padding: 10px 5px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; }
+.ytv-channel-btn:hover, .ytv-channel-btn.active { background: linear-gradient(135deg, rgba(0,188,212,.92), rgba(255,152,0,.86)); color: #06101c; transform: none; }
+.ytv-channel-btn small { display:block; font-size:.67rem; font-weight:700; opacity:.88; line-height:1.05; }
+.ytv-main { border: 2px solid var(--primary-color); border-radius: 16px; background: linear-gradient(135deg, rgba(26,31,58,.98), rgba(10,14,39,.98)); padding: 22px; box-shadow: 0 14px 46px rgba(0,188,212,0.18); min-height: 720px; }
+.ytv-topbar { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom: 14px; flex-wrap:wrap; }
+.ytv-badge { background: rgba(0,188,212,.12); border:1px solid rgba(0,188,212,.55); color: var(--accent-gold); border-radius:999px; padding:8px 13px; font-weight:800; }
+.ytv-source-label { color: var(--text-secondary); font-size:.92rem; }
+.ytv-stage { width: 100%; background:#000; border-radius:16px; overflow:hidden; border: 1px solid rgba(255,255,255,.1); box-shadow: inset 0 0 0 1px rgba(0,188,212,.12); }
+.ytv-stage video, .ytv-stage #videoPlayer { width:100%; height: 560px; max-height:none; margin:0; border-radius:0; object-fit:contain; display:block; background:#000; }
+.ytv-stage #tvEmbedWrapper { width:100%; height:560px; max-height:none; margin:0!important; border-radius:0!important; }
+.ytv-stage #tvEmbedWrapper iframe, .ytv-stage #tvEmbedInner iframe { width:100%; height:100%; border:0; display:block; }
+.ytv-controls-row { margin-top: 15px; display:grid; grid-template-columns: repeat(3, minmax(120px,1fr)); gap:12px; }
+.ytv-radio-horizontal { margin-top: 22px; border: 2px solid var(--primary-color); border-radius: 16px; padding: 18px 20px; background: rgba(26,31,58,.95); display:grid; grid-template-columns: 240px minmax(260px,1fr) 320px; gap:16px; align-items:center; }
+.ytv-radio-title { color: var(--accent-gold); font-size:1.2rem; font-weight:900; }
+.ytv-radio-horizontal audio { margin:0; width:100%; }
+.ytv-radio-horizontal .player-controls { justify-content:flex-end; }
+.ytv-radio-music { margin-top:18px; border-top:1px solid rgba(0,188,212,.25); padding-top:16px; }
+.ytv-playlist-panel { margin-top:18px; border:1px solid rgba(0,188,212,.35); border-radius:14px; padding:16px; background: rgba(10,14,39,.38); }
+.ytv-playlist-panel .playlist-scroll { max-height: 230px; overflow:auto; }
+@media (max-width: 900px){ .ytv-layout{ grid-template-columns:1fr; } .ytv-channel-rail{ display:grid; grid-template-columns:repeat(4,1fr); } .ytv-channel-title{ grid-column:1/-1; } .ytv-main{ min-height:auto; padding:14px; } .ytv-stage video,.ytv-stage #videoPlayer,.ytv-stage #tvEmbedWrapper{ height:300px; } .ytv-radio-horizontal{ grid-template-columns:1fr; } .ytv-radio-horizontal .player-controls{ justify-content:center; } }
+@media (max-width: 520px){ .ytv-channel-rail{ grid-template-columns:repeat(3,1fr); } .ytv-controls-row{ grid-template-columns:1fr; } }
+.chm-channel-admin-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:14px; margin-top:14px; }
+.chm-channel-admin-card { border:1px solid rgba(0,188,212,.35); border-radius:12px; padding:14px; background:rgba(10,14,39,.35); }
+.chm-channel-admin-card h4 { color: var(--accent-gold); margin-bottom:8px; }
+
 </style>
 
+
+
+<style>
+/* CHM locked fix: left-side channels connect to admin-programmed sources */
+.chm-channel-btn.active,
+[data-channel-id].active,
+[data-chm-channel].active,
+.channel-btn.active,
+.tv-channel.active {
+  background: linear-gradient(135deg,#00bcd4,#ffc107) !important;
+  color: #06101f !important;
+  box-shadow: 0 0 18px rgba(0,188,212,.45);
+}
+#chmMainTvScreen iframe,
+#chmMainTvScreen video,
+.chm-tv-main-screen iframe,
+.chm-tv-main-screen video {
+  width:100%;
+  height:100%;
+  min-height:520px;
+  border-radius:14px;
+}
+.chm-empty-channel {
+  width:100%;
+  height:100%;
+  min-height:520px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  background:#050817;
+  border:1px solid rgba(0,188,212,.35);
+  border-radius:14px;
+  color:#fff;
+  text-align:center;
+  padding:30px;
+}
+</style>
 
 </head>
 <body>
@@ -1959,91 +2030,90 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 
     <!-- LIVE RADIO & TV SECTION -->
     <section id="live" class="live-section">
-        <div class="container">
+        <div class="container ytv-shell">
             <h2>📻 Live Radio & 📺 YODEBEPRO TV</h2>
-            
-            <div class="live-container">
-                <!-- LEFT: LIVE RADIO -->
-                <div class="live-player">
-                    <div class="player-title">🎙️ CHM Network Radio</div>
-                    <div class="player-info">
-                        <h3>Now Playing</h3>
-                        <p id="radioProgram">Live Stream Connected</p>
-                    </div>
-                    <audio id="radioPlayer" controls>
-                        <source src="https://c13.radioboss.fm:8254/stream">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="player-controls">
-                        <button class="btn-primary" onclick="playRadio()">▶️ Play</button>
-                        <button class="btn-secondary" onclick="pauseRadio()">⏸️ Pause</button>
-                        <button class="btn-primary" onclick="stopRadio()">⏹️ Stop</button>
-                    </div>
-                    <div id="radioStatus" style="text-align: center; margin-top: 15px; color: var(--text-secondary); font-size: 0.9rem;">
-                        ✓ Stream Ready
-                    </div>
 
-                    <!-- MUSIC SECTION -->
-                    <div class="music-section">
-                        <div class="music-title">🎵 Music Library</div>
-                        
-                        <div class="music-search-wrap" style="margin: 10px 0 12px 0; display:flex; justify-content:center;">
-                            <input id="musicSearchInput" type="text" placeholder="Search music by title..." 
-                                   style="width: 85%; max-width: 360px; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(0,188,212,0.45);
-                                          background: rgba(10,14,39,0.35); color: var(--text-light); outline: none;" />
+            <div class="ytv-layout">
+                <aside class="ytv-channel-rail" aria-label="YODEBEPRO TV Channels">
+                    <div class="ytv-channel-title">Channels</div>
+                    <button class="ytv-channel-btn active" data-channel="1" onclick="selectYodebeproChannel(1)">1<small>Channel</small></button>
+                    <button class="ytv-channel-btn" data-channel="2" onclick="selectYodebeproChannel(2)">2<small>Channel</small></button>
+                    <button class="ytv-channel-btn" data-channel="3" onclick="selectYodebeproChannel(3)">3<small>Channel</small></button>
+                    <button class="ytv-channel-btn" data-channel="4" onclick="selectYodebeproChannel(4)">4<small>Channel</small></button>
+                    <button class="ytv-channel-btn" data-channel="5" onclick="selectYodebeproChannel(5)">5<small>Channel</small></button>
+                    <button class="ytv-channel-btn" data-channel="6" onclick="selectYodebeproChannel(6)">6<small>TV</small></button>
+                    <button class="ytv-channel-btn" data-channel="7" onclick="selectYodebeproChannel(7)">7<small>Channel</small></button>
+                    <button class="ytv-channel-btn" data-channel="8" onclick="selectYodebeproChannel(8)">8<small>Channel</small></button>
+                    <button class="ytv-channel-btn" data-channel="9" onclick="selectYodebeproChannel(9)">9<small>Channel</small></button>
+                    <button class="ytv-channel-btn" data-channel="10" onclick="selectYodebeproChannel(10)">10<small>Channel</small></button>
+                    <button class="ytv-channel-btn" data-channel="11" onclick="selectYodebeproChannel(11)">11<small>Channel</small></button>
+                </aside>
+
+                <div class="ytv-main">
+                    <div class="ytv-topbar">
+                        <div>
+                            <div class="player-title" style="margin:0;text-align:left;">📺 YODEBEPRO TV</div>
+                            <div class="player-info" style="text-align:left;margin:6px 0 0;min-height:0;">
+                                <h3 id="videoTitle" style="margin:0;">Channel 1</h3>
+                                <p id="videoSchedule" style="margin:2px 0 0;">Select a channel or configure channel sources in Admin.</p>
+                            </div>
                         </div>
-<div class="music-carousel" id="musicCarousel">
-                            <!-- Music items loaded from admin -->
-                        
-                        <div style="text-align:center; margin-top: 12px;">
-                            <button class="btn-success" id="openMusicLibraryBtn" style="background:#1db954; color:#081018; font-weight:700; box-shadow:0 6px 18px rgba(29,185,84,0.25);">
-                                🔗 Open Music List
-                            </button>
+                        <div class="ytv-badge" id="ytvActiveChannelBadge">CH 1</div>
+                    </div>
+
+                    <div class="ytv-stage video-protect" oncontextmenu="return false">
+                        <video id="videoPlayer" class="video-protect" controls controlsList="nodownload noplaybackrate" disablepictureinpicture oncontextmenu="return false" style="background:#000;">
+                            <source src="" type="video/mp4">
+                            Your browser does not support the video element.
+                        </video>
+                        <div id="tvEmbedWrapper" class="video-protect" oncontextmenu="return false" style="display:none;">
+                            <div id="tvEmbedInner" style="width:100%; height:100%; background:#000;"></div>
                         </div>
-
-</div>
-                    </div>
-                </div>
-
-                <!-- RIGHT: YODEBEPRO TV -->
-                <div class="live-player">
-                    <div class="player-title">📺 YODEBEPRO TV</div>
-                    <div class="player-info">
-                        <h3 id="videoTitle">Scheduled Video</h3>
-                        <p id="videoSchedule">Loading...</p>
-                    </div>
-                    <video id="videoPlayer" class="video-protect" controls controlsList="nodownload noplaybackrate" disablepictureinpicture oncontextmenu="return false" style="background: #000;">
-                        <source src="" type="video/mp4">
-                        Your browser does not support the video element.
-                    </video>
-                    <!-- LIVE EMBED (shown when admin selects Live mode) -->
-                    <div id="tvEmbedWrapper" class="video-protect" oncontextmenu="return false" style="display:none; width:100%; margin: 20px 0; border-radius: 8px; overflow:hidden; background:#000;">
-                        <div id="tvEmbedInner" style="width:100%; height:100%; background:#000;"></div>
                     </div>
 
-                    <div class="player-controls">
+                    <div class="ytv-controls-row player-controls">
                         <button class="btn-primary" onclick="playVideo()">▶️ Play</button>
                         <button class="btn-secondary" onclick="pauseVideo()">⏸️ Pause</button>
                         <button class="btn-primary" onclick="stopVideo()">⏹️ Stop</button>
                     </div>
-                    <div id="videoStatus" style="text-align: center; margin-top: 15px; color: var(--text-secondary); font-size: 0.9rem;">
-                        <span id="videoStatusText">Ready for scheduled videos</span>
+                    <div id="videoStatus" style="text-align:center; margin-top:12px; color: var(--text-secondary); font-size:0.92rem;">
+                        <span id="videoStatusText">Ready for selected channel</span>
                     </div>
 
-                <!-- RIGHT-SIDE: VIDEO PLAYLIST (Scheduled Videos) -->
-                <div class="live-player video-playlist-panel video-protect" oncontextmenu="return false">
-                    <div class="player-title">📼 Video Playlist</div>
-                    <div class="player-info" style="margin-bottom: 10px;">
-                        <input id="videoPlaylistSearch" type="text" placeholder="Search videos by name..." style="width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(0,188,212,0.35); background: rgba(10,14,39,0.35); color: var(--text); outline:none;">
+                    <div class="ytv-radio-horizontal">
+                        <div>
+                            <div class="ytv-radio-title">🎙️ CHM Network Radio</div>
+                            <div style="color: var(--text-secondary); font-size:.9rem;">Now Playing: <span id="radioProgram">Live Stream Connected</span></div>
+                        </div>
+                        <audio id="radioPlayer" controls>
+                            <source src="https://c13.radioboss.fm:8254/stream">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <div class="player-controls">
+                            <button class="btn-primary" onclick="playRadio()">▶️ Play</button>
+                            <button class="btn-secondary" onclick="pauseRadio()">⏸️ Pause</button>
+                            <button class="btn-primary" onclick="stopRadio()">⏹️ Stop</button>
+                        </div>
                     </div>
-                    <div id="publicVideoPlaylistList" class="playlist-scroll">
-                        <p style="text-align:center; padding: 18px; color: var(--text-secondary);">Loading videos...</p>
-                    </div>
-                    <div style="text-align:center; margin-top: 10px; color: var(--text-secondary); font-size: 0.85rem;">
-                        Click a video to play it on YODEBEPRO TV. Right-click is disabled on this playlist.
-                    </div>
-                </div>
+                    <div id="radioStatus" style="text-align:center; margin-top:10px; color: var(--text-secondary); font-size:.9rem;">✓ Stream Ready</div>
 
+                    <div class="ytv-radio-music music-section">
+                        <div class="music-title">🎵 Music Library</div>
+                        <div class="music-search-wrap" style="margin:10px 0 12px 0; display:flex; justify-content:center;">
+                            <input id="musicSearchInput" type="text" placeholder="Search music by title..." style="width:85%; max-width:520px; padding:10px 12px; border-radius:10px; border:1px solid rgba(0,188,212,0.45); background:rgba(10,14,39,0.35); color:var(--text-light); outline:none;" />
+                        </div>
+                        <div class="music-carousel" id="musicCarousel"></div>
+                    </div>
+
+                    <div class="ytv-playlist-panel video-playlist-panel video-protect" oncontextmenu="return false">
+                        <div class="player-title" style="font-size:1.2rem;">📼 Video Playlist</div>
+                        <div class="player-info" style="margin-bottom:10px;">
+                            <input id="videoPlaylistSearch" type="text" placeholder="Search videos by name..." style="width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(0,188,212,0.35); background:rgba(10,14,39,0.35); color:var(--text-light); outline:none;">
+                        </div>
+                        <div id="publicVideoPlaylistList" class="playlist-scroll">
+                            <p style="text-align:center; padding:18px; color: var(--text-secondary);">Loading videos...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2525,6 +2595,20 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
                                     Tip: For Facebook Live, use the platform's <em>Embed</em> iframe code for best results. For YouTube, you can use the channel live embed or the channel ID.
                                 </p>
                             </div>
+                        </div>
+
+                        <div class="content-editor" style="margin-top:16px; border:1px solid rgba(255,193,7,.35);">
+                            <h3>📡 11-Channel Live TV Source Manager</h3>
+                            <p style="color: var(--text-secondary); line-height:1.45; margin-bottom:10px;">
+                                Add a live/feed link for each public channel. Supports YouTube embed/watch links, Vimeo, Facebook embed links, Instagram embed links, direct iframe code, HLS/M3U8, MP4, and other embeddable sources.
+                            </p>
+                            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+                                <button class="btn-success" type="button" onclick="saveYodebeproChannelsFromAdmin()">✓ Save 11 Channels</button>
+                                <button class="btn-primary" type="button" onclick="exportPublishedTvChannelsJson()">⬇ Export published_tv_channels.json</button>
+                                <button class="btn-secondary" type="button" onclick="document.getElementById('importPublishedTvChannelsInput').click()">⬆ Import TV Channels JSON</button>
+                                <input id="importPublishedTvChannelsInput" type="file" accept="application/json" style="display:none" onchange="if(this.files&&this.files[0]) importPublishedTvChannelsFile(this.files[0]); this.value='';">
+                            </div>
+                            <div id="ytvChannelAdminGrid" class="chm-channel-admin-grid"></div>
                         </div>
 
                         <div class="form-group">
@@ -7724,5 +7808,331 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     setTimeout(openAdminLogin, 200);
   }
+})();
+</script>
+
+<script>
+/* CHM NETWORK FIX: Existing left-side 11 channels now respond to Admin-programmed sources.
+   No extra/top channel buttons are created. */
+(function(){
+  const COUNT = 11;
+  const KEY = "CHM_TV_CHANNELS_V2";
+  const LEGACY_KEYS = ["CHM_TV_CHANNELS","chmTvChannels","published_tv_channels","tvChannels"];
+
+  const defaults = Array.from({length: COUNT}, (_, i) => ({
+    id: i + 1,
+    name: "Channel " + (i + 1),
+    type: "",
+    url: "",
+    title: "",
+    description: "",
+    autoplay: true
+  }));
+
+  function parse(v, f){ try { return JSON.parse(v); } catch(e){ return f; } }
+
+  function detect(url){
+    url = String(url || "").toLowerCase();
+    if(!url) return "";
+    if(url.includes("youtube.com") || url.includes("youtu.be")) return "youtube";
+    if(url.includes("vimeo.com")) return "vimeo";
+    if(url.includes("facebook.com") || url.includes("fb.watch")) return "facebook";
+    if(url.includes("instagram.com")) return "instagram";
+    if(url.includes(".m3u8")) return "hls";
+    if(url.match(/\.(mp4|webm|ogg)(\?|$)/)) return "video";
+    return "iframe";
+  }
+
+  function normalize(list){
+    const out = defaults.map(x => ({...x}));
+    const arr = Array.isArray(list) ? list : (list && Array.isArray(list.channels) ? list.channels : []);
+    arr.forEach((x, i) => {
+      const id = Number(x.id || x.channel || x.channelId || i + 1);
+      if(id >= 1 && id <= COUNT){
+        out[id - 1] = {
+          ...out[id - 1],
+          ...x,
+          id,
+          name: x.name || x.label || ("Channel " + id),
+          type: x.type || detect(x.url || x.src || x.link || ""),
+          url: x.url || x.src || x.link || "",
+          title: x.title || "",
+          description: x.description || "",
+          autoplay: x.autoplay !== false
+        };
+      }
+    });
+    return out;
+  }
+
+  function getChannels(){
+    let saved = parse(localStorage.getItem(KEY), null);
+    if(!saved){
+      for(const k of LEGACY_KEYS){
+        saved = parse(localStorage.getItem(k), null);
+        if(saved) break;
+      }
+    }
+    return normalize(saved || defaults);
+  }
+
+  function saveChannels(channels){
+    localStorage.setItem(KEY, JSON.stringify(normalize(channels), null, 2));
+  }
+
+  function youtubeEmbed(url){
+    try{
+      const u = new URL(url);
+      let id = "";
+      if(u.hostname.includes("youtu.be")) id = u.pathname.replace("/", "");
+      else id = u.searchParams.get("v") || "";
+      if(!id && u.pathname.includes("/embed/")) id = u.pathname.split("/embed/")[1].split(/[?&]/)[0];
+      if(!id && u.pathname.includes("/live/")) id = u.pathname.split("/live/")[1].split(/[?&]/)[0];
+      return id ? "https://www.youtube.com/embed/" + id + "?autoplay=1&rel=0" : url;
+    }catch(e){ return url; }
+  }
+
+  function vimeoEmbed(url){
+    try{
+      const id = new URL(url).pathname.split("/").filter(Boolean).pop();
+      return id ? "https://player.vimeo.com/video/" + id + "?autoplay=1" : url;
+    }catch(e){ return url; }
+  }
+
+  function facebookEmbed(url){
+    return "https://www.facebook.com/plugins/video.php?href=" + encodeURIComponent(url) + "&show_text=false&autoplay=true";
+  }
+
+  function instagramEmbed(url){
+    return url.endsWith("embed") || url.endsWith("embed/") ? url : url.replace(/\/?$/, "/embed/");
+  }
+
+  function getScreen(){
+    let s = document.getElementById("chmMainTvScreen")
+      || document.querySelector(".chm-tv-main-screen")
+      || document.getElementById("tvEmbedWrapper");
+
+    if(!s){
+      const video = document.getElementById("videoPlayer") || document.querySelector(".live-player video, video#videoPlayer");
+      if(video && video.parentNode){
+        s = document.createElement("div");
+        s.id = "chmMainTvScreen";
+        s.className = "chm-tv-main-screen";
+        s.style.cssText = "width:100%;min-height:520px;";
+        video.parentNode.replaceChild(s, video);
+      }
+    }
+    return s;
+  }
+
+  function emptyHtml(channel){
+    return `<div class="chm-empty-channel">
+      <div style="font-size:3rem;margin-bottom:15px;">📺</div>
+      <h3 style="color:#ffc107;margin:0 0 10px 0;">${channel.name || "Channel"}</h3>
+      <p style="color:#b0b5d4;margin:0;">No video or live feed has been programmed for this channel yet.</p>
+    </div>`;
+  }
+
+  function setActive(id){
+    document.querySelectorAll("[data-channel-id],[data-chm-channel],.chm-channel-btn,.channel-btn,.tv-channel").forEach(btn => {
+      const n = getButtonChannelId(btn);
+      if(n) btn.classList.toggle("active", n === Number(id));
+    });
+  }
+
+  function getButtonChannelId(btn){
+    const raw = btn.getAttribute("data-channel-id")
+      || btn.getAttribute("data-chm-channel")
+      || btn.getAttribute("data-channel")
+      || btn.dataset.channelId
+      || btn.dataset.chmChannel
+      || "";
+    if(raw) return Number(raw);
+    const txt = (btn.textContent || "").match(/\d+/);
+    return txt ? Number(txt[0]) : 0;
+  }
+
+  function renderChannel(id){
+    id = Number(id);
+    if(!id || id < 1 || id > COUNT) id = 1;
+    const channels = getChannels();
+    const ch = channels[id - 1] || defaults[id - 1];
+    const screen = getScreen();
+    if(!screen) return;
+
+    localStorage.setItem("CHM_ACTIVE_CHANNEL", String(id));
+    setActive(id);
+
+    const url = String(ch.url || "").trim();
+    const type = ch.type || detect(url);
+
+    if(!url){
+      screen.innerHTML = emptyHtml(ch);
+      return;
+    }
+
+    let inner = "";
+    if(type === "youtube"){
+      inner = `<iframe src="${youtubeEmbed(url)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="width:100%;height:100%;min-height:520px;border:0;border-radius:14px;background:#000;"></iframe>`;
+    } else if(type === "vimeo"){
+      inner = `<iframe src="${vimeoEmbed(url)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="width:100%;height:100%;min-height:520px;border:0;border-radius:14px;background:#000;"></iframe>`;
+    } else if(type === "facebook"){
+      inner = `<iframe src="${facebookEmbed(url)}" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen style="width:100%;height:100%;min-height:520px;border:0;border-radius:14px;background:#000;"></iframe>`;
+    } else if(type === "instagram"){
+      inner = `<iframe src="${instagramEmbed(url)}" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen style="width:100%;height:100%;min-height:520px;border:0;border-radius:14px;background:#000;"></iframe>`;
+    } else if(type === "video" || type === "hls"){
+      inner = `<video controls autoplay playsinline style="width:100%;height:100%;min-height:520px;border-radius:14px;background:#000;"><source src="${url}"></video>`;
+    } else {
+      inner = `<iframe src="${url}" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen style="width:100%;height:100%;min-height:520px;border:0;border-radius:14px;background:#000;"></iframe>`;
+    }
+    screen.innerHTML = inner;
+  }
+
+  function bindExistingLeftChannels(){
+    let found = [];
+    document.querySelectorAll("[data-channel-id],[data-chm-channel],.chm-channel-btn,.channel-btn,.tv-channel").forEach(btn => {
+      const id = getButtonChannelId(btn);
+      if(id >= 1 && id <= COUNT){
+        btn.setAttribute("data-channel-id", String(id));
+        found.push(btn);
+      }
+    });
+
+    // If the layout has 11 buttons without classes inside a left rail, attach IDs by order.
+    if(found.length < COUNT){
+      const possibleRails = Array.from(document.querySelectorAll("#chmChannelRail,.chm-channel-rail,.channel-rail,.tv-channel-rail,.channels,.channel-list"));
+      possibleRails.forEach(rail => {
+        Array.from(rail.querySelectorAll("button,a,div")).slice(0, COUNT).forEach((btn, i) => {
+          if(!btn.getAttribute("data-channel-id")){
+            btn.setAttribute("data-channel-id", String(i + 1));
+            btn.classList.add("chm-channel-btn");
+          }
+        });
+      });
+    }
+  }
+
+  function installAdminManager(){
+    if(document.getElementById("chmChannelAdminManager")) return;
+    const adminArea = document.querySelector("#adminDashboard .admin-content")
+      || document.querySelector(".admin-content")
+      || document.getElementById("adminDashboard");
+    if(!adminArea) return;
+
+    const panel = document.createElement("div");
+    panel.id = "chmChannelAdminManager";
+    panel.className = "content-editor";
+    panel.style.marginTop = "25px";
+    panel.innerHTML = `<h3>📺 11-Channel TV Source Manager</h3>
+      <p style="color:var(--text-secondary,#b0b5d4);margin-bottom:14px;">Program each left-side channel individually. The public channel buttons will play exactly what you save here.</p>
+      <div id="chmChannelAdminRows"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;">
+        <button type="button" class="btn-primary" id="chmSaveChannelsBtn">Save Channels</button>
+        <button type="button" class="btn-secondary" id="chmExportChannelsBtn">Export published_tv_channels.json</button>
+        <label class="btn-secondary" style="display:inline-flex;align-items:center;cursor:pointer;">Import published_tv_channels.json
+          <input type="file" id="chmImportChannelsFile" accept=".json,application/json" style="display:none;">
+        </label>
+      </div>`;
+    adminArea.appendChild(panel);
+    renderRows();
+
+    document.getElementById("chmSaveChannelsBtn").onclick = saveRows;
+    document.getElementById("chmExportChannelsBtn").onclick = exportJson;
+    document.getElementById("chmImportChannelsFile").onchange = importJson;
+  }
+
+  function esc(v){ return String(v || "").replace(/"/g, "&quot;"); }
+
+  function renderRows(){
+    const rows = document.getElementById("chmChannelAdminRows");
+    if(!rows) return;
+    rows.innerHTML = getChannels().map(ch => `<div data-admin-channel="${ch.id}" style="border:1px solid rgba(0,188,212,.35);border-radius:12px;padding:14px;margin-bottom:12px;background:rgba(0,0,0,.14);">
+      <h4 style="color:#ffc107;margin:0 0 10px 0;">Channel ${ch.id}</h4>
+      <input data-field="name" value="${esc(ch.name)}" placeholder="Channel name">
+      <select data-field="type">
+        <option value="">Auto detect</option>
+        ${["youtube","vimeo","facebook","instagram","iframe","video","hls"].map(t => `<option value="${t}" ${ch.type===t?"selected":""}>${t}</option>`).join("")}
+      </select>
+      <input data-field="title" value="${esc(ch.title)}" placeholder="Video/live title">
+      <input data-field="url" value="${esc(ch.url)}" placeholder="YouTube, Vimeo, Facebook, Instagram, iframe, MP4, or HLS link">
+      <textarea data-field="description" placeholder="Optional description">${ch.description || ""}</textarea>
+    </div>`).join("");
+  }
+
+  function saveRows(){
+    const arr = [];
+    document.querySelectorAll("[data-admin-channel]").forEach(row => {
+      const id = Number(row.getAttribute("data-admin-channel"));
+      const val = f => row.querySelector(`[data-field="${f}"]`)?.value || "";
+      arr.push({
+        id,
+        name: val("name") || "Channel " + id,
+        type: val("type") || detect(val("url")),
+        title: val("title"),
+        url: val("url"),
+        description: val("description"),
+        autoplay: true
+      });
+    });
+    saveChannels(arr);
+    renderChannel(Number(localStorage.getItem("CHM_ACTIVE_CHANNEL") || 1));
+    if(window.showNotification) showNotification("✓ TV channels saved and connected to left-side buttons", "success");
+    else alert("TV channels saved and connected.");
+  }
+
+  function exportJson(){
+    const blob = new Blob([JSON.stringify(getChannels(), null, 2)], {type:"application/json"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "published_tv_channels.json";
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  function importJson(e){
+    const f = e.target.files && e.target.files[0];
+    if(!f) return;
+    const rd = new FileReader();
+    rd.onload = () => {
+      const data = parse(rd.result, null);
+      if(!data) return alert("Invalid JSON");
+      saveChannels(data.channels || data);
+      renderRows();
+      renderChannel(1);
+    };
+    rd.readAsText(f);
+  }
+
+  async function loadGlobal(){
+    try{
+      const res = await fetch("published_tv_channels.json?ts=" + Date.now(), {cache:"no-store"});
+      if(res.ok){
+        const data = await res.json();
+        saveChannels(data.channels || data);
+      }
+    }catch(e){}
+  }
+
+  document.addEventListener("click", function(e){
+    const btn = e.target.closest("[data-channel-id],[data-chm-channel],.chm-channel-btn,.channel-btn,.tv-channel");
+    if(!btn) return;
+    const id = getButtonChannelId(btn);
+    if(id >= 1 && id <= COUNT){
+      e.preventDefault();
+      renderChannel(id);
+    }
+  }, true);
+
+  document.addEventListener("DOMContentLoaded", async function(){
+    bindExistingLeftChannels();
+    await loadGlobal();
+    renderChannel(Number(localStorage.getItem("CHM_ACTIVE_CHANNEL") || 1));
+    setTimeout(installAdminManager, 800);
+    setTimeout(bindExistingLeftChannels, 1000);
+  });
+
+  window.CHMRenderTvChannel = renderChannel;
+  window.CHMGetTvChannels = getChannels;
+  window.CHMSaveTvChannels = saveChannels;
 })();
 </script>
