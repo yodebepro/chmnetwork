@@ -1,12 +1,29 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Redirecting</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CHM Network Redirect</title>
 <script>
 (function(){
-  var path=(location.pathname||'').replace(/\/+$/,'').toLowerCase();
-  if(path.endsWith('/admin')){
-    location.replace(location.pathname.replace(/\/?admin\/?$/i,'/admin/') + location.search + location.hash);
-  } else if(path.endsWith('/admin.html')){
-    location.replace('login.html');
+  var path = (window.location.pathname || "").toLowerCase().replace(/\/+$/, "");
+  var origin = window.location.origin;
+  var repoBase = "";
+  var parts = window.location.pathname.split("/").filter(Boolean);
+
+  // If hosted on GitHub project pages, keep repository base.
+  if(origin.indexOf("github.io") !== -1 && parts.length > 0){
+    repoBase = "/" + parts[0];
+  }
+
+  if(path.endsWith("/admin") || path.endsWith("/admin/") || path.endsWith("/admin.html") || path.endsWith("/login.html")){
+    window.location.replace(origin + repoBase + "/index.html?admin=1");
+  } else {
+    window.location.replace(origin + repoBase + "/index.html");
   }
 })();
-</script></head><body><h1>404</h1><p>If you were opening admin, try <a href="admin/">Admin Login</a>.</p></body></html>
+</script>
+</head>
+<body>
+<p>Redirecting...</p>
+</body>
+</html>
