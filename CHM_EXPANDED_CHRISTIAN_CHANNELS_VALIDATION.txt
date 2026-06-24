@@ -1,0 +1,58 @@
+CHM Network Expanded Christian Channel Lineup
+
+Total channels: 51
+Channel 1 remains YouTube. Channel 11 remains Weather. Channels after 11 are additional Christian channels from IPTV master.
+
+I verified every selected channel has a source URL in the uploaded IPTV file and avoided obvious duplicate URLs. Live playback still depends on each provider being online and allowing browser playback.
+
+CH 1: Channel 1 | youtube | https://www.youtube.com/embed/SWQXGhWohy0?si=YATvL67_rSpr4QJU
+CH 2: Channel 2 - Hope Channel | hls | https://videodelivery.net/9fb3596948ddf463fde0ec4b85625b24/manifest/video.m3u8
+CH 3: Channel 3 - Daystar TV | hls | https://live-mcl.cdn01.net/smarttv/48vy43564/playlist.m3u8
+CH 4: Channel 4 - 3ABN Canada | hls | https://3abn.bozztv.com/3abncanada/3ABN/master.m3u8
+CH 5: Channel 5 - Gospel Movie TV | hls | https://stmv1.srvif.com/gospelf/gospelf/playlist.m3u8
+CH 6: Channel 6 - GOD TV | hls | https://ott.god.tv/live/us/master.m3u8
+CH 7: Channel 7 - History & Warfare | hls | https://d28gzbv9fhdm3h.cloudfront.net/playlist/amg00376-magellantv-historyandwar
+CH 8: Channel 8 - PBS Science | hls | https://amg02333-pbs-amg02333c13-samsung-au-6858.playouts.now.amagi.tv/playlist.m3u8
+CH 9: Channel 9 - Sky News Arabia | hls | https://stream.skynewsarabia.com/ott/ott.m3u8
+CH 10: Channel 10 - EWTN International | hls | https://cdn3.wowza.com/1/ZVBYYXFLLzE0c3NC/Qk1FMURC/hls/live/playlist.m3u8
+CH 11: Channel 11 - Fox Weather | hls | https://247wlive.foxweather.com/stream/index.m3u8
+CH 12: Channel 12 - CBN Gospel (720p) | hls | https://59d39900ebfb8.streamlock.net/ccbn/ccbn/playlist.m3u8
+CH 13: Channel 13 - TBN (1080p) | hls | https://livecdn.use1-0004.jwplive.com/live/sites/Yal8cmyO/media/fCGf6ROk/live.isml/.m3u8
+CH 14: Channel 14 - TBN Armenia | hls | https://164475.gvideo.io/mpegts/164475_650646/master_mpegts.m3u8
+CH 15: Channel 15 - TBN Baltia (1080p) | hls | http://dc.tbnbaltia.eu:8088/dvr/rewind-21600.m3u8
+CH 16: Channel 16 - TBN España (576p) | hls | https://edge.xn--tbnespaa-j3a.es/LiveApp/streams/tbnlive.m3u8
+CH 17: Channel 17 - TBN Inspire (1080p) | hls | https://livecdn.use1-0004.jwplive.com/live/sites/Yal8cmyO/media/yfFI83Xz/live.isml/.m3u8
+CH 18: Channel 18 - TBN Nejat TV | hls | https://hls.nejat.live/hls/stream.m3u8
+CH 19: Channel 19 - TBN Pacific | hls | https://broadcast.tbnpacific.org.au:4430/stream/TBNPacificTV/playlist.m3u8
+CH 20: Channel 20 - TBN Polska (1080p) | hls | https://s-pl-01.mediatool.tv/playout/tbn-abr/tracks-v1a1/mono.ts.m3u8
+CH 21: Channel 21 - TBN UK (1080p) | hls | https://live-tbn-ssai.simplestreamcdn.com/v1/master/774d979dd66704abea7c5b62cb34c6815fda0d35/tbn-live/manifest.m3u8
+CH 22: Channel 22 - TBN Україна (720p) | hls | https://5d23269b3ec0c.streamlock.net/WEB_Ukraine24/ngrp:Ukraine24.stream-adaptive/playlist.m3u8
+CH 23: Channel 23 - Daystar Español (720p) | hls | https://live-mcl.cdn01.net/smarttv/64wj6m6d8/playlist.m3u8
+CH 24: Channel 24 - Daystar TV (1080p) | hls | https://hls-live-media-gc.cdn01.net/mpegts/232076_2222904/ApFvejWjRVUzPbyYzS8d9g/1776816000/master_mpegts.m3u8
+CH 25: Channel 25 - Daystar TV Espanol (1080p) | hls | https://hls-live-media-gc.cdn01.net/mpegts/232076_2222907/karlKyiKToEdHsTFUcjs9g/1776816000/master_mpegts.m3u8
+CH 26: Channel 26 - 3ABN Dare To Dream Network | hls | https://3abn.bozztv.com/3abn2/d2d_live/smil:d2d_live.smil/playlist.m3u8
+CH 27: Channel 27 - 3ABN English | hls | https://3abn.bozztv.com/3abn2/3abn_live/smil:3abn_live.smil/playlist.m3u8
+CH 28: Channel 28 - 3ABN French | hls | https://3abn.bozztv.com/3abn2/Fre_live/smil:Fre_live.smil/playlist.m3u8
+CH 29: Channel 29 - 3ABN International Network | hls | https://3abn.bozztv.com/3abn2/Int_live/smil:Int_live.smil/playlist.m3u8
+CH 30: Channel 30 - 3ABN Kids Network | hls | https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8
+CH 31: Channel 31 - 3ABN Latino | hls | https://3abn.bozztv.com/3abn2/Lat_live/smil:Lat_live.smil/playlist.m3u8
+CH 32: Channel 32 - 3ABN Praise Him Music Network | hls | https://3abn.bozztv.com/3abn1/PraiseHim/smil:PraiseHim.smil/playlist.m3u8
+CH 33: Channel 33 - 3ABN Proclaim! Network | hls | https://3abn.bozztv.com/3abn2/Pro_live/smil:Pro_live.smil/playlist.m3u8
+CH 34: Channel 34 - EWTN | hls | https://dash3.antik.sk/live/test_ewtn_tizen/playlist.m3u8
+CH 35: Channel 35 - EWTN Asia-Pacific (720p) | hls | https://cdn3.wowza.com/1/QmVNUVhTNTZSS3Uz/YWQ0aHpi/hls/live/playlist.m3u8
+CH 36: Channel 36 - EWTN Canada (720p) | hls | https://cdn3.wowza.com/1/YW5wSWZiRGd2eFlU/bGV0aVBq/hls/live/playlist.m3u8
+CH 37: Channel 37 - EWTN Espana | hls | https://cdn3.wowza.com/1/SmVrQmZCUXZhVDgz/b3J3MFJv/hls/q6xkg9py/480/chunklist.m3u8
+CH 38: Channel 38 - EWTN Europe (720p) | hls | https://cdn3.wowza.com/1/T2NXeHF6UGlGbHY3/WFluRldQ/hls/live/playlist.m3u8
+CH 39: Channel 39 - EWTN Germany (720p) | hls | https://cdn3.wowza.com/1/ZUkxSDBrZHlMbjVn/ZkhNRFNZ/hls/live/playlist.m3u8
+CH 40: Channel 40 - EWTN Poland (1080p) | hls | https://cdn3.wowza.com/1/ZHdrMWt1NjlDSzFu/bzdDVG10/hls/live/playlist.m3u8
+CH 41: Channel 41 - EWTN Spain & Latin America (720p) | hls | https://cdn3.wowza.com/1/SmVrQmZCUXZhVDgz/b3J3MFJv/hls/live/playlist.m3u8
+CH 42: Channel 42 - EWTN Ukraine (1080p) | hls | https://cdn3.wowza.com/1/WjduMm1tYnlwNXQx/M01NV3Uz/hls/live/playlist.m3u8
+CH 43: Channel 43 - Hope Channel Africa (1080p) | hls | https://jstre.am/live/jsl:i1onRBELcGV.m3u8
+CH 44: Channel 44 - Hope Channel Bulgaria | hls | https://hc1.hopetv.bg/live/hopetv_all.smil/playlist.m3u8
+CH 45: Channel 45 - Hope Channel German (1080p) | hls | https://customer-x8zydurm357k8j9p.cloudflarestream.com/5b46490d20cdd87fcac238b0027813e0/manifest/video.m3u8
+CH 46: Channel 46 - Hope Channel Ghana (480p) | hls | https://videodelivery.net/dfbdca87f2a6291aa4fdc8fe3290769b/manifest/video.m3u8
+CH 47: Channel 47 - Hope Channel India (576p) | hls | https://mumt01.tangotv.in/HOPECHANNELINDIA/index.m3u8
+CH 48: Channel 48 - Hope Channel Inter-America | hls | https://jstre.am/live/jsl:EC0Mq0i6HJU.m3u8
+CH 49: Channel 49 - Hope Channel Inter-America English (1080p) | hls | https://jstre.am/live/jsl:UP9KAdlVrm8.m3u8
+CH 50: Channel 50 - Hope Channel International (1080p) | hls | https://jstre.am/live/jsl:cZXINbwrFj6.m3u8
+CH 51: Channel 51 - Hope Channel North America (1080p) | hls | https://jstre.am/live/jsl:0sUSK6VA7GT.m3u8
