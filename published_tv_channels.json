@@ -14,7 +14,7 @@
     "type": "hls",
     "url": "https://videodelivery.net/9fb3596948ddf463fde0ec4b85625b24/manifest/video.m3u8",
     "title": "Christian Broadcasting",
-    "description": "Christian IPTV source from uploaded IPTV list.",
+    "description": "Christian IPTV source from the uploaded IPTV master list.",
     "autoplay": false
   },
   {
@@ -23,7 +23,7 @@
     "type": "hls",
     "url": "https://live-mcl.cdn01.net/smarttv/48vy43564/playlist.m3u8",
     "title": "Christian Broadcasting",
-    "description": "Christian IPTV source from uploaded IPTV list.",
+    "description": "Christian IPTV source from the uploaded IPTV master list.",
     "autoplay": false
   },
   {
@@ -32,7 +32,7 @@
     "type": "hls",
     "url": "https://3abn.bozztv.com/3abncanada/3ABN/master.m3u8",
     "title": "Christian Broadcasting",
-    "description": "Christian IPTV source from uploaded IPTV list.",
+    "description": "Christian IPTV source from the uploaded IPTV master list.",
     "autoplay": false
   },
   {
@@ -41,7 +41,7 @@
     "type": "hls",
     "url": "https://stmv1.srvif.com/gospelf/gospelf/playlist.m3u8",
     "title": "Christian Broadcasting",
-    "description": "Christian IPTV source from uploaded IPTV list.",
+    "description": "Christian IPTV source from the uploaded IPTV master list.",
     "autoplay": false
   },
   {
@@ -50,7 +50,7 @@
     "type": "hls",
     "url": "https://ott.god.tv/live/us/master.m3u8",
     "title": "Christian Broadcasting",
-    "description": "Christian IPTV source from uploaded IPTV list.",
+    "description": "Christian IPTV source from the uploaded IPTV master list.",
     "autoplay": false
   },
   {
@@ -59,7 +59,7 @@
     "type": "hls",
     "url": "https://d28gzbv9fhdm3h.cloudfront.net/playlist/amg00376-magellantv-historyandwar",
     "title": "Documentary",
-    "description": "Documentary IPTV source from uploaded IPTV list.",
+    "description": "Documentary IPTV source from the uploaded IPTV master list.",
     "autoplay": false
   },
   {
@@ -68,7 +68,7 @@
     "type": "hls",
     "url": "https://amg02333-pbs-amg02333c13-samsung-au-6858.playouts.now.amagi.tv/playlist.m3u8",
     "title": "Documentary",
-    "description": "Documentary IPTV source from uploaded IPTV list.",
+    "description": "Documentary IPTV source from the uploaded IPTV master list.",
     "autoplay": false
   },
   {
@@ -77,7 +77,7 @@
     "type": "hls",
     "url": "https://stream.skynewsarabia.com/ott/ott.m3u8",
     "title": "News",
-    "description": "News IPTV source from uploaded IPTV list.",
+    "description": "News IPTV source from the uploaded IPTV master list.",
     "autoplay": false
   },
   {
@@ -86,16 +86,16 @@
     "type": "hls",
     "url": "https://cdn3.wowza.com/1/ZVBYYXFLLzE0c3NC/Qk1FMURC/hls/live/playlist.m3u8",
     "title": "International Christian Channel",
-    "description": "International Christian IPTV source from uploaded IPTV list.",
+    "description": "International Christian IPTV source from the uploaded IPTV master list.",
     "autoplay": false
   },
   {
     "id": 11,
-    "name": "Channel 11",
-    "type": "",
-    "url": "",
-    "title": "",
-    "description": "Available for future programming.",
+    "name": "Channel 11 - Fox Weather",
+    "type": "hls",
+    "url": "https://247wlive.foxweather.com/stream/index.m3u8",
+    "title": "Weather Channel",
+    "description": "Weather IPTV source from the uploaded IPTV master list.",
     "autoplay": false
   }
 ]
