@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Events | CHM Admin</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Footer Control | CHM Admin</title>
 <link rel="stylesheet" href="admin.css"/>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 <script src="firebase-config.js"></script>
-</head>
-<body>
-<div class="admin-wrap">
+</head><body onload="requireAuth()"><div class="admin-wrap">
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-brand">
     <img src="logo-dark.png" alt="CHM" class="brand-logo" onerror="this.outerHTML='<div class=&quot;brand-logo-fallback&quot;>✝</div>'"/>
@@ -28,22 +23,34 @@
     <a href="adm-sermons.html" class="sidebar-link"><span class="icon">🎙</span> Sermons</a>
     <a href="adm-gallery.html" class="sidebar-link"><span class="icon">🖼</span> Gallery</a>
     <a href="pages.html" class="sidebar-link"><span class="icon">📄</span> Page Content</a>
-    <a href="adm-departments.html" class="sidebar-link"><span class="icon">&#127970;</span> Departments</a>
     <a href="navigation.html" class="sidebar-link"><span class="icon">🧭</span> Navigation</a>
   </div>
   <div class="sidebar-section"><div class="sidebar-section-label">People</div>
     <a href="adm-leaders.html" class="sidebar-link"><span class="icon">👤</span> Leadership</a>
     <a href="members.html" class="sidebar-link"><span class="icon">👥</span> Members</a>
-    <a href="adm-teams.html" class="sidebar-link"><span class="icon">&#128101;</span> Teams</a>
-    <a href="adm-about.html" class="sidebar-link"><span class="icon">&#8505;</span> About Page</a>
     <a href="adm-ministries.html" class="sidebar-link"><span class="icon">⛪</span> Ministries</a>
-  </div>
+  
+    <a href="adm-home.html" class="sidebar-link"><span class="icon">🏡</span> Home Page</a>
+    <a href="adm-about.html" class="sidebar-link"><span class="icon">ℹ️</span> About Page</a>
+    <a href="adm-teams.html" class="sidebar-link"><span class="icon">🧩</span> Teams</a>
+    <a href="adm-departments.html" class="sidebar-link"><span class="icon">🏛️</span> Departments</a>
+    <a href="adm-sacred.html" class="sidebar-link"><span class="icon">✝️</span> Sacred Ministries</a>
+    <a href="adm-locations.html" class="sidebar-link"><span class="icon">🌍</span> Locations / Campuses</a>
+    <a href="adm-give.html" class="sidebar-link"><span class="icon">💝</span> Give Page</a>
+    <a href="adm-media-settings.html" class="sidebar-link"><span class="icon">📡</span> Live Media Settings</a>
+    <a href="adm-uploads.html" class="sidebar-link"><span class="icon">⬆️</span> Media Uploads</a>
+    <a href="adm-blueprint.html" class="sidebar-link"><span class="icon">📘</span> Blueprint Sections</a>
+</div>
   <div class="sidebar-section"><div class="sidebar-section-label">Inbox</div>
     <a href="prayer-requests.html" class="sidebar-link"><span class="icon">🙏</span> Prayer Requests</a>
     <a href="messages.html" class="sidebar-link"><span class="icon">✉️</span> Messages</a>
     <a href="giving.html" class="sidebar-link"><span class="icon">💰</span> Giving Records</a>
   </div>
   <div class="sidebar-section"><div class="sidebar-section-label">System</div>
+    
+    <a href="adm-navigation.html" class="sidebar-link"><span class="icon">🧭</span> Navigation Menus</a>
+    <a href="adm-footer.html" class="sidebar-link"><span class="icon">⬇️</span> Footer Content</a>
+    <a href="adm-languages.html" class="sidebar-link"><span class="icon">🌐</span> Languages</a>
     <a href="settings.html" class="sidebar-link"><span class="icon">⚙️</span> Settings & Colors</a>
     <a href="index.html" class="sidebar-link" target="_blank"><span class="icon">🌐</span> View Public Site ↗</a>
   </div>
@@ -55,85 +62,11 @@
     </div>
   </div>
 </aside>
-<div class="main-content">
-  <div class="top-bar">
-    <div class="top-bar-left"><button class="hamburger" id="hamburger"><span></span><span></span><span></span></button><h1 class="top-bar-title">&#128197; Events</h1></div>
-    <div class="top-bar-actions"><button class="btn btn-gold btn-sm" data-open="eM">+ New Event</button></div>
-  </div>
-  <div class="page-body">
-    <div class="filter-bar">
-      <div class="chips" id="eC"><button class="chip active" data-f="">All</button><button class="chip" data-f="published">Published</button><button class="chip" data-f="upcoming">Upcoming</button><button class="chip" data-f="draft">Draft</button><button class="chip" data-f="archived">Archived</button></div>
-      <div class="search-box"><span class="si">&#128269;</span><input type="text" id="eQ" placeholder="Search events..."/></div>
-    </div>
-    <div class="card"><div class="table-wrap"><table>
-      <thead><tr><th>Event Name</th><th>Date &amp; Time</th><th>Location</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead>
-      <tbody id="eB"></tbody>
-    </table></div></div>
-    <div class="modal-overlay" id="eM"><div class="modal">
-      <div class="modal-header"><h2 class="modal-title" id="eMT">New Event</h2><button class="modal-close" data-close="eM">X</button></div>
-      <div class="modal-body">
-        <input type="hidden" id="eId"/>
-        <div class="form-group"><label class="form-label">Event Name <span class="req">*</span></label><input type="text" class="fi" id="eNm" placeholder="Event title"/></div>
-        <div class="form-row">
-          <div class="form-group"><label class="form-label">Date</label><input type="date" class="fi" id="eDt"/></div>
-          <div class="form-group"><label class="form-label">Time</label><input type="text" class="fi" id="eTm" placeholder="e.g. 6:00 PM EST"/></div>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label class="form-label">Location</label><input type="text" class="fi" id="eLc" placeholder="Main Sanctuary / Online"/></div>
-          <div class="form-group"><label class="form-label">Category</label><input type="text" class="fi" id="eCt" placeholder="Worship, Youth, Outreach..."/></div>
-        </div>
-        <div class="form-row">
-          <div class="form-group"><label class="form-label">Type</label><select class="fs" id="eTy"><option value="upcoming">Upcoming</option><option value="recurring">Recurring</option><option value="past">Past</option></select></div>
-        </div>
-        <div class="form-group"><label class="form-label">Description</label><textarea class="ft" id="eDe" rows="3" placeholder="Brief description..."></textarea></div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-outline btn-sm" data-close="eM">Cancel</button>
-        <button class="btn btn-save btn-sm" onclick="eSave('draft')">Save Draft</button>
-        <button class="btn btn-publish btn-sm" onclick="eSave('published')">Publish Globally</button>
-      </div>
-    </div></div>
-  </div>
-</div>
-</div>
-<script src="admin.js"></script>
-<script>requireAuth();
-const EC='events';
-document.querySelectorAll('#eC .chip').forEach(c=>c.addEventListener('click',()=>{document.querySelectorAll('#eC .chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');eLoad();}));
-document.getElementById('eQ').addEventListener('input',eLoad);
-async function eLoad(){
-  const data=await cmsGet(EC);const q=document.getElementById('eQ').value.toLowerCase();const fv=document.querySelector('#eC .chip.active')?.dataset.f||'';
-  const fil=data.filter(e=>(!fv||(e._status===fv||e.type===fv))&&(!q||e.name.toLowerCase().includes(q)));
-  document.getElementById('eB').innerHTML=fil.length?fil.map(e=>`<tr>
-    <td><div class="td-primary">${e.name}</div><div class="td-secondary">${e.category||''}</div></td>
-    <td><div style="font-weight:600;font-size:.82rem;">${e.date||'--'}</div><div class="td-muted">${e.time||''}</div></td>
-    <td class="td-muted">${e.location||'--'}</td>
-    <td><span class="badge badge-blue">${e.type||'upcoming'}</span></td>
-    <td>${badge(e._status)}</td>
-    <td><div class="row-actions">
-      ${e._status==='published'?`<button class="act act-unpublish" onclick="eSetStatus('${e.id}','draft')">Unpublish</button>`:`<button class="act act-publish" onclick="eSetStatus('${e.id}','published')">Publish</button>`}
-      <button class="act act-edit" onclick="eEdit('${e.id}')">Edit</button>
-      <button class="act act-archive" onclick="eSetStatus('${e.id}','archived')">Archive</button>
-      <button class="act act-delete" onclick="confirmDel(()=>eDel('${e.id}'))">Delete</button>
-    </div></td></tr>`).join('')
-  :'<tr><td colspan="6" style="text-align:center;padding:2.5rem;color:var(--text-muted);">No events yet.</td></tr>';
-}
-async function eSetStatus(id,status){const d=await loadData();const idx=(d[EC]||[]).findIndex(x=>x.id===id);if(idx>=0){d[EC][idx]._status=status;if(status==='published')d[EC][idx]._publishedAt=Date.now();}const ok=await pushToGitHub();toast(ok?(status==='published'?'Event published globally!':'Updated.'):'Saved locally only. Set up GitHub token.', ok?'success':'warning');eLoad();}
-async function eDel(id){const d=await loadData();if(d[EC])d[EC]=d[EC].filter(x=>x.id!==id);await pushToGitHub();toast('Deleted','error');eLoad();}
-async function eEdit(id){const d=(await cmsGet(EC)).find(x=>x.id===id);if(!d)return;document.getElementById('eId').value=d.id;document.getElementById('eNm').value=d.name||'';document.getElementById('eDt').value=d.date||'';document.getElementById('eTm').value=d.time||'';document.getElementById('eLc').value=d.location||'';document.getElementById('eCt').value=d.category||'';document.getElementById('eTy').value=d.type||'upcoming';document.getElementById('eDe').value=d.desc||'';document.getElementById('eMT').textContent='Edit Event';openModal('eM');}
-async function eSave(status){
-  const name=document.getElementById('eNm').value.trim();if(!name){toast('Event name required','error');return;}
-  const id=document.getElementById('eId').value||null;
-  await cmsSave(EC,id,{name,date:document.getElementById('eDt').value,time:document.getElementById('eTm').value,location:document.getElementById('eLc').value,category:document.getElementById('eCt').value,type:document.getElementById('eTy').value,desc:document.getElementById('eDe').value},status);
-  const ok=await pushToGitHub();
-  if(ok&&status==='published')toast('Event published globally! Live within 60 seconds.','success');
-  else if(ok)toast('Draft saved to GitHub.','success');
-  else toast('Saved locally only. Open github-setup.html to publish globally.','warning');
-  closeModal('eM');eLoad();
-}
-document.querySelector('[data-open="eM"]')?.addEventListener('click',()=>{['eId','eNm','eDt','eTm','eLc','eCt','eDe'].forEach(f=>{const el=document.getElementById(f);if(el)el.value='';});document.getElementById('eTy').value='upcoming';document.getElementById('eMT').textContent='New Event';});
-eLoad();
-</script>
+<main class="main-content">
+  <div class="topbar-admin"><button id="hamburger" class="hamburger">☰</button><div class="topbar-title">Footer Control</div><button class="btn btn-ghost" data-logout>Logout</button></div>
+  <div class="page-body"><div data-blueprint-crud="adm_footer"></div></div>
+</main>
+</div><script src="admin.js"></script>
 
 
 <script src="contact-direct-send.js"></script>

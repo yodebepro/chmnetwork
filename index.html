@@ -1956,6 +1956,7 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 .chm-channel-admin-sticky-actions{position:sticky;bottom:0;background:var(--dark-card,#1a1f3a);border-top:1px solid rgba(0,188,212,.35);padding:14px 0 4px 0;z-index:10}
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 <body>
 
@@ -8107,3 +8108,88 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 </script>
 
+
+<script>
+/* CHM BASELINE CHANNEL SEED UPDATE
+   Seeds Channel 1-10 from requested YouTube/IPTV lineup.
+   Keeps admin in root only; no /admin folder required.
+   TV does not autoplay. Visitor presses play.
+*/
+(function(){
+  const SEEDED_CHANNELS = [{"id": 1, "name": "Channel 1", "type": "youtube", "url": "https://www.youtube.com/embed/SWQXGhWohy0?si=YATvL67_rSpr4QJU", "title": "YouTube Stream", "description": "Embedded YouTube stream provided by admin.", "autoplay": false}, {"id": 2, "name": "Channel 2 - Hope Channel", "type": "hls", "url": "https://videodelivery.net/9fb3596948ddf463fde0ec4b85625b24/manifest/video.m3u8", "title": "Christian Broadcasting", "description": "Christian IPTV source from uploaded IPTV list.", "autoplay": false}, {"id": 3, "name": "Channel 3 - Daystar TV", "type": "hls", "url": "https://live-mcl.cdn01.net/smarttv/48vy43564/playlist.m3u8", "title": "Christian Broadcasting", "description": "Christian IPTV source from uploaded IPTV list.", "autoplay": false}, {"id": 4, "name": "Channel 4 - 3ABN Canada", "type": "hls", "url": "https://3abn.bozztv.com/3abncanada/3ABN/master.m3u8", "title": "Christian Broadcasting", "description": "Christian IPTV source from uploaded IPTV list.", "autoplay": false}, {"id": 5, "name": "Channel 5 - Gospel Movie TV", "type": "hls", "url": "https://stmv1.srvif.com/gospelf/gospelf/playlist.m3u8", "title": "Christian Broadcasting", "description": "Christian IPTV source from uploaded IPTV list.", "autoplay": false}, {"id": 6, "name": "Channel 6 - GOD TV", "type": "hls", "url": "https://ott.god.tv/live/us/master.m3u8", "title": "Christian Broadcasting", "description": "Christian IPTV source from uploaded IPTV list.", "autoplay": false}, {"id": 7, "name": "Channel 7 - History & Warfare", "type": "hls", "url": "https://d28gzbv9fhdm3h.cloudfront.net/playlist/amg00376-magellantv-historyandwar", "title": "Documentary", "description": "Documentary IPTV source from uploaded IPTV list.", "autoplay": false}, {"id": 8, "name": "Channel 8 - PBS Science", "type": "hls", "url": "https://amg02333-pbs-amg02333c13-samsung-au-6858.playouts.now.amagi.tv/playlist.m3u8", "title": "Documentary", "description": "Documentary IPTV source from uploaded IPTV list.", "autoplay": false}, {"id": 9, "name": "Channel 9 - Sky News Arabia", "type": "hls", "url": "https://stream.skynewsarabia.com/ott/ott.m3u8", "title": "News", "description": "News IPTV source from uploaded IPTV list.", "autoplay": false}, {"id": 10, "name": "Channel 10 - EWTN International", "type": "hls", "url": "https://cdn3.wowza.com/1/ZVBYYXFLLzE0c3NC/Qk1FMURC/hls/live/playlist.m3u8", "title": "International Christian Channel", "description": "International Christian IPTV source from uploaded IPTV list.", "autoplay": false}, {"id": 11, "name": "Channel 11", "type": "", "url": "", "title": "", "description": "Available for future programming.", "autoplay": false}];
+  const KEY = "CHM_TV_CHANNELS_V2";
+
+  function saveSeed(){
+    try {
+      localStorage.setItem(KEY, JSON.stringify(SEEDED_CHANNELS, null, 2));
+    } catch(e) {}
+  }
+
+  function enhanceHlsPlayback(){
+    document.querySelectorAll("video").forEach(function(video){
+      const source = video.querySelector("source");
+      const src = (source && source.src) || video.currentSrc || video.src || "";
+      if(!src || !src.includes(".m3u8") || video.dataset.hlsEnhanced === "1") return;
+      video.dataset.hlsEnhanced = "1";
+      if(video.canPlayType("application/vnd.apple.mpegurl")) {
+        video.src = src;
+      } else if(window.Hls && window.Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(src);
+        hls.attachMedia(video);
+      }
+    });
+  }
+
+  function renderFirstChannel(){
+    try {
+      saveSeed();
+      if(window.CHMRenderTvChannel) {
+        window.CHMRenderTvChannel(Number(localStorage.getItem("CHM_ACTIVE_CHANNEL") || 1));
+      }
+      setTimeout(enhanceHlsPlayback, 500);
+      setTimeout(enhanceHlsPlayback, 1500);
+    } catch(e) {}
+  }
+
+  // Keep the public channels seeded unless admin intentionally changes and exports JSON.
+  if(document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function(){
+      renderFirstChannel();
+      document.addEventListener("click", function(){ setTimeout(enhanceHlsPlayback, 600); }, true);
+    });
+  } else {
+    renderFirstChannel();
+  }
+
+  window.CHMSeedDefaultTvChannels = function(){
+    saveSeed();
+    if(window.CHMRenderTvChannel) window.CHMRenderTvChannel(1);
+  };
+})();
+</script>
+
+<script>
+/* CHM HLS OBSERVER: enables .m3u8 streams in browsers that need hls.js */
+(function(){
+  function enhance(){
+    document.querySelectorAll("video").forEach(function(video){
+      const source = video.querySelector("source");
+      const src = (source && source.getAttribute("src")) || video.getAttribute("src") || "";
+      if(!src || !src.includes(".m3u8") || video.dataset.hlsEnhanced === "1") return;
+      video.dataset.hlsEnhanced = "1";
+      if(video.canPlayType("application/vnd.apple.mpegurl")){
+        video.src = src;
+      } else if(window.Hls && window.Hls.isSupported()){
+        const hls = new Hls();
+        hls.loadSource(src);
+        hls.attachMedia(video);
+      }
+    });
+  }
+  document.addEventListener("DOMContentLoaded", function(){
+    enhance();
+    new MutationObserver(enhance).observe(document.body,{childList:true,subtree:true});
+  });
+})();
+</script>
