@@ -1958,59 +1958,12 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
-
 <style>
-/* CHM DYNAMIC CHANNEL SCROLL FIX */
-#chmChannelRail,
-.chm-channel-rail,
-.channel-list,
-.channels,
-.tv-channels,
-.live-channels {
-  max-height: 640px !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  padding-right: 8px !important;
-  scroll-behavior: smooth;
-}
-#chmChannelRail::-webkit-scrollbar,
-.chm-channel-rail::-webkit-scrollbar,
-.channel-list::-webkit-scrollbar,
-.channels::-webkit-scrollbar,
-.tv-channels::-webkit-scrollbar,
-.live-channels::-webkit-scrollbar { width: 10px; }
-#chmChannelRail::-webkit-scrollbar-thumb,
-.chm-channel-rail::-webkit-scrollbar-thumb,
-.channel-list::-webkit-scrollbar-thumb,
-.channels::-webkit-scrollbar-thumb,
-.tv-channels::-webkit-scrollbar-thumb,
-.live-channels::-webkit-scrollbar-thumb {
-  background:#00bcd4;
-  border-radius:12px;
-}
-.chm-channel-btn,
-.chm-left-channel {
-  display:block !important;
-  width:100% !important;
-  min-height:54px !important;
-  padding:9px 8px !important;
-  margin:0 !important;
-  border-bottom:1px solid rgba(0,188,212,.35) !important;
-  cursor:pointer !important;
-}
-.chm-channel-btn small {
-  display:block;
-  font-size:10px;
-  line-height:1.1;
-  opacity:.95;
-  white-space:normal;
-}
-.chm-channel-btn.active,
-.chm-left-channel-active {
-  background:linear-gradient(135deg,#00bcd4,#ffc107)!important;
-  color:#06101f!important;
-  box-shadow:0 0 18px rgba(0,188,212,.55)!important;
-}
+/* CHM Expanded Channel Scroll + Autoplay Click */
+.chm-channel-rail,#chmChannelRail,.channel-list,.channels,.tv-channels,.live-channels{max-height:560px!important;overflow-y:auto!important;overflow-x:hidden!important;padding-right:8px!important;scroll-behavior:smooth}
+.chm-channel-rail::-webkit-scrollbar,#chmChannelRail::-webkit-scrollbar,.channel-list::-webkit-scrollbar,.channels::-webkit-scrollbar,.tv-channels::-webkit-scrollbar,.live-channels::-webkit-scrollbar{width:10px}
+.chm-channel-rail::-webkit-scrollbar-thumb,#chmChannelRail::-webkit-scrollbar-thumb,.channel-list::-webkit-scrollbar-thumb,.channels::-webkit-scrollbar-thumb,.tv-channels::-webkit-scrollbar-thumb,.live-channels::-webkit-scrollbar-thumb{background:#00bcd4;border-radius:12px}
+.chm-channel-btn{display:block!important;width:100%!important;margin-bottom:8px!important}
 </style>
 
 </head>
@@ -8166,71 +8119,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
 <script>
-/* CHM DYNAMIC 51 CHANNEL LIST FIX
-   Dynamically lists all channels from published_tv_channels.json/local seed.
-   Channel click switches and starts playback automatically.
-*/
+/* CHM EXPANDED CHRISTIAN CHANNELS UPDATE */
 (function(){
   const SEEDED_CHANNELS = [{"id": 1, "name": "Channel 1", "type": "youtube", "url": "https://www.youtube.com/embed/SWQXGhWohy0?si=YATvL67_rSpr4QJU", "title": "YouTube Stream", "description": "Embedded YouTube stream provided by admin.", "autoplay": true}, {"id": 2, "name": "Channel 2 - Hope Channel", "type": "hls", "url": "https://videodelivery.net/9fb3596948ddf463fde0ec4b85625b24/manifest/video.m3u8", "title": "Christian Broadcasting", "description": "Christian IPTV source from the uploaded IPTV master list.", "autoplay": true}, {"id": 3, "name": "Channel 3 - Daystar TV", "type": "hls", "url": "https://live-mcl.cdn01.net/smarttv/48vy43564/playlist.m3u8", "title": "Christian Broadcasting", "description": "Christian IPTV source from the uploaded IPTV master list.", "autoplay": true}, {"id": 4, "name": "Channel 4 - 3ABN Canada", "type": "hls", "url": "https://3abn.bozztv.com/3abncanada/3ABN/master.m3u8", "title": "Christian Broadcasting", "description": "Christian IPTV source from the uploaded IPTV master list.", "autoplay": true}, {"id": 5, "name": "Channel 5 - Gospel Movie TV", "type": "hls", "url": "https://stmv1.srvif.com/gospelf/gospelf/playlist.m3u8", "title": "Christian Broadcasting", "description": "Christian IPTV source from the uploaded IPTV master list.", "autoplay": true}, {"id": 6, "name": "Channel 6 - GOD TV", "type": "hls", "url": "https://ott.god.tv/live/us/master.m3u8", "title": "Christian Broadcasting", "description": "Christian IPTV source from the uploaded IPTV master list.", "autoplay": true}, {"id": 7, "name": "Channel 7 - History & Warfare", "type": "hls", "url": "https://d28gzbv9fhdm3h.cloudfront.net/playlist/amg00376-magellantv-historyandwar", "title": "Documentary", "description": "Documentary IPTV source from the uploaded IPTV master list.", "autoplay": true}, {"id": 8, "name": "Channel 8 - PBS Science", "type": "hls", "url": "https://amg02333-pbs-amg02333c13-samsung-au-6858.playouts.now.amagi.tv/playlist.m3u8", "title": "Documentary", "description": "Documentary IPTV source from the uploaded IPTV master list.", "autoplay": true}, {"id": 9, "name": "Channel 9 - Sky News Arabia", "type": "hls", "url": "https://stream.skynewsarabia.com/ott/ott.m3u8", "title": "News", "description": "News IPTV source from the uploaded IPTV master list.", "autoplay": true}, {"id": 10, "name": "Channel 10 - EWTN International", "type": "hls", "url": "https://cdn3.wowza.com/1/ZVBYYXFLLzE0c3NC/Qk1FMURC/hls/live/playlist.m3u8", "title": "International Christian Channel", "description": "International Christian IPTV source from the uploaded IPTV master list.", "autoplay": true}, {"id": 11, "name": "Channel 11 - Fox Weather", "type": "hls", "url": "https://247wlive.foxweather.com/stream/index.m3u8", "title": "Weather Channel", "description": "Weather IPTV source from the uploaded IPTV master list.", "autoplay": true}, {"id": 12, "name": "Channel 12 - CBN Gospel (720p)", "type": "hls", "url": "https://59d39900ebfb8.streamlock.net/ccbn/ccbn/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (vg.m3u).", "autoplay": true}, {"id": 13, "name": "Channel 13 - TBN (1080p)", "type": "hls", "url": "https://livecdn.use1-0004.jwplive.com/live/sites/Yal8cmyO/media/fCGf6ROk/live.isml/.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).", "autoplay": true}, {"id": 14, "name": "Channel 14 - TBN Armenia", "type": "hls", "url": "https://164475.gvideo.io/mpegts/164475_650646/master_mpegts.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).", "autoplay": true}, {"id": 15, "name": "Channel 15 - TBN Baltia (1080p)", "type": "hls", "url": "http://dc.tbnbaltia.eu:8088/dvr/rewind-21600.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (ee.m3u).", "autoplay": true}, {"id": 16, "name": "Channel 16 - TBN Espa\u00f1a (576p)", "type": "hls", "url": "https://edge.xn--tbnespaa-j3a.es/LiveApp/streams/tbnlive.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (es.m3u).", "autoplay": true}, {"id": 17, "name": "Channel 17 - TBN Inspire (1080p)", "type": "hls", "url": "https://livecdn.use1-0004.jwplive.com/live/sites/Yal8cmyO/media/yfFI83Xz/live.isml/.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).", "autoplay": true}, {"id": 18, "name": "Channel 18 - TBN Nejat TV", "type": "hls", "url": "https://hls.nejat.live/hls/stream.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (ir.m3u).", "autoplay": true}, {"id": 19, "name": "Channel 19 - TBN Pacific", "type": "hls", "url": "https://broadcast.tbnpacific.org.au:4430/stream/TBNPacificTV/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).", "autoplay": true}, {"id": 20, "name": "Channel 20 - TBN Polska (1080p)", "type": "hls", "url": "https://s-pl-01.mediatool.tv/playout/tbn-abr/tracks-v1a1/mono.ts.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (pl.m3u).", "autoplay": true}, {"id": 21, "name": "Channel 21 - TBN UK (1080p)", "type": "hls", "url": "https://live-tbn-ssai.simplestreamcdn.com/v1/master/774d979dd66704abea7c5b62cb34c6815fda0d35/tbn-live/manifest.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (uk.m3u).", "autoplay": true}, {"id": 22, "name": "Channel 22 - TBN \u0423\u043a\u0440\u0430\u0457\u043d\u0430 (720p)", "type": "hls", "url": "https://5d23269b3ec0c.streamlock.net/WEB_Ukraine24/ngrp:Ukraine24.stream-adaptive/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (ua.m3u).", "autoplay": true}, {"id": 23, "name": "Channel 23 - Daystar Espa\u00f1ol (720p)", "type": "hls", "url": "https://live-mcl.cdn01.net/smarttv/64wj6m6d8/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (in_distro.m3u).", "autoplay": true}, {"id": 24, "name": "Channel 24 - Daystar TV (1080p)", "type": "hls", "url": "https://hls-live-media-gc.cdn01.net/mpegts/232076_2222904/ApFvejWjRVUzPbyYzS8d9g/1776816000/master_mpegts.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_stirr.m3u).", "autoplay": true}, {"id": 25, "name": "Channel 25 - Daystar TV Espanol (1080p)", "type": "hls", "url": "https://hls-live-media-gc.cdn01.net/mpegts/232076_2222907/karlKyiKToEdHsTFUcjs9g/1776816000/master_mpegts.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_stirr.m3u).", "autoplay": true}, {"id": 26, "name": "Channel 26 - 3ABN Dare To Dream Network", "type": "hls", "url": "https://3abn.bozztv.com/3abn2/d2d_live/smil:d2d_live.smil/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_3abn.m3u).", "autoplay": true}, {"id": 27, "name": "Channel 27 - 3ABN English", "type": "hls", "url": "https://3abn.bozztv.com/3abn2/3abn_live/smil:3abn_live.smil/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_3abn.m3u).", "autoplay": true}, {"id": 28, "name": "Channel 28 - 3ABN French", "type": "hls", "url": "https://3abn.bozztv.com/3abn2/Fre_live/smil:Fre_live.smil/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_3abn.m3u).", "autoplay": true}, {"id": 29, "name": "Channel 29 - 3ABN International Network", "type": "hls", "url": "https://3abn.bozztv.com/3abn2/Int_live/smil:Int_live.smil/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_3abn.m3u).", "autoplay": true}, {"id": 30, "name": "Channel 30 - 3ABN Kids Network", "type": "hls", "url": "https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_3abn.m3u).", "autoplay": true}, {"id": 31, "name": "Channel 31 - 3ABN Latino", "type": "hls", "url": "https://3abn.bozztv.com/3abn2/Lat_live/smil:Lat_live.smil/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_3abn.m3u).", "autoplay": true}, {"id": 32, "name": "Channel 32 - 3ABN Praise Him Music Network", "type": "hls", "url": "https://3abn.bozztv.com/3abn1/PraiseHim/smil:PraiseHim.smil/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_3abn.m3u).", "autoplay": true}, {"id": 33, "name": "Channel 33 - 3ABN Proclaim! Network", "type": "hls", "url": "https://3abn.bozztv.com/3abn2/Pro_live/smil:Pro_live.smil/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_3abn.m3u).", "autoplay": true}, {"id": 34, "name": "Channel 34 - EWTN", "type": "hls", "url": "https://dash3.antik.sk/live/test_ewtn_tizen/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (sk_antik.m3u).", "autoplay": true}, {"id": 35, "name": "Channel 35 - EWTN Asia-Pacific (720p)", "type": "hls", "url": "https://cdn3.wowza.com/1/QmVNUVhTNTZSS3Uz/YWQ0aHpi/hls/live/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_wowza.m3u).", "autoplay": true}, {"id": 36, "name": "Channel 36 - EWTN Canada (720p)", "type": "hls", "url": "https://cdn3.wowza.com/1/YW5wSWZiRGd2eFlU/bGV0aVBq/hls/live/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_wowza.m3u).", "autoplay": true}, {"id": 37, "name": "Channel 37 - EWTN Espana", "type": "hls", "url": "https://cdn3.wowza.com/1/SmVrQmZCUXZhVDgz/b3J3MFJv/hls/q6xkg9py/480/chunklist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_wowza.m3u).", "autoplay": true}, {"id": 38, "name": "Channel 38 - EWTN Europe (720p)", "type": "hls", "url": "https://cdn3.wowza.com/1/T2NXeHF6UGlGbHY3/WFluRldQ/hls/live/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_wowza.m3u).", "autoplay": true}, {"id": 39, "name": "Channel 39 - EWTN Germany (720p)", "type": "hls", "url": "https://cdn3.wowza.com/1/ZUkxSDBrZHlMbjVn/ZkhNRFNZ/hls/live/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_wowza.m3u).", "autoplay": true}, {"id": 40, "name": "Channel 40 - EWTN Poland (1080p)", "type": "hls", "url": "https://cdn3.wowza.com/1/ZHdrMWt1NjlDSzFu/bzdDVG10/hls/live/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_wowza.m3u).", "autoplay": true}, {"id": 41, "name": "Channel 41 - EWTN Spain & Latin America (720p)", "type": "hls", "url": "https://cdn3.wowza.com/1/SmVrQmZCUXZhVDgz/b3J3MFJv/hls/live/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_wowza.m3u).", "autoplay": true}, {"id": 42, "name": "Channel 42 - EWTN Ukraine (1080p)", "type": "hls", "url": "https://cdn3.wowza.com/1/WjduMm1tYnlwNXQx/M01NV3Uz/hls/live/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us_wowza.m3u).", "autoplay": true}, {"id": 43, "name": "Channel 43 - Hope Channel Africa (1080p)", "type": "hls", "url": "https://jstre.am/live/jsl:i1onRBELcGV.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (za.m3u).", "autoplay": true}, {"id": 44, "name": "Channel 44 - Hope Channel Bulgaria", "type": "hls", "url": "https://hc1.hopetv.bg/live/hopetv_all.smil/playlist.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (bg.m3u).", "autoplay": true}, {"id": 45, "name": "Channel 45 - Hope Channel German (1080p)", "type": "hls", "url": "https://customer-x8zydurm357k8j9p.cloudflarestream.com/5b46490d20cdd87fcac238b0027813e0/manifest/video.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (de.m3u).", "autoplay": true}, {"id": 46, "name": "Channel 46 - Hope Channel Ghana (480p)", "type": "hls", "url": "https://videodelivery.net/dfbdca87f2a6291aa4fdc8fe3290769b/manifest/video.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (gh.m3u).", "autoplay": true}, {"id": 47, "name": "Channel 47 - Hope Channel India (576p)", "type": "hls", "url": "https://mumt01.tangotv.in/HOPECHANNELINDIA/index.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (in_tango.m3u).", "autoplay": true}, {"id": 48, "name": "Channel 48 - Hope Channel Inter-America", "type": "hls", "url": "https://jstre.am/live/jsl:EC0Mq0i6HJU.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).", "autoplay": true}, {"id": 49, "name": "Channel 49 - Hope Channel Inter-America English (1080p)", "type": "hls", "url": "https://jstre.am/live/jsl:UP9KAdlVrm8.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).", "autoplay": true}, {"id": 50, "name": "Channel 50 - Hope Channel International (1080p)", "type": "hls", "url": "https://jstre.am/live/jsl:cZXINbwrFj6.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).", "autoplay": true}, {"id": 51, "name": "Channel 51 - Hope Channel North America (1080p)", "type": "hls", "url": "https://jstre.am/live/jsl:0sUSK6VA7GT.m3u8", "title": "Christian Channel", "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).", "autoplay": true}];
   const KEY = "CHM_TV_CHANNELS_V2";
 
-  function saveSeed(){
-    try { localStorage.setItem(KEY, JSON.stringify(SEEDED_CHANNELS, null, 2)); } catch(e){}
+  function seedChannels(){
+    try { localStorage.setItem(KEY, JSON.stringify(SEEDED_CHANNELS, null, 2)); } catch(e) {}
   }
-
-  function getChannels(){
-    try {
-      const saved = JSON.parse(localStorage.getItem(KEY) || "null");
-      if(Array.isArray(saved) && saved.length >= SEEDED_CHANNELS.length) return saved;
-    } catch(e){}
-    return SEEDED_CHANNELS;
-  }
-
   function findChannelContainer(){
-    return document.getElementById("chmChannelRail")
-      || document.querySelector(".chm-channel-rail")
-      || document.querySelector(".channel-list")
-      || document.querySelector(".channels")
-      || document.querySelector(".tv-channels")
-      || document.querySelector(".live-channels");
+    return document.getElementById("chmChannelRail") || document.querySelector(".chm-channel-rail") ||
+           document.querySelector(".channel-list") || document.querySelector(".channels") ||
+           document.querySelector(".tv-channels") || document.querySelector(".live-channels");
   }
-
-  function createChannelContainer(){
-    let container = findChannelContainer();
-    if(container) return container;
-
-    const tvSection = document.querySelector("#live") || document.querySelector(".live-container") || document.querySelector(".tv-section") || document.body;
-    container = document.createElement("div");
-    container.id = "chmChannelRail";
-    container.className = "chm-channel-rail";
-    tvSection.prepend(container);
-    return container;
-  }
-
-  function labelFor(ch){
-    const clean = (ch.name || ("Channel " + ch.id)).replace(/^Channel\s*\d+\s*-?\s*/i, "").trim();
-    return clean || (ch.title || "Channel");
-  }
-
-  function rebuildButtons(){
-    const container = createChannelContainer();
-    const channels = getChannels();
-    container.innerHTML = channels.map(function(ch){
-      return '<button type="button" class="chm-channel-btn chm-left-channel" data-channel-id="' + ch.id + '">' +
-        '<strong>' + ch.id + '</strong><small>' + labelFor(ch).replace(/[&<>"]/g, function(s){return {"&":"&amp;","<":"&lt;",">":"&gt;", "\"":"&quot;"}[s];}) + '</small></button>';
+  function rebuildChannelButtons(){
+    const container = findChannelContainer();
+    if(!container) return;
+    container.innerHTML = SEEDED_CHANNELS.map(function(ch){
+      return '<button type="button" class="chm-channel-btn chm-left-channel" data-channel-id="' + ch.id + '">CH ' + ch.id + '</button>';
     }).join("");
-    container.style.maxHeight = "640px";
+    container.style.maxHeight = "560px";
     container.style.overflowY = "auto";
     container.style.overflowX = "hidden";
   }
-
-  function enhanceHlsAndPlay(){
+  function enhanceHlsPlayback(shouldPlay){
     document.querySelectorAll("video").forEach(function(video){
       const source = video.querySelector("source");
       const src = (source && source.getAttribute("src")) || video.getAttribute("src") || "";
-      if(src && src.indexOf(".m3u8") !== -1 && video.dataset.hlsEnhanced !== "1"){
+      if(!src || !src.includes(".m3u8")){
+        if(shouldPlay) video.play && video.play().catch(function(){});
+        return;
+      }
+      if(video.dataset.hlsEnhanced !== "1"){
         video.dataset.hlsEnhanced = "1";
         if(video.canPlayType("application/vnd.apple.mpegurl")){
           video.src = src;
@@ -8240,54 +8161,45 @@ document.addEventListener('DOMContentLoaded', () => {
           hls.attachMedia(video);
         }
       }
-      setTimeout(function(){ video.play && video.play().catch(function(){}); }, 250);
+      if(shouldPlay) setTimeout(function(){ video.play && video.play().catch(function(){}); }, 400);
     });
   }
-
-  function forceIframeAutoplay(){
+  function autoplayCurrentEmbed(){
     const iframe = document.querySelector("#chmMainTvScreen iframe, .chm-tv-main-screen iframe, #tvEmbedWrapper iframe");
-    if(!iframe || !iframe.src) return;
-    let src = iframe.src;
-    if(src.indexOf("youtube.com/embed/") !== -1 || src.indexOf("player.vimeo.com") !== -1 || src.indexOf("facebook.com/plugins/video.php") !== -1){
-      if(src.indexOf("autoplay=0") !== -1) src = src.replace("autoplay=0", "autoplay=1");
-      else if(src.indexOf("autoplay=1") === -1) src += (src.indexOf("?") === -1 ? "?autoplay=1" : "&autoplay=1");
-      iframe.src = src;
+    if(iframe && iframe.src){
+      let src = iframe.src;
+      if(src.indexOf("youtube.com/embed/") !== -1 || src.indexOf("player.vimeo.com") !== -1 || src.indexOf("facebook.com/plugins/video.php") !== -1){
+        if(src.indexOf("autoplay=0") !== -1) src = src.replace("autoplay=0", "autoplay=1");
+        else if(src.indexOf("autoplay=1") === -1) src += (src.indexOf("?") === -1 ? "?autoplay=1" : "&autoplay=1");
+        iframe.src = src;
+      }
     }
+    enhanceHlsPlayback(true);
   }
-
-  function playChannel(id){
-    id = Number(id) || 1;
-    try {
-      if(window.CHMRenderTvChannel) window.CHMRenderTvChannel(id);
-      localStorage.setItem("CHM_ACTIVE_CHANNEL", String(id));
-    } catch(e){}
-    setTimeout(forceIframeAutoplay, 200);
-    setTimeout(enhanceHlsAndPlay, 350);
-    setTimeout(enhanceHlsAndPlay, 900);
+  function start(){
+    seedChannels();
+    rebuildChannelButtons();
+    try { if(window.CHMRenderTvChannel) window.CHMRenderTvChannel(Number(localStorage.getItem("CHM_ACTIVE_CHANNEL") || 1)); } catch(e) {}
+    setTimeout(function(){ enhanceHlsPlayback(false); }, 700);
   }
-
   document.addEventListener("click", function(e){
-    const btn = e.target.closest("[data-channel-id], .chm-channel-btn, .chm-left-channel");
+    const btn = e.target.closest("[data-channel-id], .chm-left-channel, .chm-channel-btn");
     if(!btn) return;
     const id = Number(btn.getAttribute("data-channel-id") || btn.dataset.channelId || 1);
     if(id >= 1){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      playChannel(id);
+      setTimeout(function(){
+        try { if(window.CHMRenderTvChannel) window.CHMRenderTvChannel(id); } catch(e) {}
+        setTimeout(autoplayCurrentEmbed, 300);
+        setTimeout(autoplayCurrentEmbed, 900);
+      }, 50);
     }
   }, true);
-
-  function start(){
-    saveSeed();
-    rebuildButtons();
-    const active = Number(localStorage.getItem("CHM_ACTIVE_CHANNEL") || 1);
-    try { if(window.CHMRenderTvChannel) window.CHMRenderTvChannel(active); } catch(e){}
-  }
-
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
   else start();
-
-  window.CHMRebuildChannelButtons = rebuildButtons;
-  window.CHMPlayChannelNow = playChannel;
+  window.CHMSeedDefaultTvChannels = function(){
+    seedChannels();
+    rebuildChannelButtons();
+    if(window.CHMRenderTvChannel) window.CHMRenderTvChannel(1);
+  };
 })();
 </script>
