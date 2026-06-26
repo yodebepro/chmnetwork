@@ -457,5 +457,446 @@
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).",
     "autoplay": true
+  },
+  {
+    "id": 52,
+    "name": "Channel 52 - Alkarma TV Praise (720p) [Not 24/7]",
+    "type": "hls",
+    "url": "https://58cc65c534c67.streamlock.net/alkarmatv.com/alkarmapa.smil/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 53,
+    "name": "Channel 53 - Hope Channel Philippines (1080p)",
+    "type": "hls",
+    "url": "https://jstre.am/live/jsl:7A1swL7Fhlh.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (ph.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 54,
+    "name": "Channel 54 - GOD TV (396p)",
+    "type": "hls",
+    "url": "https://d1msejlow1t3l4.cloudfront.net/211125/godtv/chunks.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (uk.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 55,
+    "name": "Channel 55 - CBN Espanol (1080p)",
+    "type": "hls",
+    "url": "https://fastly.live.brightcove.com/6383462549112/us-east-1/734546207001/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0IjoiczFpM3ZpLmVncmVzcy50N2M3emwiLCJhY2NvdW50X2lkIjoiNzM0NTQ2MjA3MDAxIiwiZWhuIjoiZmFzdGx5LmxpdmUuYnJpZ2h0Y292ZS5jb20iLCJpc3MiOiJibGl2ZS1wbGF5YmFjay1zb3VyY2UtYXBpIiwic3ViIjoicGF0aG1hcHRva2VuIiwiYXVkIjpbIjczNDU0NjIwNzAwMSJdLCJqdGkiOiI2MzgzNDYyNTQ5MTEyIn0.g04lznsvgqgIXQt2ZH0H_tWtIeTsMgGjVORsjOJ0T6U/playlist-hls.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 56,
+    "name": "Channel 56 - CBN Family (1080p)",
+    "type": "hls",
+    "url": "https://fastly.live.brightcove.com/6380399588112/us-east-1/734546207001/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0IjoiczFpM3ZpLmVncmVzcy50N2M3emwiLCJhY2NvdW50X2lkIjoiNzM0NTQ2MjA3MDAxIiwiZWhuIjoiZmFzdGx5LmxpdmUuYnJpZ2h0Y292ZS5jb20iLCJpc3MiOiJibGl2ZS1wbGF5YmFjay1zb3VyY2UtYXBpIiwic3ViIjoicGF0aG1hcHRva2VuIiwiYXVkIjpbIjczNDU0NjIwNzAwMSJdLCJqdGkiOiI2MzgwMzk5NTg4MTEyIn0.LYfIeObmX4AEStY_xCnPZwMJHXgOAPFMTKfztq-9F8U/playlist-hls.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 57,
+    "name": "Channel 57 - CBN TV (720p)",
+    "type": "hls",
+    "url": "https://5790d294af2dc.streamlock.net/CBNVI/CBNVI/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (vg.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 58,
+    "name": "Channel 58 - Alkarma TV Australia (1080p)",
+    "type": "hls",
+    "url": "https://5a8308add0b31.streamlock.net/alkarmatv.com/alkarmaau.smil/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 59,
+    "name": "Channel 59 - BCN Gospel TV HD (720p)",
+    "type": "hls",
+    "url": "https://live1.ovalcast.com:3916/live/bcngospeltvlive.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (es.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 60,
+    "name": "Channel 60 - Gospel Broadcasting Network (GBN) (1080p)",
+    "type": "hls",
+    "url": "https://cdn3.wowza.com/5/Ny9jK1A1Q3h4N1VZ/live/myStream/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us_wowza.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 61,
+    "name": "Channel 61 - Gospel Cartoon (360p)",
+    "type": "hls",
+    "url": "https://stmv1.srvif.com/gospelcartoon/gospelcartoon/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (br.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 62,
+    "name": "Channel 62 - Gospel TV India (720p)",
+    "type": "hls",
+    "url": "https://server.livelegitpro.in:9899/gospeltv/index.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (in.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 63,
+    "name": "Channel 63 - Gospel Truth TV (1080p)",
+    "type": "hls",
+    "url": "https://na.linear.zype.com/bf94f9f4-383c-40e0-9d49-279a4f33ab8d/f29b8836-d990-4c8d-b421-192a8f43edc4-zype/manifest.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 64,
+    "name": "Channel 64 - My Gospel TV",
+    "type": "hls",
+    "url": "https://streamtv.cmediahosthosting.net:3046/live/mygospeltvlive.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (fr.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 65,
+    "name": "Channel 65 - RTH-TV2 Gospel (720p)",
+    "type": "hls",
+    "url": "https://2-fss-2.streamhoster.com/pl_120/amlst:206708-4202592/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 66,
+    "name": "Channel 66 - Radio Tele Full Gospel",
+    "type": "hls",
+    "url": "https://f-tx-edge-87.christianworldmedia.com/EJCFG/mp4:EJCFG/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (ht.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 67,
+    "name": "Channel 67 - Rede Gospel (1080p)",
+    "type": "hls",
+    "url": "https://redegospel-aovivo.nuvemplay.live/hls/stream.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (br.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 68,
+    "name": "Channel 68 - Trace Gospel (1080p)",
+    "type": "hls",
+    "url": "https://channels.trace.plus/Traceprod/GOSPEL_FR/.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (fr.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 69,
+    "name": "Channel 69 - XITE Gospel (720p)",
+    "type": "hls",
+    "url": "https://jmp2.uk/plu-623b93628e6ded0007337d4d.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us_pluto.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 70,
+    "name": "Channel 70 - SBN (720p)",
+    "type": "hls",
+    "url": "https://cdn4.skygo.mn/live/disk1/SBN/HLSv3-FTA/SBN.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (mn_skygo.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 71,
+    "name": "Channel 71 - SBN TV International",
+    "type": "hls",
+    "url": "http://trn03.bozztv.com/gin-sbntv/index.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 72,
+    "name": "Channel 72 - ABN Bible Movies (720p)",
+    "type": "hls",
+    "url": "https://mediaserver.abnvideos.com/streams/abnbiblemovies.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 73,
+    "name": "Channel 73 - LADbible (720p)",
+    "type": "hls",
+    "url": "https://5d436b93.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/U2Ftc3VuZy1nYl9MQURiaWJsZVRWX0hMUw/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (uk_samsung.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 74,
+    "name": "Channel 74 - Praise Jesus Tower TV (480p)",
+    "type": "hls",
+    "url": "https://vsrv1.az-streamingserver.com:3555/live/dyjoqlgklive.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (ug.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 75,
+    "name": "Channel 75 - Praise TV (720p)",
+    "type": "hls",
+    "url": "https://livecdn.live247stream.com/praise/tv/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (pk.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 76,
+    "name": "Channel 76 - Praise TV (720p)",
+    "type": "hls",
+    "url": "https://pixelsmedia.live/livepraisetv/index.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (pk.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 77,
+    "name": "Channel 77 - Enlace (720p)",
+    "type": "hls",
+    "url": "https://livecdn.enlace.plus/enlace/smil:enlace-hd.smil/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (cr.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 78,
+    "name": "Channel 78 - TBN TV (720p) [Not 24/7]",
+    "type": "hls",
+    "url": "https://live.suricloud.com/hls/tbntv/index.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (sr.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 79,
+    "name": "Channel 79 - 3ABN TV Uganda (720p) [Not 24/7]",
+    "type": "hls",
+    "url": "https://3abn.bozztv.com/3abn/3abn_uganda_live/index.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (ug.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 80,
+    "name": "Channel 80 - Alkarma TV Australia (1080p) [Not 24/7]",
+    "type": "hls",
+    "url": "https://58cc65c534c67.streamlock.net/alkarmatv.com/alkarmaau.smil/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 81,
+    "name": "Channel 81 - Alkarma TV Family (1080p) [Not 24/7]",
+    "type": "hls",
+    "url": "https://58cc65c534c67.streamlock.net/alkarmatv.com/alkarmaNA2.smil/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 82,
+    "name": "Channel 82 - Alkarma TV Middle East (1080p) [Not 24/7]",
+    "type": "hls",
+    "url": "https://58cc65c534c67.streamlock.net/alkarmatv.com/alkarmame1.smil/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 83,
+    "name": "Channel 83 - Alkarma TV North America & Canada (1080p) [Not 24/7]",
+    "type": "hls",
+    "url": "https://5aafcc5de91f1.streamlock.net/alkarmatv.com/alkarmana1.smil/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 84,
+    "name": "Channel 84 - Alkarma TV Talmaza (Discipleship) (1080p) [Not 24/7]",
+    "type": "hls",
+    "url": "https://58cc65c534c67.streamlock.net/alkarmatv.com/alkarmame2.smil/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 85,
+    "name": "Channel 85 - Alkarma TV Youth & English (1080p) [Not 24/7]",
+    "type": "hls",
+    "url": "https://5aafcc5de91f1.streamlock.net/alkarmatv.com/alkarmaus.smil/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 86,
+    "name": "Channel 86 - Dynamic Gospel TV (480p) [Not 24/7]",
+    "type": "hls",
+    "url": "https://ssh101stream.ssh101.com/akamaissh101/ssh101/tvdynamicstream/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (tg.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 87,
+    "name": "Channel 87 - TVCARiB Gospel (480p) [Not 24/7]",
+    "type": "hls",
+    "url": "https://cdn.mycloudstream.io/hls/live/broadcast/wokrhjkd/index.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (sx.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 88,
+    "name": "Channel 88 - WDWL-DT1 (Teleadoraci\u00f3n/Enlace PR) (720p) [Not 24/7]",
+    "type": "hls",
+    "url": "https://67acccf130420.streamlock.net/enlacepr1/enlacepr1/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (pr.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 89,
+    "name": "Channel 89 - TV45-3ABN Nicaragua (720p) [Not 24/7]",
+    "type": "iframe",
+    "url": "https://hdbox.chunklistv.com/live?stream=3abn-nicaragua",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (ni.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 90,
+    "name": "Channel 90 - TBN [Geo-blocked]",
+    "type": "hls",
+    "url": "https://op-group1-swiftservehd-1.dens.tv/s/s39/index.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (id_denstv.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 91,
+    "name": "Channel 91 - EWTN (720p) [Geo-blocked]",
+    "type": "hls",
+    "url": "https://cdn3.wowza.com/1/QjRzVXJtVml5SUVx/WGJRSWxz/hls/live/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us_wowza.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 92,
+    "name": "Channel 92 - EWTN Spanish (720p) [Geo-blocked]",
+    "type": "hls",
+    "url": "https://cdn3.wowza.com/1/TUI5dU5ucnUxdGFD/ZFlVeGRl/hls/live/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us_wowza.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 93,
+    "name": "Channel 93 - CBC Newfoundland and Labrador (CBNT-DT) (720p) [Geo-blocked]",
+    "type": "hls",
+    "url": "https://cbcrclinear-tor.akamaized.net/hls/live/2042755/CBCRCLINEAR_TOR_1/master5.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (ca.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 94,
+    "name": "Channel 94 - AfroLand Faith (720p)",
+    "type": "hls",
+    "url": "https://stream.ads.ottera.tv/playlist.m3u8?content_livestream=1&network_id=6077",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us_afrolandtv.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 95,
+    "name": "Channel 95 - CFN Catholic Faith Network (720p)",
+    "type": "hls",
+    "url": "https://uni8rtmp.tulix.tv/cfntv/cfntv/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 96,
+    "name": "Channel 96 - Christian Youth Channel (CYC) (1080p)",
+    "type": "hls",
+    "url": "http://media3.smc-host.com:1935/cycnow.com/smil:cyc.smil/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 97,
+    "name": "Channel 97 - Christian Youth Channel (CYC) (1080p)",
+    "type": "hls",
+    "url": "http://media.smc-host.com:1935/cycnow.com/cyc2/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 98,
+    "name": "Channel 98 - Christmas 365",
+    "type": "hls",
+    "url": "https://jmp2.uk/plu-62fb6d4308f5ec0007453c09.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (ca_pluto.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 99,
+    "name": "Channel 99 - Det sene show med Christian Fuhlendorff",
+    "type": "hls",
+    "url": "https://jmp2.uk/plu-660d6bc10cd4630008f4a25a.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (dk_pluto.m3u).",
+    "autoplay": true
+  },
+  {
+    "id": 100,
+    "name": "Channel 100 - Elevation Church (1080p)",
+    "type": "hls",
+    "url": "https://linear-1066.frequency.stream/dist/stirr/1066/hls/master/playlist.m3u8",
+    "title": "Christian Online TV",
+    "description": "Christian TV source from curated public stream list (us_stirr.m3u).",
+    "autoplay": true
   }
 ]
