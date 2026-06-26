@@ -206,5 +206,149 @@
     "url": "https://jstre.am/live/jsl:0sUSK6VA7GT.m3u8",
     "category": "Christian Radio",
     "sourceFile": "us.m3u"
+  },
+  {
+    "id": 27,
+    "name": "K-LOVE Radio",
+    "type": "audio",
+    "url": "https://positivealtradio.streamguys1.com/klove.mp3",
+    "category": "Contemporary Christian",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 28,
+    "name": "Air1 Radio",
+    "type": "audio",
+    "url": "https://positivealtradio.streamguys1.com/air1.mp3",
+    "category": "Worship Now",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 29,
+    "name": "Classic Christian Radio",
+    "type": "audio",
+    "url": "https://praisedotcom.streamguys1.com/praise128",
+    "category": "Classic Christian",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 30,
+    "name": "Country Gospel Radio",
+    "type": "audio",
+    "url": "https://countrygospelradio.org/wp-content/uploads/sites/6/2023/03/Country-Gospel-mp3.mp3",
+    "category": "Country Gospel",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 31,
+    "name": "Southern Gospel Radio",
+    "type": "audio",
+    "url": "https://countrygospelradio.org/wp-content/uploads/sites/6/2023/03/Southern-Gospel-mp3.mp3",
+    "category": "Southern Gospel",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 32,
+    "name": "Bluegrass Gospel Radio",
+    "type": "audio",
+    "url": "https://countrygospelradio.org/wp-content/uploads/sites/6/2023/03/Bluegrass-Gospel-mp3.mp3",
+    "category": "Bluegrass Gospel",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 33,
+    "name": "Abiding Radio Sacred",
+    "type": "audio",
+    "url": "https://streams.abidingradio.org:7840/1",
+    "category": "Sacred Christian",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 34,
+    "name": "Abiding Radio Instrumental",
+    "type": "audio",
+    "url": "https://streams.abidingradio.org:7810/1",
+    "category": "Instrumental Christian",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 35,
+    "name": "Abiding Radio Kids",
+    "type": "audio",
+    "url": "https://streams.abidingradio.org:7830/1",
+    "category": "Christian Kids",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 36,
+    "name": "Abiding Radio Seasonal",
+    "type": "audio",
+    "url": "https://streams.abidingradio.org:7820/1",
+    "category": "Seasonal Christian",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 37,
+    "name": "Worship 24/7",
+    "type": "audio",
+    "url": "https://ais-sa2.cdnstream1.com/2202_128.mp3",
+    "category": "Worship",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 38,
+    "name": "Black Gospel Radio",
+    "type": "audio",
+    "url": "https://streaming.live365.com/a01875",
+    "category": "Black Gospel",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 39,
+    "name": "The Gospel Hiway",
+    "type": "audio",
+    "url": "https://ais-edge104-live365-dal02.cdnstream.com/a13662",
+    "category": "Gospel",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 40,
+    "name": "Christian Hits",
+    "type": "audio",
+    "url": "https://streaming.live365.com/a77125",
+    "category": "Christian Hits",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 41,
+    "name": "Haitian Gospel Radio",
+    "type": "audio",
+    "url": "https://stream.zeno.fm/0r0xa792kwzuv",
+    "category": "Haitian Christian",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 42,
+    "name": "Radio Tele Evangelique Vallee de Saron",
+    "type": "audio",
+    "url": "https://stream.zeno.fm/yw66v8d8z4zuv",
+    "category": "Haitian Christian",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 43,
+    "name": "Radio Tabernacle Haiti",
+    "type": "audio",
+    "url": "https://stream.zeno.fm/sg1qae6qrg0uv",
+    "category": "Haitian Christian",
+    "sourceFile": "curated-public-online"
+  },
+  {
+    "id": 44,
+    "name": "Radio Louange Plus",
+    "type": "audio",
+    "url": "https://stream.zeno.fm/p916qg4k9hhvv",
+    "category": "Haitian Christian",
+    "sourceFile": "curated-public-online"
   }
 ]
