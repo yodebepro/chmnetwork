@@ -41,110 +41,6 @@
   },
   {
     "id": 6,
-    "name": "Gospel Broadcasting Network (GBN) (1080p)",
-    "type": "hls",
-    "url": "https://cdn3.wowza.com/5/Ny9jK1A1Q3h4N1VZ/live/myStream/playlist.m3u8",
-    "category": "Christian Radio",
-    "sourceFile": "us_wowza.m3u"
-  },
-  {
-    "id": 7,
-    "name": "Gospel Cartoon (360p)",
-    "type": "hls",
-    "url": "https://stmv1.srvif.com/gospelcartoon/gospelcartoon/playlist.m3u8",
-    "category": "Christian Radio",
-    "sourceFile": "br.m3u"
-  },
-  {
-    "id": 8,
-    "name": "Gospel Movie TV (360p)",
-    "type": "hls",
-    "url": "https://stmv1.srvif.com/gospelf/gospelf/playlist.m3u8",
-    "category": "Christian Radio",
-    "sourceFile": "br.m3u"
-  },
-  {
-    "id": 9,
-    "name": "Gospel TV India (720p)",
-    "type": "hls",
-    "url": "https://server.livelegitpro.in:9899/gospeltv/index.m3u8",
-    "category": "Christian Radio",
-    "sourceFile": "in.m3u"
-  },
-  {
-    "id": 10,
-    "name": "Gospel Truth TV (1080p)",
-    "type": "hls",
-    "url": "https://na.linear.zype.com/bf94f9f4-383c-40e0-9d49-279a4f33ab8d/f29b8836-d990-4c8d-b421-192a8f43edc4-zype/manifest.m3u8",
-    "category": "Christian Radio",
-    "sourceFile": "us.m3u"
-  },
-  {
-    "id": 11,
-    "name": "My Gospel TV",
-    "type": "hls",
-    "url": "https://streamtv.cmediahosthosting.net:3046/live/mygospeltvlive.m3u8",
-    "category": "Christian Radio",
-    "sourceFile": "fr.m3u"
-  },
-  {
-    "id": 12,
-    "name": "RTH-TV2 Gospel (720p)",
-    "type": "hls",
-    "url": "https://2-fss-2.streamhoster.com/pl_120/amlst:206708-4202592/playlist.m3u8",
-    "category": "Christian Radio",
-    "sourceFile": "us.m3u"
-  },
-  {
-    "id": 13,
-    "name": "Rede Gospel (1080p)",
-    "type": "hls",
-    "url": "https://redegospel-aovivo.nuvemplay.live/hls/stream.m3u8",
-    "category": "Christian Radio",
-    "sourceFile": "br.m3u"
-  },
-  {
-    "id": 14,
-    "name": "Trace Gospel (1080p)",
-    "type": "hls",
-    "url": "https://channels.trace.plus/Traceprod/GOSPEL_FR/.m3u8",
-    "category": "Christian Radio",
-    "sourceFile": "fr.m3u"
-  },
-  {
-    "id": 15,
-    "name": "XITE Gospel (720p)",
-    "type": "hls",
-    "url": "https://jmp2.uk/plu-623b93628e6ded0007337d4d.m3u8",
-    "category": "Christian Radio",
-    "sourceFile": "us_pluto.m3u"
-  },
-  {
-    "id": 16,
-    "name": "Praise TV (720p)",
-    "type": "hls",
-    "url": "https://livecdn.live247stream.com/praise/tv/playlist.m3u8",
-    "category": "Christian Radio",
-    "sourceFile": "pk.m3u"
-  },
-  {
-    "id": 17,
-    "name": "Praise TV (720p)",
-    "type": "hls",
-    "url": "https://pixelsmedia.live/livepraisetv/index.m3u8",
-    "category": "Christian Radio",
-    "sourceFile": "pk.m3u"
-  },
-  {
-    "id": 18,
-    "name": "Global Christian Network America (GCN) (720p)",
-    "type": "hls",
-    "url": "http://liveen24-manminglobal3.ktcdn.co.kr/liveen24/gcnus_1300k.stream/playlist.m3u8",
-    "category": "Christian Radio",
-    "sourceFile": "us.m3u"
-  },
-  {
-    "id": 19,
     "name": "Dynamic Gospel TV (480p) [Not 24/7]",
     "type": "hls",
     "url": "https://ssh101stream.ssh101.com/akamaissh101/ssh101/tvdynamicstream/playlist.m3u8",
@@ -152,7 +48,71 @@
     "sourceFile": "tg.m3u"
   },
   {
-    "id": 20,
+    "id": 7,
+    "name": "Gospel Broadcasting Network (GBN) (1080p)",
+    "type": "hls",
+    "url": "https://cdn3.wowza.com/5/Ny9jK1A1Q3h4N1VZ/live/myStream/playlist.m3u8",
+    "category": "Christian Radio",
+    "sourceFile": "us_wowza.m3u"
+  },
+  {
+    "id": 8,
+    "name": "Gospel Cartoon (360p)",
+    "type": "hls",
+    "url": "https://stmv1.srvif.com/gospelcartoon/gospelcartoon/playlist.m3u8",
+    "category": "Christian Radio",
+    "sourceFile": "br.m3u"
+  },
+  {
+    "id": 9,
+    "name": "Gospel Movie TV (360p)",
+    "type": "hls",
+    "url": "https://stmv1.srvif.com/gospelf/gospelf/playlist.m3u8",
+    "category": "Christian Radio",
+    "sourceFile": "br.m3u"
+  },
+  {
+    "id": 10,
+    "name": "Gospel TV India (720p)",
+    "type": "hls",
+    "url": "https://server.livelegitpro.in:9899/gospeltv/index.m3u8",
+    "category": "Christian Radio",
+    "sourceFile": "in.m3u"
+  },
+  {
+    "id": 11,
+    "name": "Gospel Truth TV (1080p)",
+    "type": "hls",
+    "url": "https://na.linear.zype.com/bf94f9f4-383c-40e0-9d49-279a4f33ab8d/f29b8836-d990-4c8d-b421-192a8f43edc4-zype/manifest.m3u8",
+    "category": "Christian Radio",
+    "sourceFile": "us.m3u"
+  },
+  {
+    "id": 12,
+    "name": "My Gospel TV",
+    "type": "hls",
+    "url": "https://streamtv.cmediahosthosting.net:3046/live/mygospeltvlive.m3u8",
+    "category": "Christian Radio",
+    "sourceFile": "fr.m3u"
+  },
+  {
+    "id": 13,
+    "name": "RTH-TV2 Gospel (720p)",
+    "type": "hls",
+    "url": "https://2-fss-2.streamhoster.com/pl_120/amlst:206708-4202592/playlist.m3u8",
+    "category": "Christian Radio",
+    "sourceFile": "us.m3u"
+  },
+  {
+    "id": 14,
+    "name": "Rede Gospel (1080p)",
+    "type": "hls",
+    "url": "https://redegospel-aovivo.nuvemplay.live/hls/stream.m3u8",
+    "category": "Christian Radio",
+    "sourceFile": "br.m3u"
+  },
+  {
+    "id": 15,
     "name": "TVCARiB Gospel (480p) [Not 24/7]",
     "type": "hls",
     "url": "https://cdn.mycloudstream.io/hls/live/broadcast/wokrhjkd/index.m3u8",
@@ -160,20 +120,60 @@
     "sourceFile": "sx.m3u"
   },
   {
-    "id": 21,
-    "name": "3ABN Dare To Dream Network",
+    "id": 16,
+    "name": "Trace Gospel (1080p)",
     "type": "hls",
-    "url": "https://3abn.bozztv.com/3abn2/d2d_live/smil:d2d_live.smil/playlist.m3u8",
+    "url": "https://channels.trace.plus/Traceprod/GOSPEL_FR/.m3u8",
     "category": "Christian Radio",
-    "sourceFile": "us_3abn.m3u"
+    "sourceFile": "fr.m3u"
   },
   {
-    "id": 22,
+    "id": 17,
+    "name": "XITE Gospel (720p)",
+    "type": "hls",
+    "url": "https://jmp2.uk/plu-623b93628e6ded0007337d4d.m3u8",
+    "category": "Christian Radio",
+    "sourceFile": "us_pluto.m3u"
+  },
+  {
+    "id": 18,
     "name": "Alkarma TV Praise (720p) [Not 24/7]",
     "type": "hls",
     "url": "https://58cc65c534c67.streamlock.net/alkarmatv.com/alkarmapa.smil/playlist.m3u8",
     "category": "Christian Radio",
     "sourceFile": "us.m3u"
+  },
+  {
+    "id": 19,
+    "name": "Praise TV (720p)",
+    "type": "hls",
+    "url": "https://livecdn.live247stream.com/praise/tv/playlist.m3u8",
+    "category": "Christian Radio",
+    "sourceFile": "pk.m3u"
+  },
+  {
+    "id": 20,
+    "name": "Praise TV (720p)",
+    "type": "hls",
+    "url": "https://pixelsmedia.live/livepraisetv/index.m3u8",
+    "category": "Christian Radio",
+    "sourceFile": "pk.m3u"
+  },
+  {
+    "id": 21,
+    "name": "Global Christian Network America (GCN) (720p)",
+    "type": "hls",
+    "url": "http://liveen24-manminglobal3.ktcdn.co.kr/liveen24/gcnus_1300k.stream/playlist.m3u8",
+    "category": "Christian Radio",
+    "sourceFile": "us.m3u"
+  },
+  {
+    "id": 22,
+    "name": "3ABN Dare To Dream Network",
+    "type": "hls",
+    "url": "https://3abn.bozztv.com/3abn2/d2d_live/smil:d2d_live.smil/playlist.m3u8",
+    "category": "Christian Radio",
+    "sourceFile": "us_3abn.m3u"
   },
   {
     "id": 23,
