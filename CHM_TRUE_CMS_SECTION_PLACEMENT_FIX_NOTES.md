@@ -1,26 +1,5 @@
-# CHM True CMS Section Placement Fix
+# CHM Church of God — True CMS Completion
 
-This fixes the issue where globally-published photos, videos, leaders, gallery items, events, announcements, sermons, ministries, departments, team members, locations, and page content were not appearing in the correct public sections.
+This version adds `true-cms.html` for one-click global publishing of hero video, leader photos, gallery photos, events, announcements, sermons, ministries, departments, team members, locations, and page content.
 
-## What changed
-- Added `chm-section-placement-fix.js`.
-- Published leader profiles now fill the Leadership page leader cards.
-- Published gallery photos now fill Gallery page photo cards.
-- Published events now fill Events page cards.
-- Published announcements now fill Announcement page cards.
-- Published sermons now fill Sermon page cards.
-- Published ministries now fill Ministry page cards.
-- Published departments now fill Department page cards.
-- Published teams now fill Team page cards.
-- Published locations now fill Location page cards.
-- Published hero intro video now fills the hero video background area.
-
-## How to use
-1. Upload this package to GitHub.
-2. Open `github-setup.html` only if the token is not already saved.
-3. Go to Admin → `true-cms.html`.
-4. Publish a leader/gallery/event/etc.
-5. Open the matching public page and hard refresh.
-
-## Important
-For all devices to see the update, the GitHub token must be saved and the publish action must successfully update `site-data.json`.
+Use `github-setup.html` once. After connection is successful, publish from `true-cms.html` or the admin pages.
