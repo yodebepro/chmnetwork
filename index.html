@@ -2139,6 +2139,47 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 }
 </style>
 
+
+<style>
+/* CHM STORE CATEGORY MENU RESTORE PATCH */
+#storeSectionCategoryTabs,
+#shopCategoryTabs {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  width: 100% !important;
+}
+#storeSectionCategoryTabs .shop-tab,
+#shopCategoryTabs .shop-tab {
+  display: block !important;
+  width: 100% !important;
+  min-height: 44px !important;
+  padding: 11px 12px !important;
+  border: 1px solid rgba(0,188,212,.32) !important;
+  border-radius: 10px !important;
+  background: rgba(26,31,58,.86) !important;
+  color: var(--text-light, #fff) !important;
+  cursor: pointer !important;
+  text-align: left !important;
+}
+#storeSectionCategoryTabs .shop-tab:hover,
+#shopCategoryTabs .shop-tab:hover,
+#storeSectionCategoryTabs .shop-tab.active,
+#shopCategoryTabs .shop-tab.active {
+  border-color: var(--primary-color, #00bcd4) !important;
+  background: rgba(0,188,212,.18) !important;
+}
+.shop-left {
+  overflow-y: auto !important;
+  max-height: 610px !important;
+}
+.shop-left::-webkit-scrollbar { width: 9px; }
+.shop-left::-webkit-scrollbar-thumb {
+  background: var(--primary-color, #00bcd4);
+  border-radius: 10px;
+}
+</style>
+
 </head>
 <body>
 <!-- ==================== PUBLIC WEBSITE ==================== -->
@@ -2616,6 +2657,13 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 <button class="btn-primary" onclick="openStoreAdminForCategory('songbooks')" style="height: 50px;">🎼 Edit Songbooks</button>
 <button class="btn-primary" onclick="openStoreAdminForCategory('clothing')" style="height: 50px;">👕 Edit Clothing</button>
 <button class="btn-primary" onclick="openStoreAdminForCategory('electronics')" style="height: 50px;">💻 Edit Electronics</button>
+<button class="btn-primary" onclick="openStoreAdminForCategory('audio-video')" style="height: 50px;">🎧 Edit Audio & Video</button>
+<button class="btn-primary" onclick="openStoreAdminForCategory('church-supplies')" style="height: 50px;">⛪ Edit Church Supplies</button>
+<button class="btn-primary" onclick="openStoreAdminForCategory('ministry-resources')" style="height: 50px;">📚 Edit Ministry Resources</button>
+<button class="btn-primary" onclick="openStoreAdminForCategory('gifts')" style="height: 50px;">🎁 Edit Gifts</button>
+<button class="btn-primary" onclick="openStoreAdminForCategory('home-office')" style="height: 50px;">🏠 Edit Home & Office</button>
+<button class="btn-primary" onclick="openStoreAdminForCategory('accessories')" style="height: 50px;">🧢 Edit Accessories</button>
+<button class="btn-primary" onclick="openStoreAdminForCategory('children')" style="height: 50px;">🧒 Edit Children</button>
 <button class="btn-primary" onclick="openStoreAdminForCategory('other')" style="height: 50px;">📦 Edit Other</button>
 <button class="btn-secondary" onclick="openStoreAdminForCategory('all')" style="height: 50px;">🛍️ Manage All</button>
 </div>
@@ -6807,6 +6855,13 @@ function defaultStoreData(){
       { id: 'songbooks', name: 'Songbooks' },
       { id: 'clothing', name: 'Clothing' },
       { id: 'electronics', name: 'Electronics' },
+      { id: 'audio-video', name: 'Audio & Video' },
+      { id: 'church-supplies', name: 'Church Supplies' },
+      { id: 'ministry-resources', name: 'Ministry Resources' },
+      { id: 'gifts', name: 'Gifts' },
+      { id: 'home-office', name: 'Home & Office' },
+      { id: 'accessories', name: 'Accessories' },
+      { id: 'children', name: 'Children' },
       { id: 'other', name: 'Other' }
     ],
     items: [
@@ -8826,6 +8881,100 @@ document.addEventListener('DOMContentLoaded', () => {
   else boot();
 
   [300,700,1200,2000,3500,5000].forEach(function(ms){ setTimeout(forceRail, ms); });
+})();
+</script>
+
+
+<script>
+/* CHM STORE CATEGORY MENU RESTORE PATCH */
+(function(){
+  const REQUIRED_STORE_CATEGORIES = [
+    {id:'books', name:'Books'},
+    {id:'music', name:'Music'},
+    {id:'bibles', name:'Bibles'},
+    {id:'songbooks', name:'Songbooks'},
+    {id:'clothing', name:'Clothing'},
+    {id:'electronics', name:'Electronics'},
+    {id:'audio-video', name:'Audio & Video'},
+    {id:'church-supplies', name:'Church Supplies'},
+    {id:'ministry-resources', name:'Ministry Resources'},
+    {id:'gifts', name:'Gifts'},
+    {id:'home-office', name:'Home & Office'},
+    {id:'accessories', name:'Accessories'},
+    {id:'children', name:'Children'},
+    {id:'other', name:'Other'}
+  ];
+
+  function mergeCategories(data){
+    if(!data) return data;
+    data.categories = Array.isArray(data.categories) ? data.categories : [];
+    const map = new Map();
+
+    data.categories.forEach(function(cat){
+      if(!cat) return;
+      const id = String(cat.id || '').trim();
+      if(!id) return;
+      map.set(id, {id:id, name:String(cat.name || id)});
+    });
+
+    REQUIRED_STORE_CATEGORIES.forEach(function(cat){
+      if(!map.has(cat.id)) map.set(cat.id, cat);
+    });
+
+    data.categories = Array.from(map.values());
+    data.items = Array.isArray(data.items) ? data.items : [];
+
+    data.items.forEach(function(item){
+      if(!item) return;
+      if(!item.category || !map.has(String(item.category))){
+        item.category = 'other';
+      }
+    });
+    return data;
+  }
+
+  const oldNormalize = window.normalizeStoreData;
+  window.normalizeStoreData = function(data){
+    const normalized = typeof oldNormalize === 'function' ? oldNormalize(data) : data;
+    return mergeCategories(normalized);
+  };
+
+  function refreshMenus(){
+    try{
+      if(window.storeData){
+        window.storeData = mergeCategories(window.storeData);
+        if(typeof window.saveStoreLocal === 'function') window.saveStoreLocal(window.storeData);
+      }
+    }catch(e){}
+
+    try{ if(typeof window.renderStoreTabs === 'function') window.renderStoreTabs(); }catch(e){}
+    try{ if(typeof window.renderStoreGrid === 'function') window.renderStoreGrid(); }catch(e){}
+    try{ if(typeof window.renderStoreSection === 'function') window.renderStoreSection(); }catch(e){}
+    try{ if(typeof window.renderStoreAdminCategoryTabs === 'function') window.renderStoreAdminCategoryTabs(); }catch(e){}
+    try{ if(typeof window.renderStoreAdminList === 'function') window.renderStoreAdminList(); }catch(e){}
+  }
+
+  async function boot(){
+    try{
+      if(typeof window.loadStoreData === 'function') await window.loadStoreData();
+    }catch(e){}
+    refreshMenus();
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', boot);
+  }else{
+    boot();
+  }
+
+  [400, 900, 1700, 3000].forEach(function(ms){
+    setTimeout(function(){
+      const tabs = document.getElementById('storeSectionCategoryTabs');
+      if(tabs && tabs.children.length === 0) boot();
+    }, ms);
+  });
+
+  window.CHMRestoreStoreCategoryMenus = boot;
 })();
 </script>
 
