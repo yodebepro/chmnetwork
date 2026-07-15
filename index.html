@@ -2180,6 +2180,15 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 }
 </style>
 
+
+<style>
+/* CHM CONTACT ONE CLICK AJAX PATCH */
+#contactFormStatus.contact-success { color:#22c55e !important; }
+#contactFormStatus.contact-error { color:#ef4444 !important; }
+#contactFormStatus.contact-working { color:var(--text-secondary) !important; }
+#contactForm button[type="submit"][disabled] { opacity:.7; cursor:not-allowed; }
+</style>
+
 </head>
 <body>
 <!-- ==================== PUBLIC WEBSITE ==================== -->
@@ -2482,10 +2491,13 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 <div class="container">
 <h2>✉️ Contact Us</h2>
 <div style="max-width: 600px; margin: 0 auto;">
-<form id="contactForm" action="https://formsubmit.co/ajax/yodebepro@gmail.com" method="POST" onsubmit="submitContactForm(event)">
-                    <input type="hidden" name="_subject" value="New CHM Network Contact Message">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_captcha" value="false">
+<form id="contactForm" action="https://formsubmit.co/ajax/yodebepro@gmail.com" method="POST" novalidate>
+<input type="hidden" name="_subject" value="New CHM Network Contact Message">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_autoresponse" value="Thank you for contacting CHM Network. We received your message and will respond as soon as possible.">
+<input type="text" name="_honey" value="" style="display:none" tabindex="-1" autocomplete="off">
+
                     <div class="form-group">
                         <label for="name">Your Name</label>
                         <input type="text" id="name" name="name" placeholder="Enter your name" required>
@@ -2507,6 +2519,7 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
                         <textarea id="message" name="message" placeholder="Your message here" rows="5" required></textarea>
                     </div>
                     <button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
+<div id="contactFormStatus" role="status" aria-live="polite" style="margin-top:10px;text-align:center;color:var(--text-secondary);"></div>
                 </form>
 </div>
 <h3>Newsletter Signup</h3>
@@ -9009,6 +9022,109 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   window.CHMRestoreStoreCategoryMenus = boot;
+})();
+</script>
+
+
+<script>
+/* CHM CONTACT ONE CLICK AJAX PATCH */
+(function(){
+  const ENDPOINT = "https://formsubmit.co/ajax/yodebepro@gmail.com";
+
+  function setStatus(message, type){
+    const status = document.getElementById("contactFormStatus");
+    if(!status) return;
+    status.className = "";
+    if(type) status.classList.add("contact-" + type);
+    status.textContent = message || "";
+  }
+
+  function bindContactForm(){
+    const form = document.getElementById("contactForm");
+    if(!form || form.dataset.chmContactBound === "1") return;
+
+    form.dataset.chmContactBound = "1";
+    form.setAttribute("action", ENDPOINT);
+    form.setAttribute("method", "POST");
+    form.removeAttribute("target");
+    form.removeAttribute("onsubmit");
+
+    form.addEventListener("submit", async function(event){
+      event.preventDefault();
+      event.stopPropagation();
+
+      if(!form.checkValidity()){
+        form.reportValidity();
+        return;
+      }
+
+      const button = form.querySelector('button[type="submit"]');
+      const originalLabel = button ? button.textContent : "Send Message";
+      if(button){
+        button.disabled = true;
+        button.textContent = "Sending...";
+      }
+      setStatus("Sending your message securely...", "working");
+
+      const formData = new FormData(form);
+      const subjectInput = form.querySelector('[name="subject"]');
+      const subject = subjectInput && subjectInput.value.trim()
+        ? subjectInput.value.trim()
+        : "New CHM Network Contact Message";
+
+      formData.set("_subject", "CHM Network Contact: " + subject);
+      formData.set("_template", "table");
+      formData.set("_captcha", "false");
+
+      const controller = new AbortController();
+      const timeout = setTimeout(function(){ controller.abort(); }, 20000);
+
+      try{
+        const response = await fetch(ENDPOINT, {
+          method: "POST",
+          headers: { "Accept": "application/json" },
+          body: formData,
+          signal: controller.signal
+        });
+
+        clearTimeout(timeout);
+
+        let payload = null;
+        try{ payload = await response.json(); }catch(e){}
+
+        if(!response.ok){
+          throw new Error("The contact service did not confirm submission.");
+        }
+
+        form.reset();
+        setStatus("✓ Message submitted successfully. Check yodebepro@gmail.com and Spam/Junk.", "success");
+
+        if(button){
+          button.disabled = false;
+          button.textContent = originalLabel || "Send Message";
+        }
+      }catch(error){
+        clearTimeout(timeout);
+        const message = error && error.name === "AbortError"
+          ? "The contact service took too long to respond. Please try again."
+          : "The message could not be submitted. Please try again.";
+
+        setStatus(message, "error");
+        if(button){
+          button.disabled = false;
+          button.textContent = originalLabel || "Send Message";
+        }
+      }
+    });
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", bindContactForm);
+  }else{
+    bindContactForm();
+  }
+  setTimeout(bindContactForm, 500);
+  setTimeout(bindContactForm, 1500);
 })();
 </script>
 
