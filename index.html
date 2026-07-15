@@ -2206,6 +2206,38 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 }
 </style>
 
+
+<style>
+/* CHM CHRISTIAN RADIO ADMIN CONTROL PATCH */
+#chmRadioAdminManager{
+  margin-top:22px;border:1px solid rgba(0,188,212,.35);border-radius:14px;
+  padding:16px;background:rgba(0,0,0,.12)
+}
+.chm-radio-admin-toolbar{
+  display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 14px
+}
+.chm-radio-admin-search{
+  flex:1;min-width:240px;padding:10px 12px;border-radius:9px;
+  border:1px solid rgba(0,188,212,.45);background:#0a0e27;color:#fff
+}
+#chmRadioAdminRows{
+  max-height:68vh;overflow-y:auto;overflow-x:hidden;padding-right:10px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:14px
+}
+.chm-radio-admin-card{
+  border:1px solid rgba(0,188,212,.35);border-radius:12px;padding:14px;background:rgba(0,0,0,.14)
+}
+.chm-radio-admin-card.chm-highlight{
+  border-color:#ffc107!important;box-shadow:0 0 20px rgba(255,193,7,.35)
+}
+.chm-radio-admin-card input,
+.chm-radio-admin-card select,
+.chm-radio-admin-card textarea{
+  width:100%;margin-bottom:7px
+}
+.chm-radio-admin-card textarea{height:62px}
+</style>
+
 </head>
 <body>
 <!-- ==================== PUBLIC WEBSITE ==================== -->
@@ -9218,6 +9250,272 @@ document.addEventListener('DOMContentLoaded', () => {
   else boot();
   setTimeout(boot, 700);
   setTimeout(boot, 1600);
+})();
+</script>
+
+
+<script>
+/* CHM CHRISTIAN RADIO ADMIN CONTROL PATCH
+   Adds full admin control for every Christian radio station while preserving all other systems.
+*/
+(function(){
+  const SEED_RADIOS = [{"id": 1, "name": "Radio Tele Full Gospel", "type": "hls", "url": "https://f-tx-edge-87.christianworldmedia.com/EJCFG/mp4:EJCFG/playlist.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "ht.m3u"}, {"id": 2, "name": "Praise Jesus Tower TV (480p)", "type": "hls", "url": "https://vsrv1.az-streamingserver.com:3555/live/dyjoqlgklive.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "ug.m3u"}, {"id": 3, "name": "3ABN Praise Him Music Network", "type": "hls", "url": "https://3abn.bozztv.com/3abn1/PraiseHim/smil:PraiseHim.smil/playlist.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "us_3abn.m3u"}, {"id": 4, "name": "BCN Gospel TV HD (720p)", "type": "hls", "url": "https://live1.ovalcast.com:3916/live/bcngospeltvlive.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "es.m3u"}, {"id": 5, "name": "CBN Gospel (720p)", "type": "hls", "url": "https://59d39900ebfb8.streamlock.net/ccbn/ccbn/playlist.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "vg.m3u"}, {"id": 6, "name": "Dynamic Gospel TV (480p) [Not 24/7]", "type": "hls", "url": "https://ssh101stream.ssh101.com/akamaissh101/ssh101/tvdynamicstream/playlist.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "tg.m3u"}, {"id": 7, "name": "Gospel Broadcasting Network (GBN) (1080p)", "type": "hls", "url": "https://cdn3.wowza.com/5/Ny9jK1A1Q3h4N1VZ/live/myStream/playlist.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "us_wowza.m3u"}, {"id": 8, "name": "Gospel Cartoon (360p)", "type": "hls", "url": "https://stmv1.srvif.com/gospelcartoon/gospelcartoon/playlist.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "br.m3u"}, {"id": 9, "name": "Gospel Movie TV (360p)", "type": "hls", "url": "https://stmv1.srvif.com/gospelf/gospelf/playlist.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "br.m3u"}, {"id": 10, "name": "Gospel TV India (720p)", "type": "hls", "url": "https://server.livelegitpro.in:9899/gospeltv/index.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "in.m3u"}, {"id": 11, "name": "Gospel Truth TV (1080p)", "type": "hls", "url": "https://na.linear.zype.com/bf94f9f4-383c-40e0-9d49-279a4f33ab8d/f29b8836-d990-4c8d-b421-192a8f43edc4-zype/manifest.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "us.m3u"}, {"id": 12, "name": "My Gospel TV", "type": "hls", "url": "https://streamtv.cmediahosthosting.net:3046/live/mygospeltvlive.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "fr.m3u"}, {"id": 13, "name": "RTH-TV2 Gospel (720p)", "type": "hls", "url": "https://2-fss-2.streamhoster.com/pl_120/amlst:206708-4202592/playlist.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "us.m3u"}, {"id": 14, "name": "Rede Gospel (1080p)", "type": "hls", "url": "https://redegospel-aovivo.nuvemplay.live/hls/stream.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "br.m3u"}, {"id": 15, "name": "TVCARiB Gospel (480p) [Not 24/7]", "type": "hls", "url": "https://cdn.mycloudstream.io/hls/live/broadcast/wokrhjkd/index.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "sx.m3u"}, {"id": 16, "name": "Trace Gospel (1080p)", "type": "hls", "url": "https://channels.trace.plus/Traceprod/GOSPEL_FR/.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "fr.m3u"}, {"id": 17, "name": "XITE Gospel (720p)", "type": "hls", "url": "https://jmp2.uk/plu-623b93628e6ded0007337d4d.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "us_pluto.m3u"}, {"id": 18, "name": "Alkarma TV Praise (720p) [Not 24/7]", "type": "hls", "url": "https://58cc65c534c67.streamlock.net/alkarmatv.com/alkarmapa.smil/playlist.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "us.m3u"}, {"id": 19, "name": "Praise TV (720p)", "type": "hls", "url": "https://livecdn.live247stream.com/praise/tv/playlist.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "pk.m3u"}, {"id": 20, "name": "Praise TV (720p)", "type": "hls", "url": "https://pixelsmedia.live/livepraisetv/index.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "pk.m3u"}, {"id": 21, "name": "Global Christian Network America (GCN) (720p)", "type": "hls", "url": "http://liveen24-manminglobal3.ktcdn.co.kr/liveen24/gcnus_1300k.stream/playlist.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "us.m3u"}, {"id": 22, "name": "3ABN Dare To Dream Network", "type": "hls", "url": "https://3abn.bozztv.com/3abn2/d2d_live/smil:d2d_live.smil/playlist.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "us_3abn.m3u"}, {"id": 23, "name": "EWTN Spain & Latin America (720p)", "type": "hls", "url": "https://cdn3.wowza.com/1/SmVrQmZCUXZhVDgz/b3J3MFJv/hls/live/playlist.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "us_wowza.m3u"}, {"id": 24, "name": "Hope Channel Inter-America", "type": "hls", "url": "https://jstre.am/live/jsl:EC0Mq0i6HJU.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "us.m3u"}, {"id": 25, "name": "Hope Channel Inter-America English (1080p)", "type": "hls", "url": "https://jstre.am/live/jsl:UP9KAdlVrm8.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "us.m3u"}, {"id": 26, "name": "Hope Channel North America (1080p)", "type": "hls", "url": "https://jstre.am/live/jsl:0sUSK6VA7GT.m3u8", "category": "Christian Radio", "language": "", "country": "", "description": "", "sourceFile": "us.m3u"}, {"id": 27, "name": "K-LOVE Radio", "type": "audio", "url": "https://positivealtradio.streamguys1.com/klove.mp3", "category": "Contemporary Christian", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 28, "name": "Air1 Radio", "type": "audio", "url": "https://positivealtradio.streamguys1.com/air1.mp3", "category": "Worship Now", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 29, "name": "Classic Christian Radio", "type": "audio", "url": "https://praisedotcom.streamguys1.com/praise128", "category": "Classic Christian", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 30, "name": "Country Gospel Radio", "type": "audio", "url": "https://countrygospelradio.org/wp-content/uploads/sites/6/2023/03/Country-Gospel-mp3.mp3", "category": "Country Gospel", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 31, "name": "Southern Gospel Radio", "type": "audio", "url": "https://countrygospelradio.org/wp-content/uploads/sites/6/2023/03/Southern-Gospel-mp3.mp3", "category": "Southern Gospel", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 32, "name": "Bluegrass Gospel Radio", "type": "audio", "url": "https://countrygospelradio.org/wp-content/uploads/sites/6/2023/03/Bluegrass-Gospel-mp3.mp3", "category": "Bluegrass Gospel", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 33, "name": "Abiding Radio Sacred", "type": "audio", "url": "https://streams.abidingradio.org:7840/1", "category": "Sacred Christian", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 34, "name": "Abiding Radio Instrumental", "type": "audio", "url": "https://streams.abidingradio.org:7810/1", "category": "Instrumental Christian", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 35, "name": "Abiding Radio Kids", "type": "audio", "url": "https://streams.abidingradio.org:7830/1", "category": "Christian Kids", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 36, "name": "Abiding Radio Seasonal", "type": "audio", "url": "https://streams.abidingradio.org:7820/1", "category": "Seasonal Christian", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 37, "name": "Worship 24/7", "type": "audio", "url": "https://ais-sa2.cdnstream1.com/2202_128.mp3", "category": "Worship", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 38, "name": "Black Gospel Radio", "type": "audio", "url": "https://streaming.live365.com/a01875", "category": "Black Gospel", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 39, "name": "The Gospel Hiway", "type": "audio", "url": "https://ais-edge104-live365-dal02.cdnstream.com/a13662", "category": "Gospel", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 40, "name": "Christian Hits", "type": "audio", "url": "https://streaming.live365.com/a77125", "category": "Christian Hits", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 41, "name": "Haitian Gospel Radio", "type": "audio", "url": "https://stream.zeno.fm/0r0xa792kwzuv", "category": "Haitian Christian", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 42, "name": "Radio Tele Evangelique Vallee de Saron", "type": "audio", "url": "https://stream.zeno.fm/yw66v8d8z4zuv", "category": "Haitian Christian", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 43, "name": "Radio Tabernacle Haiti", "type": "audio", "url": "https://stream.zeno.fm/sg1qae6qrg0uv", "category": "Haitian Christian", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}, {"id": 44, "name": "Radio Louange Plus", "type": "audio", "url": "https://stream.zeno.fm/p916qg4k9hhvv", "category": "Haitian Christian", "language": "", "country": "", "description": "", "sourceFile": "curated-public-online"}];
+  const KEY = "CHM_CHRISTIAN_RADIOS_V3";
+  let adminRadios = [];
+
+  function esc(v){
+    return String(v == null ? "" : v).replace(/[&<>"']/g,function(s){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[s];
+    });
+  }
+  function normalize(list){
+    const arr = Array.isArray(list) ? list :
+      (list && Array.isArray(list.radios) ? list.radios :
+      (list && Array.isArray(list.stations) ? list.stations : []));
+    return arr.map(function(r,i){
+      const id = Number(r.id || i + 1);
+      const url = r.url || r.src || r.link || "";
+      return {
+        id:id,
+        name:r.name || ("Christian Radio " + id),
+        type:r.type || (String(url).toLowerCase().includes(".m3u8") ? "hls" : "audio"),
+        url:url,
+        category:r.category || "Christian Radio",
+        language:r.language || "",
+        country:r.country || "",
+        description:r.description || "",
+        sourceFile:r.sourceFile || ""
+      };
+    }).sort(function(a,b){ return a.id - b.id; });
+  }
+  function load(){
+    let saved = null;
+    try{ saved = JSON.parse(localStorage.getItem(KEY) || "null"); }catch(e){}
+    adminRadios = normalize(saved && normalize(saved).length >= SEED_RADIOS.length ? saved : SEED_RADIOS);
+    saveLocal();
+    return adminRadios;
+  }
+  function saveLocal(){
+    try{ localStorage.setItem(KEY, JSON.stringify(adminRadios,null,2)); }catch(e){}
+    try{ localStorage.setItem("CHM_CHRISTIAN_RADIOS_V2", JSON.stringify(adminRadios,null,2)); }catch(e){}
+  }
+  function readCards(){
+    const cards = document.querySelectorAll("#chmRadioAdminRows .chm-radio-admin-card");
+    if(!cards.length) return adminRadios;
+    const out = [];
+    cards.forEach(function(card){
+      const id = Number(card.dataset.radioId);
+      const val = function(field){
+        const el = card.querySelector('[data-field="'+field+'"]');
+        return el ? el.value.trim() : "";
+      };
+      out.push({
+        id:id,
+        name:val("name") || ("Christian Radio " + id),
+        type:val("type") || "audio",
+        url:val("url"),
+        category:val("category") || "Christian Radio",
+        language:val("language"),
+        country:val("country"),
+        description:val("description"),
+        sourceFile:"admin"
+      });
+    });
+    adminRadios = normalize(out);
+    return adminRadios;
+  }
+  function renderPublicRadios(query){
+    const grid = document.getElementById("chmChristianRadioGrid");
+    if(!grid) return;
+    const q = String(query || "").toLowerCase();
+    const list = adminRadios.filter(function(r){
+      return !q || [
+        r.id,r.name,r.category,r.language,r.country,r.description
+      ].join(" ").toLowerCase().includes(q);
+    });
+    grid.innerHTML = list.map(function(r){
+      const meta = [r.category,r.language,r.country].filter(Boolean).join(" • ");
+      return '<div class="chm-radio-card" data-radio-id="'+r.id+'">' +
+        '<div class="chm-radio-name">📻 '+esc(r.name)+'</div>' +
+        '<div class="chm-radio-meta">'+esc(meta || "Christian Radio")+'</div>' +
+        '<button type="button" class="chm-radio-play-btn" data-radio-id="'+r.id+'">▶ Play Radio</button>' +
+      '</div>';
+    }).join("") || '<p style="grid-column:1/-1;text-align:center;color:var(--text-secondary)">No radio found.</p>';
+  }
+  function playRadio(id){
+    const r = adminRadios.find(function(x){ return Number(x.id) === Number(id); });
+    if(!r || !r.url) return;
+    const audio = document.getElementById("radioPlayer") || document.querySelector("audio");
+    if(!audio) return;
+
+    document.querySelectorAll(".chm-radio-card").forEach(function(card){
+      card.classList.toggle("active", Number(card.getAttribute("data-radio-id")) === Number(id));
+    });
+    const now = document.getElementById("chmChristianRadioNow");
+    if(now) now.textContent = "Now playing: " + r.name;
+    const status = document.getElementById("radioStatus");
+    if(status) status.textContent = "✓ Playing: " + r.name;
+
+    if((r.type === "hls" || String(r.url).includes(".m3u8")) && window.Hls && window.Hls.isSupported()){
+      if(audio._chmRadioHls){ try{ audio._chmRadioHls.destroy(); }catch(e){} }
+      const hls = new Hls();
+      audio._chmRadioHls = hls;
+      hls.loadSource(r.url);
+      hls.attachMedia(audio);
+      hls.on(Hls.Events.MANIFEST_PARSED,function(){ audio.play().catch(function(){}); });
+    }else{
+      audio.src = r.url;
+      audio.play().catch(function(){});
+    }
+  }
+  function renderAdmin(filter){
+    const rows = document.getElementById("chmRadioAdminRows");
+    if(!rows) return;
+    const q = String(filter || "").toLowerCase();
+    const list = adminRadios.filter(function(r){
+      return !q || [r.id,r.name,r.type,r.url,r.category,r.language,r.country].join(" ").toLowerCase().includes(q);
+    });
+    rows.innerHTML = list.map(function(r){
+      return '<div class="chm-radio-admin-card" id="chmRadioAdmin-'+r.id+'" data-radio-id="'+r.id+'">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px">' +
+          '<h4 style="color:#ffc107;margin:0">Radio '+r.id+'</h4>' +
+          '<button type="button" class="btn-danger" style="padding:4px 8px;font-size:.72rem" onclick="CHMDeleteChristianRadio('+r.id+')">Delete</button>' +
+        '</div>' +
+        '<input data-field="name" value="'+esc(r.name)+'" placeholder="Radio station name">' +
+        '<select data-field="type">' +
+          '<option value="audio" '+(r.type==="audio"?"selected":"")+'>audio/direct stream</option>' +
+          '<option value="hls" '+(r.type==="hls"?"selected":"")+'>hls/m3u8</option>' +
+        '</select>' +
+        '<input data-field="url" value="'+esc(r.url)+'" placeholder="MP3, AAC, HLS/M3U8 stream URL">' +
+        '<input data-field="category" value="'+esc(r.category)+'" placeholder="Category: Gospel, Worship, Teaching...">' +
+        '<input data-field="language" value="'+esc(r.language)+'" placeholder="Language">' +
+        '<input data-field="country" value="'+esc(r.country)+'" placeholder="Country/Region">' +
+        '<textarea data-field="description" placeholder="Description">'+esc(r.description)+'</textarea>' +
+        '<div style="display:flex;gap:8px;margin-top:8px">' +
+          '<button type="button" class="btn-success" style="flex:1;padding:7px" onclick="CHMSaveOneChristianRadio('+r.id+')">Save Radio</button>' +
+          '<button type="button" class="btn-secondary" style="padding:7px" onclick="CHMPreviewChristianRadio('+r.id+')">Preview</button>' +
+        '</div>' +
+      '</div>';
+    }).join("");
+  }
+  function buildManager(){
+    const section = document.getElementById("section-radio");
+    if(!section) return;
+    let manager = document.getElementById("chmRadioAdminManager");
+    if(!manager){
+      manager = document.createElement("div");
+      manager.id = "chmRadioAdminManager";
+      manager.className = "content-editor";
+      section.appendChild(manager);
+    }
+    manager.innerHTML =
+      '<h3>📻 Christian Radio Directory Manager ('+adminRadios.length+')</h3>' +
+      '<p style="color:var(--text-secondary);line-height:1.45">Control every public Christian radio station. Add, edit, replace, preview, delete, import, and export station sources.</p>' +
+      '<div class="chm-radio-admin-toolbar">' +
+        '<input id="chmRadioAdminSearch" class="chm-radio-admin-search" placeholder="Search station, language, country, category or URL...">' +
+        '<button type="button" class="btn-success" onclick="CHMAddChristianRadio()">＋ Add Radio</button>' +
+        '<button type="button" class="btn-primary" onclick="CHMSaveAllChristianRadios()">✓ Save All</button>' +
+        '<button type="button" class="btn-secondary" onclick="CHMExportChristianRadios()">⬇ Export JSON</button>' +
+        '<label class="btn-secondary" style="cursor:pointer">⬆ Import JSON<input id="chmRadioImportInput" type="file" accept=".json,application/json" style="display:none"></label>' +
+      '</div>' +
+      '<div id="chmRadioAdminRows"></div>';
+    const search = document.getElementById("chmRadioAdminSearch");
+    if(search) search.oninput = function(){ readCards(); renderAdmin(search.value); };
+    const imp = document.getElementById("chmRadioImportInput");
+    if(imp) imp.onchange = function(e){ CHMImportChristianRadios(e); };
+    renderAdmin("");
+  }
+
+  window.CHMEditChristianRadio = function(id){
+    if(typeof switchAdminSection === "function") switchAdminSection("radio");
+    setTimeout(function(){
+      buildManager();
+      const card = document.getElementById("chmRadioAdmin-"+id);
+      if(card){
+        card.classList.add("chm-highlight");
+        card.scrollIntoView({behavior:"smooth",block:"center"});
+        const url = card.querySelector('[data-field="url"]');
+        if(url) url.focus();
+        setTimeout(function(){ card.classList.remove("chm-highlight"); },3000);
+      }
+    },250);
+  };
+  window.CHMSaveOneChristianRadio = function(id){
+    readCards(); saveLocal(); renderPublicRadios("");
+    if(window.showNotification) showNotification("✓ Radio "+id+" saved","success");
+  };
+  window.CHMSaveAllChristianRadios = function(){
+    readCards(); saveLocal(); renderPublicRadios("");
+    if(window.showNotification) showNotification("✓ All "+adminRadios.length+" radios saved","success");
+    else alert("All radios saved.");
+  };
+  window.CHMAddChristianRadio = function(){
+    readCards();
+    const next = adminRadios.length ? Math.max.apply(null,adminRadios.map(function(r){return r.id;}))+1 : 1;
+    adminRadios.push({
+      id:next,name:"Christian Radio "+next,type:"audio",url:"",
+      category:"Christian Radio",language:"",country:"",description:"",sourceFile:"admin"
+    });
+    saveLocal(); buildManager(); renderPublicRadios("");
+    setTimeout(function(){ CHMEditChristianRadio(next); },50);
+  };
+  window.CHMDeleteChristianRadio = function(id){
+    if(!confirm("Delete Radio "+id+"?")) return;
+    readCards();
+    adminRadios = adminRadios.filter(function(r){ return Number(r.id) !== Number(id); });
+    saveLocal(); buildManager(); renderPublicRadios("");
+  };
+  window.CHMPreviewChristianRadio = function(id){
+    readCards(); saveLocal(); playRadio(id);
+  };
+  window.CHMExportChristianRadios = function(){
+    readCards(); saveLocal();
+    const blob = new Blob([JSON.stringify(adminRadios,null,2)],{type:"application/json"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "published_christian_radios.json";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); },1000);
+  };
+  window.CHMImportChristianRadios = function(event){
+    const file = event.target.files && event.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(){
+      try{
+        const parsed = JSON.parse(reader.result);
+        adminRadios = normalize(parsed.radios || parsed.stations || parsed);
+        saveLocal(); buildManager(); renderPublicRadios("");
+        if(window.showNotification) showNotification("✓ "+adminRadios.length+" radios imported","success");
+      }catch(e){ alert("Invalid Christian radio JSON file."); }
+    };
+    reader.readAsText(file);
+    event.target.value = "";
+  };
+
+  document.addEventListener("click",function(e){
+    const play = e.target.closest(".chm-radio-play-btn");
+    if(play){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      playRadio(Number(play.getAttribute("data-radio-id")));
+    }
+  },true);
+
+  function boot(){
+    load();
+    buildManager();
+    renderPublicRadios("");
+    const search = document.getElementById("chmChristianRadioSearch");
+    if(search && !search.dataset.chmAdminBound){
+      search.dataset.chmAdminBound = "1";
+      search.addEventListener("input",function(){ renderPublicRadios(search.value); });
+    }
+  }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded",boot);
+  else boot();
+  setTimeout(boot,700);
+  setTimeout(boot,1600);
 })();
 </script>
 
