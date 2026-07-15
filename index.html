@@ -2482,35 +2482,32 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 <div class="container">
 <h2>✉️ Contact Us</h2>
 <div style="max-width: 600px; margin: 0 auto;">
-<form action="https://formsubmit.co/yodebepro@gmail.com" id="contactForm" method="POST" onsubmit="const b=this.querySelector('button[type=submit]');if(b){b.disabled=true;b.textContent='Sending...';}">
-<input name="_subject" type="hidden" value="New CHM Network Contact Message"/>
-<input name="_template" type="hidden" value="table"/>
-<input name="_captcha" type="hidden" value="false"/>
-<input name="_next" type="hidden" value="https://chmnetwork.com/thank-you.html"/>
-<input name="_autoresponse" type="hidden" value="Thank you for contacting CHM Network. We have received your message and will respond as soon as possible."/>
-<div class="form-group">
-<label for="name">Your Name</label>
-<input id="name" name="name" placeholder="Enter your name" required="" type="text"/>
-</div>
-<div class="form-group">
-<label for="email">Email Address</label>
-<input id="email" name="email" placeholder="Enter your email" required="" type="email"/>
-</div>
-<div class="form-group">
-<label for="phone">Phone Number</label>
-<input id="phone" name="phone" placeholder="Enter your phone number" type="tel"/>
-</div>
-<div class="form-group">
-<label for="subject">Subject</label>
-<input id="subject" name="subject" placeholder="Message subject" required="" type="text"/>
-</div>
-<div class="form-group">
-<label for="message">Message</label>
-<textarea id="message" name="message" placeholder="Your message here" required="" rows="5"></textarea>
-</div>
-<button class="btn-primary" style="width: 100%;" type="submit">Send Message</button>
-<div id="contactFormStatus" role="status" aria-live="polite" style="margin-top:10px;text-align:center;color:var(--text-secondary);">Your message will be sent directly through the secure contact service.</div>
-</form>
+<form id="contactForm" action="https://formsubmit.co/ajax/yodebepro@gmail.com" method="POST" onsubmit="submitContactForm(event)">
+                    <input type="hidden" name="_subject" value="New CHM Network Contact Message">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_captcha" value="false">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="Message subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Your message here" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
+                </form>
 </div>
 <h3>Newsletter Signup</h3>
 <div style="max-width: 500px; margin: 20px auto;">
@@ -4813,6 +4810,46 @@ function initPublicVideoPlaylistPanel() {
 
     // ==================== FORMS ====================
 
+function submitContactForm(event) {
+        event.preventDefault();
+
+        const form = document.getElementById('contactForm') || event.target;
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalText = submitButton ? submitButton.textContent : '';
+
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+        }
+
+        try {
+            const formData = new FormData(form);
+            const subject = (document.getElementById('subject')?.value || 'New CHM Network Contact Message').trim();
+            formData.set('_subject', subject ? `CHM Network Contact: ${subject}` : 'New CHM Network Contact Message');
+
+            const response = await fetch('https://formsubmit.co/ajax/yodebepro@gmail.com', {
+                method: 'POST',
+                headers: { 'Accept': 'application/json' },
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('FormSubmit response was not successful.');
+            }
+
+            showNotification('✓ Message sent directly to yodebepro@gmail.com', 'success');
+            form.reset();
+        } catch (error) {
+            console.error('Contact form error:', error);
+            showNotification('Message could not be sent. Please check your internet connection and try again.', 'error');
+        } finally {
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = originalText || 'Send Message';
+            }
+        }
+    }
+
     function subscribeNewsletter(event) {
         event.preventDefault();
         const email = document.getElementById('newsEmail').value;
@@ -6892,25 +6929,57 @@ function saveStoreLocal(data){
 
 function normalizeStoreData(data){
   if(!data) return data;
-  data.categories = data.categories || [];
-  data.items = data.items || [];
-  // Backward compatibility: ensure settings exists
+
+  const requiredCategories = [
+    { id: 'books', name: 'Books' },
+    { id: 'music', name: 'Music' },
+    { id: 'bibles', name: 'Bibles' },
+    { id: 'songbooks', name: 'Songbooks' },
+    { id: 'clothing', name: 'Clothing' },
+    { id: 'electronics', name: 'Electronics' },
+    { id: 'audio-video', name: 'Audio & Video' },
+    { id: 'church-supplies', name: 'Church Supplies' },
+    { id: 'ministry-resources', name: 'Ministry Resources' },
+    { id: 'gifts', name: 'Gifts' },
+    { id: 'home-office', name: 'Home & Office' },
+    { id: 'accessories', name: 'Accessories' },
+    { id: 'children', name: 'Children' },
+    { id: 'other', name: 'Other' }
+  ];
+
+  const incomingCategories = Array.isArray(data.categories) ? data.categories : [];
+  const incomingMap = new Map();
+  incomingCategories.forEach(cat=>{
+    if(!cat || !cat.id) return;
+    incomingMap.set(String(cat.id), { id:String(cat.id), name:String(cat.name || cat.id) });
+  });
+
+  // Keep the requested categories in the same order on both public and admin pages.
+  const merged = requiredCategories.map(cat=>incomingMap.get(cat.id) || cat);
+  // Preserve any future custom categories created in the admin.
+  incomingCategories.forEach(cat=>{
+    if(cat && cat.id && !requiredCategories.some(req=>req.id===String(cat.id))){
+      merged.push({ id:String(cat.id), name:String(cat.name || cat.id) });
+    }
+  });
+  data.categories = merged;
+  data.items = Array.isArray(data.items) ? data.items : [];
   data.settings = data.settings || { defaultCheckoutUrl:'', currency:'USD' };
-  // Normalize item images (support multi-image gallery)
+
+  const validCategoryIds = new Set(data.categories.map(cat=>cat.id));
   data.items.forEach(it=>{
     if(!it) return;
     if(Array.isArray(it.images)){
-      // ok
+      // already normalized
     }else{
       const single = (it.image || it.img || '');
       it.images = single ? [String(single)] : [];
     }
-    // keep legacy "image" as primary for older rendering
     it.image = it.images && it.images[0] ? String(it.images[0]) : (it.image || '');
     if(typeof it.price !== 'number') it.price = Number(it.price||0) || 0;
     it.title = it.title || '';
     it.description = it.description || '';
-    it.category = it.category || 'other';
+    it.category = validCategoryIds.has(String(it.category || '')) ? String(it.category) : 'other';
     it.emoji = it.emoji || '🛒';
     it.checkoutUrl = it.checkoutUrl || '';
   });
@@ -7176,6 +7245,7 @@ function buyStoreItem(id){
 
 /* ---------- Store Admin ---------- */
 function openStoreAdmin(){
+  if(storeData) storeData = normalizeStoreData(storeData);
   const modal = document.getElementById('storeAdminModal');
   if(!modal) return;
   try{ modal.style.display = 'flex'; modal.style.zIndex = '10001'; }catch(e){}
