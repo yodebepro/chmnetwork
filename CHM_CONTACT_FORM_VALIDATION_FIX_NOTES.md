@@ -1,11 +1,14 @@
-CHM Network contact form success fix
+# CHM CMS Placement Fix
 
-- Built from CHMNETWORK_NEW_BASELINE_STORE_MENUS_RESTORED.zip.
-- Everything else in the approved baseline is preserved.
-- Added a 15-second timeout so the button can no longer remain stuck on Sending.
-- Added AJAX submission with response validation.
-- Added a secure hidden-iframe fallback when browser CORS/privacy settings block AJAX.
-- Added an on-page success/error status message.
-- Contact messages are directed to yodebepro@gmail.com through FormSubmit.
-- FormSubmit may require a one-time activation confirmation from the recipient email.
-- No separate admin folder.
+This update fixes the issue shown in your screenshot.
+
+Before:
+- Published photos/content were being added at the bottom of the page under the footer.
+
+Now:
+- Published gallery photos replace the empty gallery/photo boxes.
+- Published leader photos replace the empty leader/photo boxes.
+- Published announcements, events, sermons, ministries, teams, departments, and locations fill the existing page sections/cards first.
+- A new bottom section is only created if the page has no existing grid/section to place the content.
+
+Upload this package to GitHub, hard refresh, then publish again from the admin panel.

@@ -1,5 +1,10 @@
-# CHM Church of God — True CMS Completion
+Store category menu restore update
 
-This version adds `true-cms.html` for one-click global publishing of hero video, leader photos, gallery photos, events, announcements, sermons, ministries, departments, team members, locations, and page content.
-
-Use `github-setup.html` once. After connection is successful, publish from `true-cms.html` or the admin pages.
+- Approved baseline preserved.
+- Store products, Channel 1 YouTube, TV, radio, search, header, and page layout were not changed.
+- Public store category menus restored.
+- Categories are merged into hosted/local store data without deleting products.
+- Added categories: Audio & Video, Church Supplies, Ministry Resources, Gifts, Home & Office, Accessories, Children.
+- Categories appear publicly and in Store Admin controls.
+- Admin-added products remain connected to their selected public category.
+- No separate admin folder.

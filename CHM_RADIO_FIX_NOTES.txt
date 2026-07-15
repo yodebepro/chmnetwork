@@ -1,14 +1,32 @@
-# CHM Publish Visibility Fix
+CHM NETWORK — GLOBAL PERFORMANCE CHECKLIST
 
-This package fixes the issue where photos, gallery items, leaders, announcements, and other records saved/published in the admin did not show on the public pages.
+Preserve:
+[ ] Current baseline layout
+[ ] Store
+[ ] Radio
+[ ] TV player
+[ ] 11 left channels
+[ ] Channel badge sync
+[ ] Admin URL access
+[ ] Public Admin button hidden
+[ ] JSON publishing
 
-Fixes included:
-- Admin now saves both `_status` and `status`.
-- Admin now normalizes image fields as `mediaUrl`, `imageUrl`, `photoUrl`, and `thumbnailUrl`.
-- Public pages now load published items from Firebase.
-- Public pages also display same-browser local published items immediately.
-- Announcements, gallery, leaders, ministries, events, sermons, teams, departments, locations, and blueprint modules are mapped to public pages.
+Add/Confirm:
+[ ] published_tv_channels.json in root
+[ ] published_videos.json in root
+[ ] published_music.json in root
+[ ] published_radio.json in root
+[ ] published_store.json in root
+[ ] published_tv_settings.json in root
+[ ] CNAME in root
+[ ] .nojekyll in root
+[ ] 404.html in root
 
-Important:
-For changes to show globally on all visitors’ phones/computers, Firebase must be configured in `firebase-config.js`.
-Without Firebase, changes can show in the same browser only.
+Future:
+[ ] Supabase global database
+[ ] Stripe/PayPal store checkout
+[ ] Analytics dashboard
+[ ] Direct chat backend
+[ ] SMS notification
+[ ] PWA mobile app
+[ ] Live schedule automation

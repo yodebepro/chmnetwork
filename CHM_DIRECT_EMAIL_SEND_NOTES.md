@@ -1,9 +1,11 @@
-CHM Network native contact submission fix
+CHM Network contact form success fix
 
-- Removed the AJAX/fetch code that could stay stuck on Sending.
-- Contact form now uses a direct native POST to FormSubmit.
-- Added a confirmation page: thank-you.html.
-- Added automatic reply text for the sender.
-- Messages are directed to yodebepro@gmail.com.
-- The rest of the approved baseline remains unchanged.
-- FormSubmit requires a one-time activation confirmation in yodebepro@gmail.com if it has not already been activated.
+- Built from CHMNETWORK_NEW_BASELINE_STORE_MENUS_RESTORED.zip.
+- Everything else in the approved baseline is preserved.
+- Added a 15-second timeout so the button can no longer remain stuck on Sending.
+- Added AJAX submission with response validation.
+- Added a secure hidden-iframe fallback when browser CORS/privacy settings block AJAX.
+- Added an on-page success/error status message.
+- Contact messages are directed to yodebepro@gmail.com through FormSubmit.
+- FormSubmit may require a one-time activation confirmation from the recipient email.
+- No separate admin folder.

@@ -1,32 +1,10 @@
-CHM NETWORK — GLOBAL PERFORMANCE CHECKLIST
-
-Preserve:
-[ ] Current baseline layout
-[ ] Store
-[ ] Radio
-[ ] TV player
-[ ] 11 left channels
-[ ] Channel badge sync
-[ ] Admin URL access
-[ ] Public Admin button hidden
-[ ] JSON publishing
-
-Add/Confirm:
-[ ] published_tv_channels.json in root
-[ ] published_videos.json in root
-[ ] published_music.json in root
-[ ] published_radio.json in root
-[ ] published_store.json in root
-[ ] published_tv_settings.json in root
-[ ] CNAME in root
-[ ] .nojekyll in root
-[ ] 404.html in root
-
-Future:
-[ ] Supabase global database
-[ ] Stripe/PayPal store checkout
-[ ] Analytics dashboard
-[ ] Direct chat backend
-[ ] SMS notification
-[ ] PWA mobile app
-[ ] Live schedule automation
+Make It Happen expansion:
+- Started from CHMNETWORK_CORRECTED_RADIO_WITH_STORE_RESTORED.zip.
+- Actual TV rail now lists 147 channels.
+- Actual Christian Radio box now lists 44 stations.
+- TV search is inside existing left TV panel.
+- Radio search remains inside Christian Radio area.
+- Store preserved.
+- Interface/structure preserved.
+- No separate admin folder.
+Note: direct stream availability can change by provider, but every item includes a stream URL/source.

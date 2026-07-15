@@ -1,17 +1,7 @@
-# CHM Admin Buttons Fixed
-
-This fixes the issue where only Cancel worked.
-
-Fixed buttons:
-- Save Draft
-- Publish Globally
-- Publish / Post
-
-Added:
-- `chm-admin-button-fix.js`
-
-After uploading to GitHub:
-1. Hard refresh the admin page with Ctrl + F5.
-2. Open `true-cms.html` or any admin module.
-3. Test Save Draft.
-4. Test Publish Globally.
+Final left rail fix:
+- The existing left-side channel rail (.ytv-channel-rail) is now rebuilt with all 51 channels.
+- Channels no longer appear above or outside the original channel section.
+- Left channel rail scrolls through all channels.
+- Clicking a channel switches the player and attempts playback immediately.
+- HLS/M3U8 playback uses hls.js where needed.
+- No separate admin folder is included.

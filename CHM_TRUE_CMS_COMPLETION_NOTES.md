@@ -1,5 +1,1 @@
-Store restore update:
-- Restored store product JSON where available.
-- Added safe store restore script that preserves Christian Radio and TV changes.
-- Store products are seeded only into store containers; platform layout remains unchanged.
-- No separate admin folder is included.
+This version removes the extra channel list that appeared above the TV section. All 51 channels are listed only inside the original left-side channel rail. The left rail scrolls, and clicking a channel switches and attempts playback automatically. No separate admin folder is included.

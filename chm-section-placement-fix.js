@@ -1,16 +1,167 @@
 
 (function(){
-const OWNER=localStorage.getItem('chm_gh_owner')||'yodebepro',REPO=localStorage.getItem('chm_gh_repo')||'CHM-Church-of-God',BRANCH=localStorage.getItem('chm_gh_branch')||'main';
-const MAP={index:['hero','announcements','events','sermons','gallery','leaders','ministries','departments','teams','locations','page_content'],about:['page_content','leaders','departments','teams'],leaders:['leaders','leadership'],gallery:['gallery','media_library'],events:['events'],announcements:['announcements'],sermons:['sermons'],ministries:['ministries'],departments:['departments'],teams:['teams'],locations:['locations'],give:['page_content'],'watch-live':['hero','media_library','sermons'],'listen-live':['sermons','media_library']};
-function page(){const f=(location.pathname.split('/').pop()||'index.html').replace('.html','').toLowerCase();return f===''?'index':f}
-function pub(x){const s=String(x._status||x.status||'draft').toLowerCase();return s==='published'&&x.archived!==true}
-function media(x){return x.mediaUrl||x.imageUrl||x.photoUrl||x.thumbnailUrl||x.videoUrl||x.audioUrl||''}
-function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-async function load(){for(const u of[`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/site-data.json?_=${Date.now()}`,`https://cdn.jsdelivr.net/gh/${OWNER}/${REPO}@${BRANCH}/site-data.json?_=${Date.now()}`]){try{const r=await fetch(u,{cache:'no-store'});if(r.ok){const d=await r.json();localStorage.setItem('chm_sd_bk',JSON.stringify(d));return d}}catch(e){}}try{return JSON.parse(localStorage.getItem('chm_sd_bk')||localStorage.getItem('chm_sitedata')||'{}')}catch(e){return{}}}
-function applyHero(d){const h=((d.hero||[]).filter(pub)[0])||(d.site_config&&d.site_config.hero)||null;if(!h)return;const m=media(h),hero=document.querySelector('.hero,.page-hero,[data-hero]');if(hero&&m){let v=hero.querySelector('.chm-global-hero-video');if(!v){v=document.createElement('video');v.className='chm-global-hero-video';v.autoplay=true;v.muted=true;v.loop=true;v.playsInline=true;v.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.45;pointer-events:none;';hero.style.position='relative';hero.style.overflow='hidden';hero.insertBefore(v,hero.firstChild)}v.innerHTML=`<source src="${m}" type="video/mp4">`;Array.from(hero.children).forEach(ch=>{if(ch!==v){ch.style.position=ch.style.position||'relative';ch.style.zIndex=ch.style.zIndex||'1'}})}if(h.title){const t=document.querySelector('.hero-title,.hero h1,[data-cms="hero-title"]');if(t)t.textContent=h.title}if(h.summary||h.body){const s=document.querySelector('.hero-subtitle,.hero p,[data-cms="hero-text"]');if(s)s.textContent=h.summary||h.body}}
-function card(x){const m=media(x),title=esc(x.title||x.name||x.label||'Untitled'),summary=esc(x.summary||x.subtitle||x.description||''),body=esc(x.body||x.content||x.message||''),type=esc(x.category||x.collection||'Published'),vid=/\.(mp4|webm|mov)(\?|$)/i.test(m);return`<article class="feature-card chm-cms-card">${m?`<div class="chm-cms-media">${vid?`<video src="${m}" controls></video>`:`<img src="${m}" alt="${title}">`}</div>`:''}<span class="tag">${type}</span><h3>${title}</h3>${summary?`<p>${summary}</p>`:''}${body?`<p>${body}</p>`:''}</article>`}
-function grid(){const p=page();const sels={leaders:['.leaders-grid','.team-grid','.feature-grid','.grid-3'],gallery:['.gallery-grid','.media-grid','.feature-grid','.grid-3'],events:['.events-grid','.feature-grid','.grid-3'],announcements:['.announcements-grid','.feature-grid','.grid-3'],sermons:['.sermons-grid','.feature-grid','.grid-3'],ministries:['.ministries-grid','.feature-grid','.grid-3'],departments:['.departments-grid','.feature-grid','.grid-3'],teams:['.teams-grid','.feature-grid','.grid-3'],locations:['.locations-grid','.feature-grid','.grid-3']}[p]||['.feature-grid','.grid-3','.cards-grid'];for(const s of sels){const e=document.querySelector(s);if(e)return e}return null}
-function css(){if(document.getElementById('chmTrueCMSPublicCss'))return;const s=document.createElement('style');s.id='chmTrueCMSPublicCss';s.textContent='.chm-cms-media{width:100%;height:260px;border-radius:14px;overflow:hidden;margin-bottom:1rem;background:#0a1f44}.chm-cms-media img,.chm-cms-media video{width:100%;height:100%;object-fit:cover;display:block}.chm-cms-card{overflow:hidden}';document.head.appendChild(s)}
-function render(items){if(!items.length)return;const p=page();if(p==='index'){let h=document.querySelector('[data-cms-live="homepage"]');if(!h){h=document.createElement('section');h.className='section chm-cms-live-home';h.setAttribute('data-cms-live','homepage');const f=document.querySelector('footer');if(f&&f.parentNode)f.parentNode.insertBefore(h,f);else document.body.appendChild(h)}h.innerHTML=`<div class="container"><div class="section-header text-center"><span class="section-label">Latest From Admin</span><h2>Published Church Updates</h2><div class="gold-line centered"></div></div><div class="feature-grid">${items.slice(0,12).map(card).join('')}</div></div>`;return}const g=grid();if(g){g.innerHTML=items.map(card).join('');return}let h=document.querySelector('[data-cms-live="page"]');if(!h){h=document.createElement('section');h.className='section';h.setAttribute('data-cms-live','page');const f=document.querySelector('footer');if(f&&f.parentNode)f.parentNode.insertBefore(h,f);else document.body.appendChild(h)}h.innerHTML=`<div class="container"><div class="section-header text-center"><span class="section-label">Published Content</span><h2>Latest Updates</h2><div class="gold-line centered"></div></div><div class="feature-grid">${items.map(card).join('')}</div></div>`}
-document.addEventListener('DOMContentLoaded',async()=>{css();const d=await load();applyHero(d);let items=[];(MAP[page()]||[]).forEach(c=>{if(Array.isArray(d[c]))items=items.concat(d[c].filter(pub).map(x=>({...x,collection:c}))) });items.sort((a,b)=>(b._updatedAt||b.updatedAt||0)-(a._updatedAt||a.updatedAt||0));render(items)});
+  if(window.CHMAdminButtonFixLoaded) return;
+  window.CHMAdminButtonFixLoaded = true;
+
+  function qs(s,r=document){return r.querySelector(s)}
+  function qsa(s,r=document){return Array.from(r.querySelectorAll(s))}
+  function setStatus(msg,type='info'){
+    let el=qs('[data-cms-status]')||qs('.cms-global-status')||qs('.gh-status')||qs('.firebase-status');
+    if(!el){
+      el=document.createElement('div');
+      el.className='cms-global-status';
+      el.setAttribute('data-cms-status','true');
+      (qs('main')||document.body).prepend(el);
+    }
+    el.innerHTML=msg;
+    el.style.color=type==='error'?'#b91c1c':type==='success'?'#15803d':type==='warning'?'#854d0e':'#0a1f44';
+  }
+
+  function collectionFromPage(form){
+    const section = qs('#section', form);
+    if(section && section.value) return section.value;
+
+    const root = qs('[data-blueprint-crud]');
+    if(root){
+      const key=root.getAttribute('data-blueprint-crud')||'';
+      const map={
+        adm_home:'page_content',adm_about:'page_content',adm_give:'page_content',
+        adm_teams:'teams',adm_departments:'departments',adm_sacred:'ministries',
+        adm_locations:'locations',adm_media_settings:'media_library',
+        adm_navigation:'navigation_items',adm_footer:'footer_items',
+        adm_languages:'page_content',adm_uploads:'media_library',adm_blueprint:'page_content'
+      };
+      return map[key]||key.replace(/^adm_/,'')||'page_content';
+    }
+
+    const name=(location.pathname.split('/').pop()||'').replace('.html','').toLowerCase();
+    const map={
+      'adm-announcements':'announcements','adm-events':'events','adm-sermons':'sermons',
+      'adm-gallery':'gallery','adm-leaders':'leaders','adm-ministries':'ministries',
+      'adm-departments':'departments','adm-teams':'teams','adm-locations':'locations',
+      'members':'members','messages':'messages','giving':'givingReports',
+      'prayer-requests':'prayer_requests'
+    };
+    return map[name]||'page_content';
+  }
+
+  function formFields(form){
+    const fd=Object.fromEntries(new FormData(form).entries());
+    return {
+      id: fd.id||fd._id||'',
+      title: fd.title||fd.name||fd.label||qs('#title',form)?.value||'',
+      category: fd.category||fd.role||fd.parentMenu||fd.section||fd.column||qs('#category',form)?.value||'',
+      summary: fd.summary||fd.subtitle||fd.description||qs('#summary',form)?.value||'',
+      body: fd.body||fd.content||fd.message||qs('#body',form)?.value||'',
+      mediaUrl: fd.mediaUrl||fd.imageUrl||fd.photoUrl||fd.videoUrl||fd.audioUrl||qs('#mediaUrl',form)?.value||''
+    };
+  }
+
+  function fileFromForm(form){
+    return qs('input[type="file"]',form)?.files?.[0] || qs('#mediaFile')?.files?.[0] || null;
+  }
+
+  async function ensure(){
+    if(window.CHMTrueCMS) return true;
+    setStatus('CMS engine is still loading. Please wait and press again.','warning');
+    return false;
+  }
+
+  async function uploadFile(form, fields, col){
+    const file=fileFromForm(form);
+    if(!file) return fields;
+    setStatus('Uploading file globally...','info');
+    if(window.CHMTrueCMS?.uploadMedia){
+      const url=await window.CHMTrueCMS.uploadMedia(file,col);
+      fields.mediaUrl=url; fields.imageUrl=fields.imageUrl||url; fields.photoUrl=fields.photoUrl||url; fields.thumbnailUrl=fields.thumbnailUrl||url;
+    }else if(window.uploadFileToCloud){
+      const url=await window.uploadFileToCloud(file);
+      fields.mediaUrl=url; fields.imageUrl=fields.imageUrl||url;
+    }
+    return fields;
+  }
+
+  async function doSave(form){
+    if(!(await ensure())) return;
+    const col=collectionFromPage(form);
+    let fields=formFields(form);
+    fields=await uploadFile(form,fields,col);
+    setStatus('Saving draft...','info');
+    if(window.CHMTrueCMS?.saveItem) await window.CHMTrueCMS.saveItem(col,fields,'draft');
+    else if(window.cmsSave) await window.cmsSave(col,fields.id||'',fields,'draft');
+    setStatus('✅ Draft saved successfully.','success');
+    if(window.loadRecords) window.loadRecords();
+    if(window.chmRefreshBlueprint) window.chmRefreshBlueprint();
+  }
+
+  async function doPublish(form){
+    if(!(await ensure())) return;
+    const col=collectionFromPage(form);
+    let fields=formFields(form);
+    if(!fields.title){
+      setStatus('Please enter a title/name before publishing.','error');
+      (qs('[name="title"]',form)||qs('#title',form)||form).focus?.();
+      return;
+    }
+    fields=await uploadFile(form,fields,col);
+    setStatus('Publishing globally...','info');
+
+    if(window.CHMTrueCMS?.publishNew){
+      if(fields.id && window.CHMTrueCMS.saveItem && window.CHMTrueCMS.publishItem){
+        const saved=await window.CHMTrueCMS.saveItem(col,fields,'published');
+        await window.CHMTrueCMS.publishItem(col,saved.id||fields.id);
+      }else{
+        await window.CHMTrueCMS.publishNew(col,fields,null);
+      }
+    }else if(window.cmsSave && window.cmsPublish){
+      const saved=await window.cmsSave(col,fields.id||'',fields,'published');
+      await window.cmsPublish(col,saved?.id||fields.id);
+    }
+
+    setStatus('✅ Published globally. Public pages will update shortly.','success');
+    try{form.reset()}catch(e){}
+    if(window.loadRecords) window.loadRecords();
+    if(window.chmRefreshBlueprint) window.chmRefreshBlueprint();
+  }
+
+  window.publishNow = async function(){
+    const form=qs('#globalForm')||qs('#bpForm')||qs('form');
+    if(!form) return setStatus('No form was found.','error');
+    try{await doPublish(form)}catch(e){setStatus('Publish failed: '+(e.message||e),'error');alert('Publish failed: '+(e.message||e))}
+  };
+
+  window.saveDraft = async function(){
+    const form=qs('#globalForm')||qs('#bpForm')||qs('form');
+    if(!form) return setStatus('No form was found.','error');
+    try{await doSave(form)}catch(e){setStatus('Save failed: '+(e.message||e),'error');alert('Save failed: '+(e.message||e))}
+  };
+
+  function repair(){
+    qsa('button').forEach(btn=>{
+      const txt=(btn.textContent||btn.value||'').toLowerCase().trim();
+      if(txt.includes('publish globally') || txt==='publish' || txt.includes('publish / post')){
+        btn.type='button';
+        btn.onclick=function(e){
+          e.preventDefault();
+          const form=btn.closest('form')||qs('#globalForm')||qs('#bpForm')||qs('form');
+          doPublish(form).catch(err=>{setStatus('Publish failed: '+(err.message||err),'error');alert('Publish failed: '+(err.message||err))});
+        };
+      }
+      if(txt.includes('save draft')){
+        btn.type='button';
+        btn.onclick=function(e){
+          e.preventDefault();
+          const form=btn.closest('form')||qs('#globalForm')||qs('#bpForm')||qs('form');
+          doSave(form).catch(err=>{setStatus('Save failed: '+(err.message||err),'error');alert('Save failed: '+(err.message||err))});
+        };
+      }
+    });
+
+    const pub=qs('#bpPublish'), save=qs('#bpSaveDraft');
+    if(pub){pub.type='button'; pub.onclick=(e)=>{e.preventDefault(); doPublish(pub.closest('form')||qs('#bpForm')).catch(err=>alert('Publish failed: '+(err.message||err)))}}
+    if(save){save.type='button'; save.onclick=(e)=>{e.preventDefault(); doSave(save.closest('form')||qs('#bpForm')).catch(err=>alert('Save failed: '+(err.message||err)))}}
+  }
+
+  document.addEventListener('DOMContentLoaded',()=>{repair(); setTimeout(repair,500); setTimeout(repair,1500);});
+  document.addEventListener('click',()=>setTimeout(repair,100),true);
 })();

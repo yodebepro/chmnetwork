@@ -1,7 +1,10 @@
-TV rail force fix:
-- Existing TV left rail is forced to show all 147 TV channels.
-- Channels continue after 51: 52, 53, 54, etc.
-- TV search is placed inside the existing channel rail and rebuilt if older scripts overwrite it.
-- Channel click uses the existing player and attempts autoplay.
-- Store and radio are preserved.
+Expanded Christian TV and Radio update:
+- Interface and structure preserved.
+- Added TV search inside the existing TV channel panel.
+- Expanded Christian TV channels to 100 total.
+- Expanded Christian radio stations to 26 total.
+- Kept existing sources and added more curated public IPTV sources.
+- HLS support included for .m3u8 streams.
+- Store restore remains included.
 - No separate admin folder.
+Note: every item has a source URL, but live streams can still go offline depending on the broadcaster/provider.
