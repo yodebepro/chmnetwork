@@ -2482,7 +2482,7 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 <div class="container">
 <h2>✉️ Contact Us</h2>
 <div style="max-width: 600px; margin: 0 auto;">
-<form action="https://formsubmit.co/ajax/yodebepro@gmail.com" id="contactForm" method="POST" onsubmit="submitContactForm(event)">
+<form action="https://formsubmit.co/yodebepro@gmail.com" id="contactForm" method="POST" onsubmit="submitContactForm(event)">
 <input name="_subject" type="hidden" value="New CHM Network Contact Message"/>
 <input name="_template" type="hidden" value="table"/>
 <input name="_captcha" type="hidden" value="false"/>
@@ -2507,6 +2507,7 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 <textarea id="message" name="message" placeholder="Your message here" required="" rows="5"></textarea>
 </div>
 <button class="btn-primary" style="width: 100%;" type="submit">Send Message</button>
+<div id="contactFormStatus" role="status" aria-live="polite" style="margin-top:10px;text-align:center;color:var(--text-secondary);"></div>
 </form>
 </div>
 <h3>Newsletter Signup</h3>
@@ -4814,37 +4815,142 @@ function initPublicVideoPlaylistPanel() {
 
         const form = document.getElementById('contactForm') || event.target;
         const submitButton = form.querySelector('button[type="submit"]');
-        const originalText = submitButton ? submitButton.textContent : '';
+        const status = document.getElementById('contactFormStatus');
+        const originalText = submitButton ? submitButton.textContent : 'Send Message';
+
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
 
         if (submitButton) {
             submitButton.disabled = true;
             submitButton.textContent = 'Sending...';
         }
+        if (status) {
+            status.style.color = 'var(--text-secondary)';
+            status.textContent = 'Sending your message securely...';
+        }
 
-        try {
-            const formData = new FormData(form);
-            const subject = (document.getElementById('subject')?.value || 'New CHM Network Contact Message').trim();
-            formData.set('_subject', subject ? `CHM Network Contact: ${subject}` : 'New CHM Network Contact Message');
-
-            const response = await fetch('https://formsubmit.co/ajax/yodebepro@gmail.com', {
-                method: 'POST',
-                headers: { 'Accept': 'application/json' },
-                body: formData
-            });
-
-            if (!response.ok) {
-                throw new Error('FormSubmit response was not successful.');
-            }
-
-            showNotification('✓ Message sent directly to yodebepro@gmail.com', 'success');
-            form.reset();
-        } catch (error) {
-            console.error('Contact form error:', error);
-            showNotification('Message could not be sent. Please check your internet connection and try again.', 'error');
-        } finally {
+        const restoreButton = () => {
             if (submitButton) {
                 submitButton.disabled = false;
                 submitButton.textContent = originalText || 'Send Message';
+            }
+        };
+
+        const showSuccess = () => {
+            if (status) {
+                status.style.color = '#22c55e';
+                status.textContent = '✓ Message sent successfully. Thank you for contacting CHM Network.';
+            }
+            try {
+                showNotification('✓ Message sent successfully to yodebepro@gmail.com', 'success');
+            } catch (e) {}
+            form.reset();
+            restoreButton();
+        };
+
+        const showError = () => {
+            if (status) {
+                status.style.color = '#ef4444';
+                status.textContent = 'Message could not be confirmed. Please try again in a moment.';
+            }
+            try {
+                showNotification('Message could not be sent. Please try again.', 'error');
+            } catch (e) {}
+            restoreButton();
+        };
+
+        try {
+            const formData = new FormData(form);
+            const subjectField = form.querySelector('[name="subject"]');
+            const subject = (subjectField ? subjectField.value : 'New CHM Network Contact Message').trim();
+            formData.set('_subject', subject ? `CHM Network Contact: ${subject}` : 'New CHM Network Contact Message');
+            formData.set('_template', 'table');
+            formData.set('_captcha', 'false');
+
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 15000);
+
+            const response = await fetch('https://formsubmit.co/ajax/yodebepro@gmail.com', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json'
+                },
+                body: formData,
+                signal: controller.signal
+            });
+
+            clearTimeout(timeoutId);
+
+            let result = null;
+            try {
+                result = await response.json();
+            } catch (e) {}
+
+            if (response.ok && (!result || result.success === true || result.success === 'true')) {
+                showSuccess();
+                return;
+            }
+
+            throw new Error('AJAX submission was not confirmed.');
+        } catch (error) {
+            console.warn('AJAX contact submission failed; using secure form fallback.', error);
+
+            // Fallback: standard FormSubmit POST through a hidden iframe.
+            // This avoids the endless "Sending..." state when a browser blocks cross-origin fetch.
+            let iframe = document.getElementById('chmContactSubmitFrame');
+            if (!iframe) {
+                iframe = document.createElement('iframe');
+                iframe.id = 'chmContactSubmitFrame';
+                iframe.name = 'chmContactSubmitFrame';
+                iframe.style.display = 'none';
+                iframe.setAttribute('aria-hidden', 'true');
+                document.body.appendChild(iframe);
+            }
+
+            let submitted = false;
+            let fallbackTimer = null;
+
+            const cleanup = () => {
+                if (fallbackTimer) clearTimeout(fallbackTimer);
+                iframe.onload = null;
+            };
+
+            iframe.onload = function() {
+                if (!submitted) return;
+                cleanup();
+                showSuccess();
+            };
+
+            fallbackTimer = setTimeout(function() {
+                cleanup();
+                showError();
+            }, 20000);
+
+            const previousAction = form.getAttribute('action');
+            const previousTarget = form.getAttribute('target');
+            const previousOnsubmit = form.getAttribute('onsubmit');
+
+            try {
+                form.setAttribute('action', 'https://formsubmit.co/yodebepro@gmail.com');
+                form.setAttribute('method', 'POST');
+                form.setAttribute('target', 'chmContactSubmitFrame');
+                form.removeAttribute('onsubmit');
+                submitted = true;
+                form.submit();
+            } catch (fallbackError) {
+                cleanup();
+                showError();
+            } finally {
+                setTimeout(function() {
+                    form.setAttribute('onsubmit', previousOnsubmit || 'submitContactForm(event)');
+                    if (previousAction) form.setAttribute('action', previousAction);
+                    else form.removeAttribute('action');
+                    if (previousTarget) form.setAttribute('target', previousTarget);
+                    else form.removeAttribute('target');
+                }, 0);
             }
         }
     }
