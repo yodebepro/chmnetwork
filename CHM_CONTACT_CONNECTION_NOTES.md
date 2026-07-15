@@ -1,16 +1,14 @@
-# CHM Contact Connection Update
+# CHM CMS Placement Fix
 
-All contact buttons, connect buttons, prayer request forms, and contact forms are now connected directly to:
+This update fixes the issue shown in your screenshot.
 
-theworldprayerline@outlook.com
+Before:
+- Published photos/content were being added at the bottom of the page under the footer.
 
-The email address itself is hidden from the public pages.
+Now:
+- Published gallery photos replace the empty gallery/photo boxes.
+- Published leader photos replace the empty leader/photo boxes.
+- Published announcements, events, sermons, ministries, teams, departments, and locations fill the existing page sections/cards first.
+- A new bottom section is only created if the page has no existing grid/section to place the content.
 
-What was added:
-- Direct connect button behavior
-- Prayer request email routing
-- Contact form email routing
-- Automatic mail composition
-- Hidden public email display
-
-Upload all files to GitHub and refresh the website.
+Upload this package to GitHub, hard refresh, then publish again from the admin panel.

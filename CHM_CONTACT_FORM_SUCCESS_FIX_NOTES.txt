@@ -1,11 +1,16 @@
-CHM Network contact form success fix
+# CHM Contact Connection Update
 
-- Built from CHMNETWORK_NEW_BASELINE_STORE_MENUS_RESTORED.zip.
-- Everything else in the approved baseline is preserved.
-- Added a 15-second timeout so the button can no longer remain stuck on Sending.
-- Added AJAX submission with response validation.
-- Added a secure hidden-iframe fallback when browser CORS/privacy settings block AJAX.
-- Added an on-page success/error status message.
-- Contact messages are directed to yodebepro@gmail.com through FormSubmit.
-- FormSubmit may require a one-time activation confirmation from the recipient email.
-- No separate admin folder.
+All contact buttons, connect buttons, prayer request forms, and contact forms are now connected directly to:
+
+theworldprayerline@outlook.com
+
+The email address itself is hidden from the public pages.
+
+What was added:
+- Direct connect button behavior
+- Prayer request email routing
+- Contact form email routing
+- Automatic mail composition
+- Hidden public email display
+
+Upload all files to GitHub and refresh the website.

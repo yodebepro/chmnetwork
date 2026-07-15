@@ -1,16 +1,11 @@
-# CHM Contact Form Validation + Send Fix
+CHM Network contact form success fix
 
-Problem fixed:
-- Contact page showed: "Please fill in your name and message."
-- The form did not have the expected `ctName` field, so the old script thought the name was empty.
-
-What changed:
-- First Name field now has `id="ctFirstName"` and `name="firstName"`.
-- Last Name field now has `id="ctLastName"` and `name="lastName"`.
-- The send function now combines first + last name correctly.
-- The message sends directly with FormSubmit AJAX to `yodebepro@gmail.com`.
-- No email app opens.
-- Old mailto fallback was removed from the contact submit function.
-
-Important:
-FormSubmit may require one-time confirmation in the yodebepro@gmail.com inbox.
+- Built from CHMNETWORK_NEW_BASELINE_STORE_MENUS_RESTORED.zip.
+- Everything else in the approved baseline is preserved.
+- Added a 15-second timeout so the button can no longer remain stuck on Sending.
+- Added AJAX submission with response validation.
+- Added a secure hidden-iframe fallback when browser CORS/privacy settings block AJAX.
+- Added an on-page success/error status message.
+- Contact messages are directed to yodebepro@gmail.com through FormSubmit.
+- FormSubmit may require a one-time activation confirmation from the recipient email.
+- No separate admin folder.
