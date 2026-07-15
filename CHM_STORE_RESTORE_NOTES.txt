@@ -1,5 +1,10 @@
-Store restore update:
-- Restored store product JSON where available.
-- Added safe store restore script that preserves Christian Radio and TV changes.
-- Store products are seeded only into store containers; platform layout remains unchanged.
-- No separate admin folder is included.
+Store category menu restore update
+
+- Approved baseline preserved.
+- Store products, Channel 1 YouTube, TV, radio, search, header, and page layout were not changed.
+- Public store category menus restored.
+- Categories are merged into hosted/local store data without deleting products.
+- Added categories: Audio & Video, Church Supplies, Ministry Resources, Gifts, Home & Office, Accessories, Children.
+- Categories appear publicly and in Store Admin controls.
+- Admin-added products remain connected to their selected public category.
+- No separate admin folder.
