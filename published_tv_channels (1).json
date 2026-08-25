@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Channel 1",
     "type": "hls",
-    "url": "https://tv.chmnetwork.com/live/main/index.m3u8",
+    "url": "<video id=\"tv-player\" controls autoplay playsinline style=\"width:100%;background:#000\"></video> <script src=\"https://cdn.jsdelivr.net/npm/hls.js@latest\"></script> <script>const v=document.getElementById('tv-player');const u='https://tv.chmnetwork.com/live/main/index.m3u8';if(Hls.isSupported()){const h=new Hls();h.loadSource(u);h.attachMedia(v);}else{v.src=u;}</script>",
     "title": "Christian Broadcasting",
     "description": "Embedded YouTube stream provided by admin.",
     "autoplay": false
