@@ -5,7 +5,7 @@
     "type": "hls",
     "url": "http://localhost:4000/live/main/index.m3u8",
     "title": "Christian Broadcasting",
-    "description": "Christian IPTV source from the uploaded IPTV master list.",
+    "description": "Embedded YouTube stream provided by admin.",
     "autoplay": false
   },
   {
