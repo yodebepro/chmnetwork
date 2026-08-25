@@ -1,9 +1,9 @@
 [
   {
     "id": 1,
-    "name": "Channel 1 Yodebepro TV",
+    "name": "Channel 1",
     "type": "hls",
-    "url": "http://localhost:4000/live/main/index.m3u8",
+    "url": "https://tv.chmnetwork.com/live/main/index.m3u8",
     "title": "Christian Broadcasting",
     "description": "Embedded YouTube stream provided by admin.",
     "autoplay": false
