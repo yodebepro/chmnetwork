@@ -1,0 +1,19 @@
+CHM Network - Bible Talk Smart Media Hub
+
+Scope lock:
+- Built from the user-uploaded chmnetwork-main (3).zip.
+- Public sections above Bible Talk Series were not modified.
+- Live Radio, YodebePro TV/channels, CHM Network Radio, Christian Radio Directory, Store, and Weekly Program Schedule were not changed.
+- Existing TV/radio/store/admin functionality is preserved.
+
+Bible Talk additions:
+- Dedicated public searchable Bible Talk media library.
+- Supports prerecorded video and audio/podcast upload.
+- Supports YouTube links.
+- Supports Google Drive preview links and generic cloud/Google Cloud links.
+- Supports direct MP4, MP3, AAC and HLS/M3U8 links.
+- Optional backup/fallback media URL.
+- Optional thumbnail URL or local thumbnail upload.
+- Dedicated Bible Talk admin manager with add/edit/delete/preview/publish/search.
+- JSON import/export via published_bible_talk.json for global static-site publishing.
+- Local uploads use IndexedDB in the browser; cloud/web URLs are recommended for worldwide playback on GitHub Pages.
