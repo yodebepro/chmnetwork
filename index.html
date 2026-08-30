@@ -2238,6 +2238,12 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 .chm-radio-admin-card textarea{height:62px}
 </style>
 
+
+<style>
+/* CHM BIBLE TALK SMART MEDIA HUB - scoped only to Bible Talk */
+.chm-bt-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 18px}.chm-bt-toolbar input,.chm-bt-toolbar select{padding:11px 12px;border-radius:9px;border:1px solid rgba(0,188,212,.45);background:#0a0e27;color:#fff}.chm-bt-toolbar input{flex:1;min-width:240px}.chm-bt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:18px}.chm-bt-card{border:1px solid rgba(0,188,212,.3);border-radius:14px;overflow:hidden;background:rgba(10,14,39,.7);display:flex;flex-direction:column}.chm-bt-thumb{height:165px;background:linear-gradient(135deg,rgba(0,188,212,.2),rgba(255,193,7,.12));display:flex;align-items:center;justify-content:center;font-size:3rem;background-size:cover;background-position:center}.chm-bt-body{padding:15px;display:flex;flex-direction:column;gap:8px;flex:1}.chm-bt-kicker{font-size:.75rem;color:#ffc107}.chm-bt-meta{font-size:.82rem;color:var(--text-secondary)}.chm-bt-desc{color:var(--text-secondary);line-height:1.45;flex:1}.chm-bt-admin-actions{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}.chm-bt-admin-layout{display:grid;grid-template-columns:minmax(320px,1fr) minmax(320px,1fr);gap:18px}.chm-bt-admin-search{width:100%;margin-bottom:12px;padding:10px;border-radius:8px;border:1px solid rgba(0,188,212,.4);background:#0a0e27;color:#fff}.chm-bt-admin-item{padding:12px;border:1px solid rgba(0,188,212,.25);border-radius:10px;margin-bottom:9px}.chm-bt-admin-item.active{border-color:#ffc107;box-shadow:0 0 14px rgba(255,193,7,.16)}.chm-bt-modal{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:100000;display:none;align-items:center;justify-content:center;padding:20px}.chm-bt-modal.open{display:flex}.chm-bt-modal-card{width:min(1000px,96vw);max-height:92vh;overflow:auto;background:#080c21;border:1px solid rgba(0,188,212,.45);border-radius:14px;padding:14px}.chm-bt-player{width:100%;aspect-ratio:16/9;background:#000;border:0;border-radius:10px}.chm-bt-audio{width:100%;margin:28px 0}.chm-bt-close{float:right}.chm-bt-fallback{margin-top:10px;color:#ffc107;font-size:.85rem}@media(max-width:900px){.chm-bt-admin-layout{grid-template-columns:1fr}}
+</style>
+
 </head>
 <body>
 <!-- ==================== PUBLIC WEBSITE ==================== -->
@@ -2467,26 +2473,11 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 <section id="videos">
 <div class="container">
 <h2>📺 Bible Talk Series</h2>
-<div class="grid">
-<div class="card">
-<div class="card-image">📖</div>
-<h3>Genesis - Season 1: Episode 1D</h3>
-<p>Introduction to the Book of Genesis with Pastor David Marcel. From Genesis to Revelation - a comprehensive study journey.</p>
-<button class="btn-primary" onclick="alert('YouTube player would load here')">Watch Video</button>
+<div class="chm-bt-toolbar">
+<input id="chmBibleTalkSearch" type="search" placeholder="Search Bible Talk, speaker, Bible book, topic..." />
+<select id="chmBibleTalkFilter"><option value="all">All Media</option><option value="video">Video</option><option value="audio">Audio / Podcast</option></select>
 </div>
-<div class="card">
-<div class="card-image">✝️</div>
-<h3>Bible Talk Study</h3>
-<p>Deep dive into scripture with comprehensive analysis and spiritual insights from our teaching team.</p>
-<button class="btn-primary" onclick="alert('YouTube player would load here')">Watch Video</button>
-</div>
-<div class="card">
-<div class="card-image">🙏</div>
-<h3>Prayer &amp; Worship</h3>
-<p>Spiritual growth through prayer and worship sessions that will inspire and uplift your soul.</p>
-<button class="btn-primary" onclick="alert('YouTube player would load here')">Watch Video</button>
-</div>
-</div>
+<div id="chmBibleTalkGrid" class="chm-bt-grid"><p style="color:var(--text-secondary)">Loading Bible Talk Series...</p></div>
 </div>
 </section>
 <!-- ZOOM & CONFERENCE SECTION -->
@@ -2666,6 +2657,7 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 <a class="admin-nav" data-section="content" onclick="switchAdminSection('content')">📝 Content</a>
 <a class="admin-nav" data-section="radio" onclick="switchAdminSection('radio')">📻 Radio</a>
 <a class="admin-nav" data-section="videos" onclick="switchAdminSection('videos')">📺 Videos</a>
+<a class="admin-nav" data-section="bibletalk" onclick="switchAdminSection('bibletalk')">📖 Bible Talk</a>
 <a class="admin-nav" data-section="music" onclick="switchAdminSection('music')">🎵 Music</a>
 <a class="admin-nav" data-section="schedule" onclick="switchAdminSection('schedule')">📅 Schedule</a>
 <a class="admin-nav" data-section="announcements" onclick="switchAdminSection('announcements')">📢 Announcements</a>
@@ -2870,6 +2862,40 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 <button class="btn-primary" onclick="publishVideos()">🚀 Publish</button>
 </div>
 </div>
+</div>
+</div>
+<!-- BIBLE TALK ADMIN SECTION -->
+<div class="admin-section" id="section-bibletalk">
+<h2>📖 Bible Talk Series Manager</h2>
+<p style="color:var(--text-secondary);margin-bottom:16px;line-height:1.5">Manage only the Bible Talk Series. Add prerecorded video or audio/podcast files, YouTube links, cloud links, direct MP4/MP3/AAC/HLS links, thumbnails, and a backup source.</p>
+<div class="chm-bt-admin-actions">
+<button class="btn-success" type="button" onclick="CHMBTNewEpisode()">＋ New Episode</button>
+<button class="btn-primary" type="button" onclick="CHMBTSaveAll()">✓ Save All</button>
+<button class="btn-secondary" type="button" onclick="CHMBTExport()">⬇ Export published_bible_talk.json</button>
+<button class="btn-secondary" type="button" onclick="document.getElementById('chmBtImport').click()">⬆ Import JSON</button>
+<input id="chmBtImport" type="file" accept="application/json,.json" style="display:none" onchange="CHMBTImport(this.files&&this.files[0]);this.value=''" />
+</div>
+<div class="chm-bt-admin-layout">
+<div class="chm-bt-editor content-editor">
+<h3 id="chmBtEditorHeading">Add / Edit Episode</h3>
+<input id="chmBtId" type="hidden" />
+<div class="form-group"><label>Title</label><input id="chmBtTitle" type="text" placeholder="Episode title" /></div>
+<div class="form-group"><label>Series / Season</label><input id="chmBtSeries" type="text" placeholder="Bible Talk, Genesis Season 1, etc." /></div>
+<div class="form-group"><label>Episode / Number</label><input id="chmBtEpisode" type="text" placeholder="Episode 1" /></div>
+<div class="form-group"><label>Speaker</label><input id="chmBtSpeaker" type="text" placeholder="Speaker / host" /></div>
+<div class="form-group"><label>Bible Book / Topic</label><input id="chmBtTopic" type="text" placeholder="Genesis, Faith, Prayer..." /></div>
+<div class="form-group"><label>Media Format</label><select id="chmBtMediaType"><option value="video">Video</option><option value="audio">Audio / Podcast</option></select></div>
+<div class="form-group"><label>Primary Source Type</label><select id="chmBtSourceType" onchange="CHMBTSourceModeChanged()"><option value="upload">Upload prerecorded file</option><option value="youtube">YouTube link</option><option value="cloud">Cloud / Google Drive / Google Cloud link</option><option value="direct">Direct MP4 / MP3 / AAC / HLS link</option></select></div>
+<div class="form-group" id="chmBtUploadWrap"><label>Upload Prerecorded Media</label><input id="chmBtUpload" type="file" accept="video/*,audio/*" /><small style="color:var(--text-secondary)">Stored in this browser for local use. For worldwide GitHub Pages playback, use a web/cloud URL or host the media file in your site/cloud storage.</small></div>
+<div class="form-group" id="chmBtUrlWrap"><label>Primary Media URL</label><input id="chmBtUrl" type="url" placeholder="YouTube, Google Drive/Cloud, MP4, MP3, AAC, M3U8..." /></div>
+<div class="form-group"><label>Backup Media URL (optional)</label><input id="chmBtBackupUrl" type="url" placeholder="Fallback source if the primary is unavailable" /></div>
+<div class="form-group"><label>Thumbnail URL (optional)</label><input id="chmBtThumb" type="url" placeholder="https://.../thumbnail.jpg" /></div>
+<div class="form-group"><label>Or Upload Thumbnail</label><input id="chmBtThumbUpload" type="file" accept="image/*" /></div>
+<div class="form-group"><label>Description</label><textarea id="chmBtDescription" rows="5" placeholder="Episode description"></textarea></div>
+<div style="display:flex;gap:14px;flex-wrap:wrap;margin:10px 0"><label><input id="chmBtPublished" type="checkbox" checked /> Published</label><label><input id="chmBtFeatured" type="checkbox" /> Featured</label></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn-success" type="button" onclick="CHMBTSaveEpisode()">✓ Save Episode</button><button class="btn-secondary" type="button" onclick="CHMBTPreviewEditor()">▶ Preview</button><button class="btn-danger" type="button" onclick="CHMBTDeleteEditor()">Delete</button></div>
+</div>
+<div class="content-editor"><h3>Existing Bible Talk Episodes</h3><input id="chmBtAdminSearch" class="chm-bt-admin-search" type="search" placeholder="Search episodes..." /><div id="chmBtAdminList"></div></div>
 </div>
 </div>
 <!-- MUSIC SECTION -->
@@ -9516,6 +9542,39 @@ document.addEventListener('DOMContentLoaded', () => {
   else boot();
   setTimeout(boot,700);
   setTimeout(boot,1600);
+})();
+</script>
+
+
+<script>
+/* CHM BIBLE TALK SMART MEDIA HUB - isolated module */
+(function(){
+const KEY='CHM_BIBLE_TALK_V1', DB='CHM_BIBLE_TALK_MEDIA_DB', STORE='files';
+let items=[], activeId=null;
+const seed=[{"id": 1, "title": "Genesis - Season 1: Episode 1D", "series": "Genesis - Season 1", "episode": "Episode 1D", "speaker": "Pastor David Marcel", "topic": "Genesis", "mediaType": "video", "sourceType": "direct", "url": "", "backupUrl": "", "thumbnail": "", "description": "Introduction to the Book of Genesis. From Genesis to Revelation - a comprehensive study journey.", "published": true, "featured": true}, {"id": 2, "title": "Bible Talk Study", "series": "Bible Talk Series", "episode": "", "speaker": "", "topic": "Bible Study", "mediaType": "video", "sourceType": "direct", "url": "", "backupUrl": "", "thumbnail": "", "description": "Deep dive into scripture with comprehensive analysis and spiritual insights from our teaching team.", "published": true, "featured": false}, {"id": 3, "title": "Prayer & Worship", "series": "Bible Talk Series", "episode": "", "speaker": "", "topic": "Prayer & Worship", "mediaType": "audio", "sourceType": "direct", "url": "", "backupUrl": "", "thumbnail": "", "description": "Spiritual growth through prayer and worship sessions that will inspire and uplift your soul.", "published": true, "featured": false}];
+const $=id=>document.getElementById(id); const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function norm(a){return (Array.isArray(a)?a:[]).map((x,i)=>({id:Number(x.id||i+1),title:x.title||('Bible Talk '+(i+1)),series:x.series||'Bible Talk Series',episode:x.episode||'',speaker:x.speaker||'',topic:x.topic||'',mediaType:x.mediaType==='audio'?'audio':'video',sourceType:x.sourceType||'direct',url:x.url||'',backupUrl:x.backupUrl||'',thumbnail:x.thumbnail||'',description:x.description||'',published:x.published!==false,featured:!!x.featured,localMediaKey:x.localMediaKey||'',localThumbKey:x.localThumbKey||''}));}
+function save(){localStorage.setItem(KEY,JSON.stringify(items));renderPublic();renderAdmin();}
+async function boot(){let local=null;try{local=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){};items=norm(local&&local.length?local:seed);try{const r=await fetch('published_bible_talk.json',{cache:'no-store'});if(r.ok&&!local){const j=await r.json();if(Array.isArray(j)&&j.length)items=norm(j)}}catch(e){};renderPublic();renderAdmin();bind();}
+function bind(){const s=$('chmBibleTalkSearch'),f=$('chmBibleTalkFilter'),a=$('chmBtAdminSearch');if(s&&!s.dataset.b){s.dataset.b=1;s.oninput=renderPublic}if(f&&!f.dataset.b){f.dataset.b=1;f.onchange=renderPublic}if(a&&!a.dataset.b){a.dataset.b=1;a.oninput=renderAdmin}CHMBTSourceModeChanged();}
+function renderPublic(){const g=$('chmBibleTalkGrid');if(!g)return;const q=($('chmBibleTalkSearch')?.value||'').toLowerCase(), ft=$('chmBibleTalkFilter')?.value||'all';const list=items.filter(x=>x.published&&(ft==='all'||x.mediaType===ft)&&(!q||[x.title,x.series,x.episode,x.speaker,x.topic,x.description].join(' ').toLowerCase().includes(q)));g.innerHTML=list.map(x=>`<article class="chm-bt-card"><div class="chm-bt-thumb" ${x.thumbnail?`style="background-image:url('${esc(x.thumbnail)}')"`:''}>${x.thumbnail?'':(x.mediaType==='audio'?'🎙️':'📖')}</div><div class="chm-bt-body"><div class="chm-bt-kicker">${esc(x.series)}${x.episode?' • '+esc(x.episode):''}${x.featured?' • FEATURED':''}</div><h3>${esc(x.title)}</h3><div class="chm-bt-meta">${esc([x.speaker,x.topic].filter(Boolean).join(' • '))}</div><p class="chm-bt-desc">${esc(x.description)}</p><button class="btn-primary" onclick="CHMBTPlay(${x.id})">${x.mediaType==='audio'?'▶ Listen':'▶ Watch'}</button></div></article>`).join('')||'<p style="color:var(--text-secondary)">No Bible Talk episodes match your search.</p>';}
+function renderAdmin(){const g=$('chmBtAdminList');if(!g)return;const q=($('chmBtAdminSearch')?.value||'').toLowerCase();g.innerHTML=items.filter(x=>!q||[x.title,x.series,x.speaker,x.topic].join(' ').toLowerCase().includes(q)).map(x=>`<div class="chm-bt-admin-item ${x.id===activeId?'active':''}"><strong>${esc(x.title)}</strong><div class="chm-bt-meta">${esc(x.mediaType.toUpperCase())} • ${esc(x.sourceType)} • ${x.published?'Published':'Draft'}</div><div style="display:flex;gap:8px;margin-top:8px"><button class="btn-secondary" type="button" onclick="CHMBTEdit(${x.id})">Edit</button><button class="btn-primary" type="button" onclick="CHMBTPlay(${x.id})">Preview</button></div></div>`).join('');}
+function nextId(){return items.length?Math.max(...items.map(x=>x.id))+1:1} function clearEditor(){activeId=null;['chmBtId','chmBtTitle','chmBtSeries','chmBtEpisode','chmBtSpeaker','chmBtTopic','chmBtUrl','chmBtBackupUrl','chmBtThumb','chmBtDescription'].forEach(id=>{if($(id))$(id).value=''});if($('chmBtMediaType'))$('chmBtMediaType').value='video';if($('chmBtSourceType'))$('chmBtSourceType').value='upload';if($('chmBtPublished'))$('chmBtPublished').checked=true;if($('chmBtFeatured'))$('chmBtFeatured').checked=false;CHMBTSourceModeChanged();renderAdmin();}
+window.CHMBTNewEpisode=clearEditor;
+window.CHMBTEdit=id=>{const x=items.find(v=>v.id===Number(id));if(!x)return;activeId=x.id;const map={chmBtId:x.id,chmBtTitle:x.title,chmBtSeries:x.series,chmBtEpisode:x.episode,chmBtSpeaker:x.speaker,chmBtTopic:x.topic,chmBtMediaType:x.mediaType,chmBtSourceType:x.sourceType,chmBtUrl:x.url,chmBtBackupUrl:x.backupUrl,chmBtThumb:x.thumbnail,chmBtDescription:x.description};Object.entries(map).forEach(([k,v])=>{if($(k))$(k).value=v});$('chmBtPublished').checked=x.published;$('chmBtFeatured').checked=x.featured;CHMBTSourceModeChanged();renderAdmin();document.getElementById('section-bibletalk')?.scrollIntoView({behavior:'smooth'});};
+window.CHMBTSourceModeChanged=()=>{const m=$('chmBtSourceType')?.value||'upload';if($('chmBtUploadWrap'))$('chmBtUploadWrap').style.display=m==='upload'?'block':'none';if($('chmBtUrlWrap'))$('chmBtUrlWrap').style.display=m==='upload'?'none':'block';};
+function openDB(){return new Promise((res,rej)=>{const r=indexedDB.open(DB,1);r.onupgradeneeded=()=>r.result.createObjectStore(STORE);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})} async function putFile(key,file){const db=await openDB();return new Promise((res,rej)=>{const t=db.transaction(STORE,'readwrite');t.objectStore(STORE).put(file,key);t.oncomplete=()=>res();t.onerror=()=>rej(t.error)})} async function getFile(key){if(!key)return null;try{const db=await openDB();return await new Promise((res,rej)=>{const r=db.transaction(STORE).objectStore(STORE).get(key);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}catch(e){return null}}
+window.CHMBTSaveEpisode=async()=>{const id=activeId||nextId(), old=items.find(x=>x.id===id)||{}, media=$('chmBtUpload')?.files?.[0], thumb=$('chmBtThumbUpload')?.files?.[0];let localMediaKey=old.localMediaKey||'',localThumbKey=old.localThumbKey||'';if(media){localMediaKey='media-'+id+'-'+Date.now();await putFile(localMediaKey,media)}if(thumb){localThumbKey='thumb-'+id+'-'+Date.now();await putFile(localThumbKey,thumb)}const x={id,title:$('chmBtTitle').value.trim()||'Untitled Bible Talk',series:$('chmBtSeries').value.trim()||'Bible Talk Series',episode:$('chmBtEpisode').value.trim(),speaker:$('chmBtSpeaker').value.trim(),topic:$('chmBtTopic').value.trim(),mediaType:$('chmBtMediaType').value,sourceType:$('chmBtSourceType').value,url:$('chmBtUrl').value.trim(),backupUrl:$('chmBtBackupUrl').value.trim(),thumbnail:$('chmBtThumb').value.trim(),description:$('chmBtDescription').value.trim(),published:$('chmBtPublished').checked,featured:$('chmBtFeatured').checked,localMediaKey,localThumbKey};const i=items.findIndex(v=>v.id===id);if(i>=0)items[i]=x;else items.push(x);activeId=id;save();if(window.showNotification)showNotification('Bible Talk episode saved','success');};
+window.CHMBTSaveAll=()=>{save();if(window.showNotification)showNotification('Bible Talk library saved','success')};
+window.CHMBTDeleteEditor=()=>{if(!activeId)return;if(confirm('Delete this Bible Talk episode?')){items=items.filter(x=>x.id!==activeId);clearEditor();save()}};
+window.CHMBTExport=()=>{const clean=items.map(({localMediaKey,localThumbKey,...x})=>x);const b=new Blob([JSON.stringify(clean,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='published_bible_talk.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
+window.CHMBTImport=file=>{if(!file)return;const r=new FileReader();r.onload=()=>{try{items=norm(JSON.parse(r.result));save();clearEditor()}catch(e){alert('Invalid Bible Talk JSON')}};r.readAsText(file)};
+function yt(url){const m=String(url).match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/))([^?&/]+)/i);return m?m[1]:''} function drive(url){const m=String(url).match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([^/?&]+)/i);return m?m[1]:''}
+async function sourceFor(x,backup=false){if(!backup&&x.localMediaKey){const f=await getFile(x.localMediaKey);if(f)return {kind:x.mediaType==='audio'?'audio':'video',url:URL.createObjectURL(f),temp:true}}const u=backup?x.backupUrl:x.url;if(!u)return null;const y=yt(u);if(y)return{kind:'iframe',url:'https://www.youtube.com/embed/'+y+'?autoplay=1'};const d=drive(u);if(d)return{kind:'iframe',url:'https://drive.google.com/file/d/'+d+'/preview'};if(/\.m3u8($|\?)/i.test(u))return{kind:'hls',url:u};if(x.mediaType==='audio'||/\.(mp3|aac|m4a|wav|ogg)($|\?)/i.test(u))return{kind:'audio',url:u};if(/\.(mp4|webm|mov)($|\?)/i.test(u))return{kind:'video',url:u};return{kind:'iframe',url:u};}
+async function modal(){let m=$('chmBtModal');if(!m){m=document.createElement('div');m.id='chmBtModal';m.className='chm-bt-modal';m.innerHTML='<div class="chm-bt-modal-card"><button class="btn-danger chm-bt-close" onclick="CHMBTClose()">✕ Close</button><h2 id="chmBtModalTitle"></h2><div id="chmBtPlayerBox"></div><div id="chmBtModalDesc" style="margin-top:12px;color:var(--text-secondary)"></div></div>';document.body.appendChild(m)}return m}
+async function play(id){const x=items.find(v=>v.id===Number(id));if(!x)return;const m=await modal(),box=$('chmBtPlayerBox');$('chmBtModalTitle').textContent=x.title;$('chmBtModalDesc').textContent=x.description;box.innerHTML='';let s=await sourceFor(x,false)||await sourceFor(x,true);if(!s){box.innerHTML='<div class="chm-bt-fallback">No playable source has been added yet. Add an upload, YouTube link, cloud link, or direct media URL in Bible Talk Manager.</div>';m.classList.add('open');return}if(s.kind==='iframe')box.innerHTML='<iframe class="chm-bt-player" src="'+esc(s.url)+'" allow="autoplay;fullscreen;picture-in-picture" allowfullscreen></iframe>';else if(s.kind==='audio')box.innerHTML='<audio class="chm-bt-audio" controls autoplay src="'+esc(s.url)+'"></audio>';else{box.innerHTML='<video id="chmBtVideo" class="chm-bt-player" controls autoplay></video>';const v=$('chmBtVideo');if(s.kind==='hls'&&window.Hls&&Hls.isSupported()){const h=new Hls();h.loadSource(s.url);h.attachMedia(v);h.on(Hls.Events.MANIFEST_PARSED,()=>v.play().catch(()=>{}))}else{v.src=s.url;v.play().catch(()=>{})}v.onerror=async()=>{const b=await sourceFor(x,true);if(b){m.classList.remove('open');setTimeout(()=>play(id),50)}}}m.classList.add('open');}
+window.CHMBTPlay=play;window.CHMBTPreviewEditor=async()=>{if(activeId)play(activeId);else{await CHMBTSaveEpisode();play(activeId)}};window.CHMBTClose=()=>{const m=$('chmBtModal');if(m){m.classList.remove('open');const box=$('chmBtPlayerBox');if(box)box.innerHTML=''}};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();setTimeout(bind,900);
 })();
 </script>
 
