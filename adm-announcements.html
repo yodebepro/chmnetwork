@@ -1,0 +1,9 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>CHM Network Redirect</title>
+<script>
+(function(){
+ var path=(location.pathname||"").toLowerCase().replace(/\/+$/,"");
+ if(path.endsWith("/admin")) location.replace("/admin.html");
+ else location.replace("/index.html");
+})();
+</script></head><body>Redirecting...</body></html>

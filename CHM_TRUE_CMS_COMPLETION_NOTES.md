@@ -1,0 +1,1 @@
+This version removes the extra channel list that appeared above the TV section. All 51 channels are listed only inside the original left-side channel rail. The left rail scrolls, and clicking a channel switches and attempts playback automatically. No separate admin folder is included.

@@ -1,0 +1,28 @@
+CHM Network Admin Access Fix — GitHub Upload Instructions
+
+This package keeps the uploaded CHM Network baseline and adds the correct admin routes.
+
+Upload ALL extracted files/folders to the ROOT of your GitHub Pages repository.
+
+Required files now included:
+- index.html
+- admin/index.html
+- admin.html
+- login.html
+- 404.html
+- CNAME
+- .nojekyll
+
+Test after GitHub Pages rebuilds:
+- https://chmnetwork.com/
+- https://chmnetwork.com/admin/
+- https://chmnetwork.com/admin.html
+- https://chmnetwork.com/login.html
+- https://chmnetwork.com/index.html?admin=1
+
+Important:
+1. Do not upload the ZIP file itself to GitHub. Extract it first.
+2. Make sure index.html is in the repository ROOT, not inside an extra folder.
+3. GitHub Pages filenames are case-sensitive.
+4. Wait 2–5 minutes after commit.
+5. If using www.chmnetwork.com instead of chmnetwork.com, change the CNAME file to www.chmnetwork.com.
