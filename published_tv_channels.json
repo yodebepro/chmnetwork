@@ -1,12 +1,12 @@
 [
   {
     "id": 1,
-    "name": "Channel 1 - Yodebepro TV",
-    "type": "hls",
-    "url": "http://10.0.0.240:4000/live/main/index.m3u8",
-    "title": "Christian Broadcasting",
-    "description": "Christian IPTV source from the uploaded IPTV master list.",
-    "autoplay": false
+    "name": "Channel 1",
+    "type": "youtube",
+    "url": "https://www.youtube.com/embed/SWQXGhWohy0?si=YATvL67_rSpr4QJU",
+    "title": "YouTube Stream",
+    "description": "Embedded YouTube stream provided by admin.",
+    "autoplay": true
   },
   {
     "id": 2,
@@ -15,7 +15,7 @@
     "url": "https://videodelivery.net/9fb3596948ddf463fde0ec4b85625b24/manifest/video.m3u8",
     "title": "Christian Broadcasting",
     "description": "Christian IPTV source from the uploaded IPTV master list.",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 3,
@@ -24,7 +24,7 @@
     "url": "https://live-mcl.cdn01.net/smarttv/48vy43564/playlist.m3u8",
     "title": "Christian Broadcasting",
     "description": "Christian IPTV source from the uploaded IPTV master list.",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 4,
@@ -33,7 +33,7 @@
     "url": "https://3abn.bozztv.com/3abncanada/3ABN/master.m3u8",
     "title": "Christian Broadcasting",
     "description": "Christian IPTV source from the uploaded IPTV master list.",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 5,
@@ -42,7 +42,7 @@
     "url": "https://stmv1.srvif.com/gospelf/gospelf/playlist.m3u8",
     "title": "Christian Broadcasting",
     "description": "Christian IPTV source from the uploaded IPTV master list.",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 6,
@@ -51,7 +51,7 @@
     "url": "https://ott.god.tv/live/us/master.m3u8",
     "title": "Christian Broadcasting",
     "description": "Christian IPTV source from the uploaded IPTV master list.",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 7,
@@ -60,7 +60,7 @@
     "url": "https://d28gzbv9fhdm3h.cloudfront.net/playlist/amg00376-magellantv-historyandwar",
     "title": "Documentary",
     "description": "Documentary IPTV source from the uploaded IPTV master list.",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 8,
@@ -69,7 +69,7 @@
     "url": "https://amg02333-pbs-amg02333c13-samsung-au-6858.playouts.now.amagi.tv/playlist.m3u8",
     "title": "Documentary",
     "description": "Documentary IPTV source from the uploaded IPTV master list.",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 9,
@@ -78,7 +78,7 @@
     "url": "https://stream.skynewsarabia.com/ott/ott.m3u8",
     "title": "News",
     "description": "News IPTV source from the uploaded IPTV master list.",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 10,
@@ -87,7 +87,7 @@
     "url": "https://cdn3.wowza.com/1/ZVBYYXFLLzE0c3NC/Qk1FMURC/hls/live/playlist.m3u8",
     "title": "International Christian Channel",
     "description": "International Christian IPTV source from the uploaded IPTV master list.",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 11,
@@ -96,7 +96,7 @@
     "url": "https://247wlive.foxweather.com/stream/index.m3u8",
     "title": "Weather Channel",
     "description": "Weather IPTV source from the uploaded IPTV master list.",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 12,
@@ -105,7 +105,7 @@
     "url": "https://59d39900ebfb8.streamlock.net/ccbn/ccbn/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (vg.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 13,
@@ -114,7 +114,7 @@
     "url": "https://livecdn.use1-0004.jwplive.com/live/sites/Yal8cmyO/media/fCGf6ROk/live.isml/.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 14,
@@ -123,7 +123,7 @@
     "url": "https://164475.gvideo.io/mpegts/164475_650646/master_mpegts.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 15,
@@ -132,7 +132,7 @@
     "url": "http://dc.tbnbaltia.eu:8088/dvr/rewind-21600.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (ee.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 16,
@@ -141,7 +141,7 @@
     "url": "https://edge.xn--tbnespaa-j3a.es/LiveApp/streams/tbnlive.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (es.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 17,
@@ -150,7 +150,7 @@
     "url": "https://livecdn.use1-0004.jwplive.com/live/sites/Yal8cmyO/media/yfFI83Xz/live.isml/.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 18,
@@ -159,7 +159,7 @@
     "url": "https://hls.nejat.live/hls/stream.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (ir.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 19,
@@ -168,7 +168,7 @@
     "url": "https://broadcast.tbnpacific.org.au:4430/stream/TBNPacificTV/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 20,
@@ -177,7 +177,7 @@
     "url": "https://s-pl-01.mediatool.tv/playout/tbn-abr/tracks-v1a1/mono.ts.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (pl.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 21,
@@ -186,7 +186,7 @@
     "url": "https://live-tbn-ssai.simplestreamcdn.com/v1/master/774d979dd66704abea7c5b62cb34c6815fda0d35/tbn-live/manifest.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (uk.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 22,
@@ -195,7 +195,7 @@
     "url": "https://5d23269b3ec0c.streamlock.net/WEB_Ukraine24/ngrp:Ukraine24.stream-adaptive/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (ua.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 23,
@@ -204,7 +204,7 @@
     "url": "https://live-mcl.cdn01.net/smarttv/64wj6m6d8/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (in_distro.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 24,
@@ -213,7 +213,7 @@
     "url": "https://hls-live-media-gc.cdn01.net/mpegts/232076_2222904/ApFvejWjRVUzPbyYzS8d9g/1776816000/master_mpegts.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_stirr.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 25,
@@ -222,7 +222,7 @@
     "url": "https://hls-live-media-gc.cdn01.net/mpegts/232076_2222907/karlKyiKToEdHsTFUcjs9g/1776816000/master_mpegts.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_stirr.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 26,
@@ -231,7 +231,7 @@
     "url": "https://3abn.bozztv.com/3abn2/d2d_live/smil:d2d_live.smil/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_3abn.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 27,
@@ -240,7 +240,7 @@
     "url": "https://3abn.bozztv.com/3abn2/3abn_live/smil:3abn_live.smil/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_3abn.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 28,
@@ -249,7 +249,7 @@
     "url": "https://3abn.bozztv.com/3abn2/Fre_live/smil:Fre_live.smil/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_3abn.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 29,
@@ -258,7 +258,7 @@
     "url": "https://3abn.bozztv.com/3abn2/Int_live/smil:Int_live.smil/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_3abn.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 30,
@@ -267,7 +267,7 @@
     "url": "https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_3abn.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 31,
@@ -276,7 +276,7 @@
     "url": "https://3abn.bozztv.com/3abn2/Lat_live/smil:Lat_live.smil/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_3abn.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 32,
@@ -285,7 +285,7 @@
     "url": "https://3abn.bozztv.com/3abn1/PraiseHim/smil:PraiseHim.smil/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_3abn.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 33,
@@ -294,7 +294,7 @@
     "url": "https://3abn.bozztv.com/3abn2/Pro_live/smil:Pro_live.smil/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_3abn.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 34,
@@ -303,7 +303,7 @@
     "url": "https://dash3.antik.sk/live/test_ewtn_tizen/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (sk_antik.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 35,
@@ -312,7 +312,7 @@
     "url": "https://cdn3.wowza.com/1/QmVNUVhTNTZSS3Uz/YWQ0aHpi/hls/live/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_wowza.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 36,
@@ -321,7 +321,7 @@
     "url": "https://cdn3.wowza.com/1/YW5wSWZiRGd2eFlU/bGV0aVBq/hls/live/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_wowza.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 37,
@@ -330,7 +330,7 @@
     "url": "https://cdn3.wowza.com/1/SmVrQmZCUXZhVDgz/b3J3MFJv/hls/q6xkg9py/480/chunklist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_wowza.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 38,
@@ -339,7 +339,7 @@
     "url": "https://cdn3.wowza.com/1/T2NXeHF6UGlGbHY3/WFluRldQ/hls/live/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_wowza.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 39,
@@ -348,7 +348,7 @@
     "url": "https://cdn3.wowza.com/1/ZUkxSDBrZHlMbjVn/ZkhNRFNZ/hls/live/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_wowza.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 40,
@@ -357,7 +357,7 @@
     "url": "https://cdn3.wowza.com/1/ZHdrMWt1NjlDSzFu/bzdDVG10/hls/live/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_wowza.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 41,
@@ -366,7 +366,7 @@
     "url": "https://cdn3.wowza.com/1/SmVrQmZCUXZhVDgz/b3J3MFJv/hls/live/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_wowza.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 42,
@@ -375,7 +375,7 @@
     "url": "https://cdn3.wowza.com/1/WjduMm1tYnlwNXQx/M01NV3Uz/hls/live/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us_wowza.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 43,
@@ -384,7 +384,7 @@
     "url": "https://jstre.am/live/jsl:i1onRBELcGV.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (za.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 44,
@@ -393,7 +393,7 @@
     "url": "https://hc1.hopetv.bg/live/hopetv_all.smil/playlist.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (bg.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 45,
@@ -402,7 +402,7 @@
     "url": "https://customer-x8zydurm357k8j9p.cloudflarestream.com/5b46490d20cdd87fcac238b0027813e0/manifest/video.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (de.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 46,
@@ -411,7 +411,7 @@
     "url": "https://videodelivery.net/dfbdca87f2a6291aa4fdc8fe3290769b/manifest/video.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (gh.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 47,
@@ -420,7 +420,7 @@
     "url": "https://mumt01.tangotv.in/HOPECHANNELINDIA/index.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (in_tango.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 48,
@@ -429,7 +429,7 @@
     "url": "https://jstre.am/live/jsl:EC0Mq0i6HJU.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 49,
@@ -438,7 +438,7 @@
     "url": "https://jstre.am/live/jsl:UP9KAdlVrm8.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 50,
@@ -447,7 +447,7 @@
     "url": "https://jstre.am/live/jsl:cZXINbwrFj6.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 51,
@@ -456,7 +456,7 @@
     "url": "https://jstre.am/live/jsl:0sUSK6VA7GT.m3u8",
     "title": "Christian Channel",
     "description": "Christian broadcasting source from uploaded IPTV master list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 52,
@@ -465,7 +465,7 @@
     "url": "https://58cc65c534c67.streamlock.net/alkarmatv.com/alkarmapa.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 53,
@@ -474,7 +474,7 @@
     "url": "https://jstre.am/live/jsl:7A1swL7Fhlh.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (ph.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 54,
@@ -483,7 +483,7 @@
     "url": "https://d1msejlow1t3l4.cloudfront.net/211125/godtv/chunks.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (uk.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 55,
@@ -492,7 +492,7 @@
     "url": "https://fastly.live.brightcove.com/6383462549112/us-east-1/734546207001/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0IjoiczFpM3ZpLmVncmVzcy50N2M3emwiLCJhY2NvdW50X2lkIjoiNzM0NTQ2MjA3MDAxIiwiZWhuIjoiZmFzdGx5LmxpdmUuYnJpZ2h0Y292ZS5jb20iLCJpc3MiOiJibGl2ZS1wbGF5YmFjay1zb3VyY2UtYXBpIiwic3ViIjoicGF0aG1hcHRva2VuIiwiYXVkIjpbIjczNDU0NjIwNzAwMSJdLCJqdGkiOiI2MzgzNDYyNTQ5MTEyIn0.g04lznsvgqgIXQt2ZH0H_tWtIeTsMgGjVORsjOJ0T6U/playlist-hls.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 56,
@@ -501,7 +501,7 @@
     "url": "https://fastly.live.brightcove.com/6380399588112/us-east-1/734546207001/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0IjoiczFpM3ZpLmVncmVzcy50N2M3emwiLCJhY2NvdW50X2lkIjoiNzM0NTQ2MjA3MDAxIiwiZWhuIjoiZmFzdGx5LmxpdmUuYnJpZ2h0Y292ZS5jb20iLCJpc3MiOiJibGl2ZS1wbGF5YmFjay1zb3VyY2UtYXBpIiwic3ViIjoicGF0aG1hcHRva2VuIiwiYXVkIjpbIjczNDU0NjIwNzAwMSJdLCJqdGkiOiI2MzgwMzk5NTg4MTEyIn0.LYfIeObmX4AEStY_xCnPZwMJHXgOAPFMTKfztq-9F8U/playlist-hls.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 57,
@@ -510,7 +510,7 @@
     "url": "https://fastly.live.brightcove.com/6380396819112/us-east-1/734546207001/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0IjoiczFpM3ZpLmVncmVzcy50N2M3emwiLCJhY2NvdW50X2lkIjoiNzM0NTQ2MjA3MDAxIiwiZWhuIjoiZmFzdGx5LmxpdmUuYnJpZ2h0Y292ZS5jb20iLCJpc3MiOiJibGl2ZS1wbGF5YmFjay1zb3VyY2UtYXBpIiwic3ViIjoicGF0aG1hcHRva2VuIiwiYXVkIjpbIjczNDU0NjIwNzAwMSJdLCJqdGkiOiI2MzgwMzk2ODE5MTEyIn0.GDYp4IWtzwPkupEWeeOavnioVknO-Ev3UGlHvM1rE6I/playlist-hls.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 58,
@@ -519,7 +519,7 @@
     "url": "https://5790d294af2dc.streamlock.net/CBNVI/CBNVI/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (vg.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 59,
@@ -528,7 +528,7 @@
     "url": "https://5a8308add0b31.streamlock.net/alkarmatv.com/alkarmaau.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 60,
@@ -537,7 +537,7 @@
     "url": "https://live1.ovalcast.com:3916/live/bcngospeltvlive.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (es.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 61,
@@ -546,7 +546,7 @@
     "url": "https://cdn3.wowza.com/5/Ny9jK1A1Q3h4N1VZ/live/myStream/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us_wowza.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 62,
@@ -555,7 +555,7 @@
     "url": "https://stmv1.srvif.com/gospelcartoon/gospelcartoon/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (br.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 63,
@@ -564,7 +564,7 @@
     "url": "https://server.livelegitpro.in:9899/gospeltv/index.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (in.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 64,
@@ -573,7 +573,7 @@
     "url": "https://na.linear.zype.com/bf94f9f4-383c-40e0-9d49-279a4f33ab8d/f29b8836-d990-4c8d-b421-192a8f43edc4-zype/manifest.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 65,
@@ -582,7 +582,7 @@
     "url": "https://streamtv.cmediahosthosting.net:3046/live/mygospeltvlive.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (fr.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 66,
@@ -591,7 +591,7 @@
     "url": "https://2-fss-2.streamhoster.com/pl_120/amlst:206708-4202592/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 67,
@@ -600,7 +600,7 @@
     "url": "https://f-tx-edge-87.christianworldmedia.com/EJCFG/mp4:EJCFG/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (ht.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 68,
@@ -609,7 +609,7 @@
     "url": "https://redegospel-aovivo.nuvemplay.live/hls/stream.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (br.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 69,
@@ -618,7 +618,7 @@
     "url": "https://channels.trace.plus/Traceprod/GOSPEL_FR/.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (fr.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 70,
@@ -627,7 +627,7 @@
     "url": "https://jmp2.uk/plu-623b93628e6ded0007337d4d.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us_pluto.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 71,
@@ -636,7 +636,7 @@
     "url": "https://cdn4.skygo.mn/live/disk1/SBN/HLSv3-FTA/SBN.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (mn_skygo.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 72,
@@ -645,7 +645,7 @@
     "url": "http://trn03.bozztv.com/gin-sbntv/index.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 73,
@@ -654,7 +654,7 @@
     "url": "https://mediaserver.abnvideos.com/streams/abnbiblemovies.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 74,
@@ -663,7 +663,7 @@
     "url": "https://5d436b93.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/U2Ftc3VuZy1nYl9MQURiaWJsZVRWX0hMUw/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (uk_samsung.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 75,
@@ -672,7 +672,7 @@
     "url": "https://vsrv1.az-streamingserver.com:3555/live/dyjoqlgklive.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (ug.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 76,
@@ -681,7 +681,7 @@
     "url": "https://livecdn.live247stream.com/praise/tv/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (pk.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 77,
@@ -690,7 +690,7 @@
     "url": "https://pixelsmedia.live/livepraisetv/index.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (pk.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 78,
@@ -699,7 +699,7 @@
     "url": "https://livecdn.enlace.plus/enlace/smil:enlace-hd.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (cr.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 79,
@@ -708,7 +708,7 @@
     "url": "http://51.222.9.192:3589/stream/play.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (pa.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 80,
@@ -717,7 +717,7 @@
     "url": "https://streamer1.nexgen.bz/ATN/index.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (bz.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 81,
@@ -726,7 +726,7 @@
     "url": "https://w2.manasat.com/kcine/smil:kcine.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (br.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 82,
@@ -735,7 +735,7 @@
     "url": "https://w2.manasat.com/kkids/smil:kkids.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (br.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 83,
@@ -744,7 +744,7 @@
     "url": "http://195.23.211.179:1935/kmusic/smil:kmusic.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (pt.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 84,
@@ -753,7 +753,7 @@
     "url": "https://w1.manasat.com/ktv/smil:ktv.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (pt.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 85,
@@ -762,7 +762,7 @@
     "url": "https://live.miracleonline.org/hls/miracle1.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (se.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 86,
@@ -771,7 +771,7 @@
     "url": "https://viewmedia7219.bozztv.com/wmedia/viewmedia100/web_030/Stream/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (uk.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 87,
@@ -780,7 +780,7 @@
     "url": "https://strhlslb01.streamakaci.tv/str_mtv_mtv/str_mtv_multi/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (ci.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 88,
@@ -789,7 +789,7 @@
     "url": "https://live.suricloud.com/hls/tbntv/index.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (sr.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 89,
@@ -798,7 +798,7 @@
     "url": "https://3abn.bozztv.com/3abn/3abn_uganda_live/index.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (ug.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 90,
@@ -807,7 +807,7 @@
     "url": "https://58cc65c534c67.streamlock.net/alkarmatv.com/alkarmaau.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 91,
@@ -816,7 +816,7 @@
     "url": "https://58cc65c534c67.streamlock.net/alkarmatv.com/alkarmaNA2.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 92,
@@ -825,7 +825,7 @@
     "url": "https://58cc65c534c67.streamlock.net/alkarmatv.com/alkarmame1.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 93,
@@ -834,7 +834,7 @@
     "url": "https://5aafcc5de91f1.streamlock.net/alkarmatv.com/alkarmana1.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 94,
@@ -843,7 +843,7 @@
     "url": "https://58cc65c534c67.streamlock.net/alkarmatv.com/alkarmame2.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 95,
@@ -852,7 +852,7 @@
     "url": "https://5aafcc5de91f1.streamlock.net/alkarmatv.com/alkarmaus.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 96,
@@ -861,7 +861,7 @@
     "url": "https://ssh101stream.ssh101.com/akamaissh101/ssh101/tvdynamicstream/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (tg.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 97,
@@ -870,7 +870,7 @@
     "url": "https://cdn.mycloudstream.io/hls/live/broadcast/wokrhjkd/index.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (sx.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 98,
@@ -879,7 +879,7 @@
     "url": "https://67acccf130420.streamlock.net/enlacepr1/enlacepr1/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (pr.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 99,
@@ -888,7 +888,7 @@
     "url": "https://hdbox.chunklistv.com/live?stream=3abn-nicaragua",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (ni.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 100,
@@ -897,7 +897,7 @@
     "url": "https://op-group1-swiftservehd-1.dens.tv/s/s39/index.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (id_denstv.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 101,
@@ -906,7 +906,7 @@
     "url": "https://cdn3.wowza.com/1/QjRzVXJtVml5SUVx/WGJRSWxz/hls/live/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us_wowza.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 102,
@@ -915,7 +915,7 @@
     "url": "https://cdn3.wowza.com/1/TUI5dU5ucnUxdGFD/ZFlVeGRl/hls/live/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us_wowza.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 103,
@@ -924,7 +924,7 @@
     "url": "https://cbcrclinear-tor.akamaized.net/hls/live/2042755/CBCRCLINEAR_TOR_1/master5.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (ca.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 104,
@@ -933,7 +933,7 @@
     "url": "https://streamservers.atv.hu/atvliveedge/_definst_/atvstream_2_aac/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (hu.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 105,
@@ -942,7 +942,7 @@
     "url": "http://146.59.85.40:89/atvspirit/index.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (hu.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 106,
@@ -951,7 +951,7 @@
     "url": "https://stream.ads.ottera.tv/playlist.m3u8?content_livestream=1&network_id=6077",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us_afrolandtv.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 107,
@@ -960,7 +960,7 @@
     "url": "https://uni8rtmp.tulix.tv/cfntv/cfntv/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 108,
@@ -969,7 +969,7 @@
     "url": "https://cdn-1.pishow.tv/live/957/master.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (in_pishow.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 109,
@@ -978,7 +978,7 @@
     "url": "https://catholictvhd-lh.akamaized.net/hls/live/2043390/CTVLiveHD/master.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 110,
@@ -987,7 +987,7 @@
     "url": "http://media3.smc-host.com:1935/cycnow.com/smil:cyc.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 111,
@@ -996,7 +996,7 @@
     "url": "http://media.smc-host.com:1935/cycnow.com/cyc2/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 112,
@@ -1005,7 +1005,7 @@
     "url": "https://linear-1066.frequency.stream/dist/stirr/1066/hls/master/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us_stirr.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 113,
@@ -1014,7 +1014,7 @@
     "url": "https://d35j504z0x2vu2.cloudfront.net/v1/master/0bc8e8376bd8417a1b6761138aa41c26c7309312/elevation-church-network/playlist.m3u8?ads.vf=-Zd8ogbOmAi",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (in_distro.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 114,
@@ -1023,7 +1023,7 @@
     "url": "https://inliveserver.com:1936/8392/8392/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (gt.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 115,
@@ -1032,7 +1032,7 @@
     "url": "https://cdn.freevisiontv.co.za/sttv/smil:faith.stream.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (za_freevisiontv.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 116,
@@ -1041,7 +1041,7 @@
     "url": "https://faithworldtv.abs.tv/1826926230/index.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (uk.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 117,
@@ -1050,7 +1050,7 @@
     "url": "http://liveen24-manminglobal3.ktcdn.co.kr/liveen24/gcnus_1300k.stream/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 118,
@@ -1059,7 +1059,7 @@
     "url": "https://cloud37.ecuatel.com/iglesia2020/Stream1/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (ec.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 119,
@@ -1068,7 +1068,7 @@
     "url": "https://live20.bozztv.com/giatvplayout7/giatv-208429/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (do.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 120,
@@ -1077,7 +1077,7 @@
     "url": "https://2-fss-2.streamhoster.com/pl_138/200226-1359204-1/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us_local.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 121,
@@ -1086,7 +1086,7 @@
     "url": "https://brightstar-hisword-pull-secure.akamaized.net/brightstarhisword/stream.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 122,
@@ -1095,7 +1095,7 @@
     "url": "https://cdn-unified-hls.streamspot.com/ingest1/0b5c0f18e9/playlist.m3u8?origin=1",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 123,
@@ -1104,7 +1104,7 @@
     "url": "https://ktismaservers.in:3902/live/salvationtvlive.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (in.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 124,
@@ -1113,7 +1113,7 @@
     "url": "https://viewmedia7219.bozztv.com/wmedia/viewmedia100/web_017/Stream/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (ng.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 125,
@@ -1122,7 +1122,7 @@
     "url": "https://cdn12.henico.net:8443/live/ssct/index.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (ca.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 126,
@@ -1131,7 +1131,7 @@
     "url": "https://cloud.tvomix.com/TVOJESUS/index.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (es.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 127,
@@ -1140,7 +1140,7 @@
     "url": "https://content.uplynk.com/channel/b6a96ed39d694ae1b738faa98cf7dd3f.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us_uplynk.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 128,
@@ -1149,7 +1149,7 @@
     "url": "https://jmp2.uk/plu-693ae48864476d678e9b6235.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (dk_pluto.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 129,
@@ -1158,7 +1158,7 @@
     "url": "https://jmp2.uk/plu-693ae4b616c2bba998852c21.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (no_pluto.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 130,
@@ -1167,7 +1167,7 @@
     "url": "https://jmp2.uk/plu-693ae4ee25e9a6646b198fb0.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (se_pluto.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 131,
@@ -1176,7 +1176,7 @@
     "url": "https://jmp2.uk/plu-68d2759a59fd82da3226492d.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (de_pluto.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 132,
@@ -1185,7 +1185,7 @@
     "url": "https://clouditize.piksel.tech/hls/live/2043070/ClouditizeStream1/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 133,
@@ -1194,7 +1194,7 @@
     "url": "https://mn-nl.mncdn.com/wholewordtv/wholewordtv/index.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (ng.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 134,
@@ -1203,7 +1203,7 @@
     "url": "https://d2tuyivcrvbj81.cloudfront.net/XITE_Christian_Hits.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us_samsung.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 135,
@@ -1212,7 +1212,7 @@
     "url": "https://3abn.bozztv.com/3abn2/Rus_live/smil:Rus_live.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us_3abn.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 136,
@@ -1221,7 +1221,7 @@
     "url": "https://hls.tv.3angels.ru/stream.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (ru.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 137,
@@ -1230,7 +1230,7 @@
     "url": "https://stream.sen-gt.com/A2iReligion/myStream/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (sn.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 138,
@@ -1239,7 +1239,7 @@
     "url": "https://video1.getstreamhosting.com:1936/8226/8226/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (pr.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 139,
@@ -1248,7 +1248,7 @@
     "url": "https://telered.live:1936/jrestv/jrestv/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 140,
@@ -1257,7 +1257,7 @@
     "url": "https://w2.manasat.com/church-online/smil:church-online.smil/playlist.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (pt.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 141,
@@ -1266,7 +1266,7 @@
     "url": "https://cdnlive.myspirit.tv/LS-ATL-43240-2/index.m3u8",
     "title": "Christian Online TV",
     "description": "Christian TV source from public IPTV stream list (us.m3u).",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 142,
@@ -1275,7 +1275,7 @@
     "url": "https://www.youtube.com/embed/live_stream?channel=UCY55Ugn1d0XGQZ5w5mEx9Lw",
     "title": "Christian Online TV",
     "description": "Curated public Christian online TV source.",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 143,
@@ -1284,7 +1284,7 @@
     "url": "https://www.youtube.com/embed/live_stream?channel=UC9f62C0C4Q4mhtf-YB_DtTw",
     "title": "Christian Online TV",
     "description": "Curated public Christian online TV source.",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 144,
@@ -1293,7 +1293,7 @@
     "url": "https://www.youtube.com/embed/live_stream?channel=UCYI_ychRnL7sJrG6PUSBpQA",
     "title": "Christian News",
     "description": "Curated public Christian online TV source.",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 145,
@@ -1302,7 +1302,7 @@
     "url": "https://www.youtube.com/embed/live_stream?channel=UCQ0HfF_RB_lgixqZJvgY2bA",
     "title": "Bible Teaching",
     "description": "Curated public Christian online TV source.",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 146,
@@ -1311,7 +1311,7 @@
     "url": "https://www.youtube.com/embed/live_stream?channel=UCQJXx5K2JnhYfY88z1oxA6A",
     "title": "Gospel Teaching",
     "description": "Curated public Christian online TV source.",
-    "autoplay": false
+    "autoplay": true
   },
   {
     "id": 147,
@@ -1320,6 +1320,6 @@
     "url": "https://www.youtube.com/embed/live_stream?channel=UCijDos-LUTh9RQvSCMQqN6Q",
     "title": "Catholic Christian TV",
     "description": "Curated public Christian online TV source.",
-    "autoplay": false
+    "autoplay": true
   }
 ]
