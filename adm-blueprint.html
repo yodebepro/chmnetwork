@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Redirecting</title>
+<script>
+(function(){
+  var path=(location.pathname||'').replace(/\/+$/,'').toLowerCase();
+  if(path.endsWith('/admin')){
+    location.replace(location.pathname.replace(/\/?admin\/?$/i,'/admin/') + location.search + location.hash);
+  } else if(path.endsWith('/admin.html')){
+    location.replace('login.html');
+  }
+})();
+</script></head><body><h1>404</h1><p>If you were opening admin, try <a href="admin/">Admin Login</a>.</p></body></html>
