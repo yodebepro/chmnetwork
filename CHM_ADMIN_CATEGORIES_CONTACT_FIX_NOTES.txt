@@ -1,7 +1,0 @@
-Final fixes applied:
-
-1. Store Admin now receives the same ordered categories shown publicly: Books, Music, Bibles, Songbooks, Clothing, Electronics, Audio & Video, Church Supplies, Ministry Resources, Gifts, Home & Office, Accessories, Children, Other.
-2. Existing products remain preserved and editable.
-3. Future custom categories are preserved.
-4. Contact Us restored to the previously working FormSubmit AJAX implementation sending to yodebepro@gmail.com.
-5. Everything else in the baseline is unchanged.

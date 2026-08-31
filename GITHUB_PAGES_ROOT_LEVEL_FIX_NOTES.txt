@@ -1,7 +1,0 @@
-GitHub Pages root-level packaging fix
-
-- No website code or features were changed.
-- Removed only the extra outer chmnetwork-main folder from the ZIP package.
-- index.html, CNAME, .nojekyll, JSON files, and all site files are now at the ZIP root.
-- Upload the extracted files directly into the root of the GitHub repository.
-- Do not upload the outer folder itself.
