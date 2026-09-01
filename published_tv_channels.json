@@ -3,8 +3,8 @@
     "id": 1,
     "name": "Channel 1 - Yodebepro TV",
     "type": "hls",
-    "url": "http://10.0.0.240:4000/live/main/index.m3u8",
-    "title": "Christian Broadcasting",
+    "url": "https://ebooks-birds-meaningful-protection.trycloudflare.com/live/main/index.m3u8",
+    "title": "Christian IPTV source from the uploaded IPTV master list.",
     "description": "Christian IPTV source from the uploaded IPTV master list.",
     "autoplay": false
   },
@@ -136,7 +136,7 @@
   },
   {
     "id": 16,
-    "name": "Channel 16 - TBN España (576p)",
+    "name": "Channel 16 - TBN Espa\u00f1a (576p)",
     "type": "hls",
     "url": "https://edge.xn--tbnespaa-j3a.es/LiveApp/streams/tbnlive.m3u8",
     "title": "Christian Channel",
@@ -190,7 +190,7 @@
   },
   {
     "id": 22,
-    "name": "Channel 22 - TBN Україна (720p)",
+    "name": "Channel 22 - TBN \u0423\u043a\u0440\u0430\u0457\u043d\u0430 (720p)",
     "type": "hls",
     "url": "https://5d23269b3ec0c.streamlock.net/WEB_Ukraine24/ngrp:Ukraine24.stream-adaptive/playlist.m3u8",
     "title": "Christian Channel",
@@ -199,7 +199,7 @@
   },
   {
     "id": 23,
-    "name": "Channel 23 - Daystar Español (720p)",
+    "name": "Channel 23 - Daystar Espa\u00f1ol (720p)",
     "type": "hls",
     "url": "https://live-mcl.cdn01.net/smarttv/64wj6m6d8/playlist.m3u8",
     "title": "Christian Channel",
@@ -874,7 +874,7 @@
   },
   {
     "id": 98,
-    "name": "Channel 98 - WDWL-DT1 (Teleadoración/Enlace PR) (720p) [Not 24/7]",
+    "name": "Channel 98 - WDWL-DT1 (Teleadoraci\u00f3n/Enlace PR) (720p) [Not 24/7]",
     "type": "hls",
     "url": "https://67acccf130420.streamlock.net/enlacepr1/enlacepr1/playlist.m3u8",
     "title": "Christian Online TV",
@@ -1018,7 +1018,7 @@
   },
   {
     "id": 114,
-    "name": "Channel 114 - Espíritu Santo Y Fuego TV (480p)",
+    "name": "Channel 114 - Esp\u00edritu Santo Y Fuego TV (480p)",
     "type": "hls",
     "url": "https://inliveserver.com:1936/8392/8392/playlist.m3u8",
     "title": "Christian Online TV",
@@ -1171,7 +1171,7 @@
   },
   {
     "id": 131,
-    "name": "Channel 131 - The L Word – Wenn Frauen lieben",
+    "name": "Channel 131 - The L Word \u2013 Wenn Frauen lieben",
     "type": "hls",
     "url": "https://jmp2.uk/plu-68d2759a59fd82da3226492d.m3u8",
     "title": "Christian Online TV",
@@ -1207,7 +1207,7 @@
   },
   {
     "id": 135,
-    "name": "Channel 135 - Три Ангела",
+    "name": "Channel 135 - \u0422\u0440\u0438 \u0410\u043d\u0433\u0435\u043b\u0430",
     "type": "hls",
     "url": "https://3abn.bozztv.com/3abn2/Rus_live/smil:Rus_live.smil/playlist.m3u8",
     "title": "Christian Online TV",
@@ -1216,7 +1216,7 @@
   },
   {
     "id": 136,
-    "name": "Channel 136 - Три Ангела (720p)",
+    "name": "Channel 136 - \u0422\u0440\u0438 \u0410\u043d\u0433\u0435\u043b\u0430 (720p)",
     "type": "hls",
     "url": "https://hls.tv.3angels.ru/stream.m3u8",
     "title": "Christian Online TV",
@@ -1252,7 +1252,7 @@
   },
   {
     "id": 140,
-    "name": "Channel 140 - Maná Church Online (1080p) [Not 24/7]",
+    "name": "Channel 140 - Man\u00e1 Church Online (1080p) [Not 24/7]",
     "type": "hls",
     "url": "https://w2.manasat.com/church-online/smil:church-online.smil/playlist.m3u8",
     "title": "Christian Online TV",
