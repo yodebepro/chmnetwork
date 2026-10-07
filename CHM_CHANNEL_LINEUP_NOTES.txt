@@ -1,0 +1,19 @@
+CHM Network channel lineup update
+
+This package keeps the baseline and does NOT use a separate admin folder.
+
+Admin files are in the same root folder:
+- admin.html
+- login.html
+- index.html
+
+Channel lineup:
+1. YouTube stream: https://www.youtube.com/embed/SWQXGhWohy0?si=YATvL67_rSpr4QJU
+2-6. Christian broadcasting from the uploaded IPTV package
+7-8. Documentary IPTV channels
+9. News IPTV channel
+10. International Christian IPTV channel
+11. Empty for future programming
+
+TV channels are not set to autoplay. Visitors press play.
+Radio behavior is unchanged.

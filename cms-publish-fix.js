@@ -1,34 +1,222 @@
 
+/* CHM PUBLIC PUBLISH VISIBILITY FIX v2
+   Places published admin content inside existing public page sections/cards
+   instead of adding a new block at the bottom of the page.
+*/
 (function(){
-if(window.CHMTrueCMSEngineLoaded)return; window.CHMTrueCMSEngineLoaded=true;
-const DEFAULT={owner:'yodebepro',repo:'CHM-Church-of-God',branch:'main'};
-window.CHM_CMS_COLLECTIONS={hero:'hero',leaders:'leaders',gallery:'gallery',events:'events',announcements:'announcements',sermons:'sermons',ministries:'ministries',departments:'departments',teams:'teams',locations:'locations',pages:'page_content'};
-function gh(){return{token:localStorage.getItem('chm_gh_token')||'',owner:localStorage.getItem('chm_gh_owner')||DEFAULT.owner,repo:localStorage.getItem('chm_gh_repo')||DEFAULT.repo,branch:localStorage.getItem('chm_gh_branch')||DEFAULT.branch};}
-function status(m,t='info'){document.querySelectorAll('.gh-status,.cms-global-status,.firebase-status,[data-cms-status]').forEach(e=>{e.innerHTML=m;e.style.color=t==='success'?'#15803d':t==='error'?'#b91c1c':t==='warning'?'#854d0e':'#0a1f44';}); if(window.toast)try{window.toast(m.replace(/<[^>]+>/g,''),t==='success'?'success':t==='error'?'error':'warning')}catch(e){}}
-async function b64(file){return await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result).split(',')[1]||String(r.result));r.onerror=rej;r.readAsDataURL(file);});}
-async function dataurl(file){return await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(String(r.result));r.onerror=rej;r.readAsDataURL(file);});}
-function safe(n){return String(n||'upload.bin').replace(/[^a-zA-Z0-9._-]/g,'-').replace(/-+/g,'-').slice(0,120)||'upload.bin';}
-function folder(f){const t=f.type||''; if(t.startsWith('image/'))return'images'; if(t.startsWith('video/'))return'videos'; if(t.startsWith('audio/'))return'audio'; return'files';}
-function raw(path){const g=gh();return`https://raw.githubusercontent.com/${g.owner}/${g.repo}/${g.branch}/${path}`;}
-async function getFile(path){const g=gh();const r=await fetch(`https://api.github.com/repos/${g.owner}/${g.repo}/contents/${encodeURIComponent(path).replace(/%2F/g,'/')}?ref=${g.branch}`,{headers:{Authorization:`token ${g.token}`,Accept:'application/vnd.github.v3+json'}});return r.ok?await r.json():null;}
-async function putFile(path,content,message){const g=gh(); if(!g.token)throw new Error('Missing GitHub token. Open github-setup.html and save the token once.'); let sha=''; const ex=await getFile(path); if(ex&&ex.sha)sha=ex.sha; const r=await fetch(`https://api.github.com/repos/${g.owner}/${g.repo}/contents/${encodeURIComponent(path).replace(/%2F/g,'/')}`,{method:'PUT',headers:{Authorization:`token ${g.token}`,'Content-Type':'application/json',Accept:'application/vnd.github.v3+json'},body:JSON.stringify({message:message||('CHM CMS update: '+path),content,sha:sha||undefined,branch:g.branch})}); if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.message||('GitHub write failed: '+r.status));} return await r.json();}
-function empty(){return{_version:3,_updated:'',hero:[],leaders:[],leadership:[],announcements:[],events:[],sermons:[],gallery:[],media_library:[],ministries:[],departments:[],teams:[],locations:[],page_content:[],navigation_items:[],footer_items:[],prayer_requests:[],messages:[],givingReports:[],giving:[],members:[],site_config:{colors:{},church_info:{},hero:{},service_times:{},page_home:{},page_about:{},page_footer:{},navigation:{},footer_nav:{},social:{},watch_live:{}}};}
-function ensure(d){['hero','leaders','leadership','announcements','events','sermons','gallery','media_library','ministries','departments','teams','locations','page_content','navigation_items','footer_items','prayer_requests','messages','givingReports','giving','members'].forEach(c=>{if(!Array.isArray(d[c]))d[c]=[]}); if(!d.site_config)d.site_config={}; return d;}
-async function load(){if(window._data)return window._data; const g=gh(); const local=localStorage.getItem('chm_sitedata'); if(local)try{window._data=JSON.parse(local)}catch(e){}; for(const u of[`https://raw.githubusercontent.com/${g.owner}/${g.repo}/${g.branch}/site-data.json?_=${Date.now()}`,`https://cdn.jsdelivr.net/gh/${g.owner}/${g.repo}@${g.branch}/site-data.json?_=${Date.now()}`]){try{const r=await fetch(u,{cache:'no-store'});if(r.ok){const fresh=await r.json(); if(!window._data||(fresh._updated||'')>=(window._data._updated||'')){window._data=ensure(fresh); localStorage.setItem('chm_sitedata',JSON.stringify(window._data));} return window._data;}}catch(e){}} if(!window._data)window._data=empty(); return ensure(window._data);}
-async function saveLocal(d){d=d||window._data||await load(); d._updated=new Date().toISOString(); ensure(d); window._data=d; localStorage.setItem('chm_sitedata',JSON.stringify(d)); localStorage.setItem('chm_sd_bk',JSON.stringify(d)); return d;}
-async function push(){const d=await saveLocal(); const content=btoa(unescape(encodeURIComponent(JSON.stringify(d,null,2)))); await putFile('site-data.json',content,'CHM CMS: publish site data'); status('✅ Published globally. Public pages will update shortly.','success'); return true;}
-async function upload(file,section='general'){if(!file)return''; const g=gh(); if(g.token){const path=`uploads/${folder(file)}/${section}/${Date.now()}-${safe(file.name)}`; await putFile(path,await b64(file),'CHM CMS media upload: '+file.name); return raw(path);} return await dataurl(file);}
-function norm(col,item,status='published'){const now=Date.now(); const media=item.mediaUrl||item.imageUrl||item.photoUrl||item.thumbnailUrl||item.videoUrl||item.audioUrl||''; return{...item,id:item.id||(Date.now().toString(36)+Math.random().toString(36).slice(2,7)),collection:col,_status:status,status,archived:status==='archived',mediaUrl:media,imageUrl:item.imageUrl||media,photoUrl:item.photoUrl||media,thumbnailUrl:item.thumbnailUrl||media,_updatedAt:now,updatedAt:now,_publishedAt:status==='published'?now:(item._publishedAt||''),publishedAt:status==='published'?now:(item.publishedAt||'')};}
-function mirror(col,item){try{const f=JSON.parse(localStorage.getItem('chm_public_feed')||'{}'); if(!f[col])f[col]=[]; const i=f[col].findIndex(x=>x.id===item.id); if(i>=0)f[col][i]=item; else f[col].unshift(item); localStorage.setItem('chm_public_feed',JSON.stringify(f));}catch(e){}}
-async function saveItem(col,item,status='draft'){const d=ensure(await load()); const doc=norm(col,item,status); const i=d[col].findIndex(x=>x.id===doc.id); if(i>=0)d[col][i]=doc; else d[col].unshift(doc); await saveLocal(d); mirror(col,doc); return doc;}
-async function publishItem(col,id){const d=ensure(await load()); const i=(d[col]||[]).findIndex(x=>x.id===id); if(i<0)throw new Error('Item not found.'); d[col][i]=norm(col,d[col][i],'published'); await saveLocal(d); mirror(col,d[col][i]); return await push();}
-async function publishNew(col,fields,file){status('Publishing globally...','info'); let media=fields.mediaUrl||fields.imageUrl||''; if(file)media=await upload(file,col); const item=await saveItem(col,{...fields,mediaUrl:media,imageUrl:media},'published'); await push(); return item;}
-window.loadData=load; window.saveLocal=saveLocal; window.pushToGitHub=push; window.uploadFileToCloud=async(file,el)=>{if(!file)return null; try{if(el)el.textContent='Uploading globally...'; const url=await upload(file,'admin'); if(el)el.innerHTML='✅ Uploaded globally and ready to publish.'; return url;}catch(e){if(el)el.innerHTML='⚠️ Upload failed: '+e.message; return null;}}; window.uploadPhoto=window.uploadFileToCloud;
-window.cmsSave=async(col,id,fields,status='draft')=>await saveItem(col,{...fields,id},status);
-window.cmsPublish=async(col,id)=>await publishItem(col,id);
-window.cmsArchive=async(col,id)=>{const d=ensure(await load()); const i=(d[col]||[]).findIndex(x=>x.id===id); if(i>=0)d[col][i]=norm(col,d[col][i],'archived'); await saveLocal(d); return await push();};
-window.cmsDelete=async(col,id)=>{const d=ensure(await load()); if(Array.isArray(d[col]))d[col]=d[col].filter(x=>x.id!==id); await saveLocal(d); return await push();};
-window.cfgSave=async(section,fields)=>{const d=ensure(await load()); if(!d.site_config)d.site_config={}; d.site_config[section]={...fields,_updatedAt:Date.now(),updatedAt:Date.now()}; await saveLocal(d); return await push();};
-window.cfgGet=async(section)=>((await load()).site_config||{})[section]||{};
-window.CHMTrueCMS={loadSiteData:load,saveLocal,pushSiteData:push,uploadMedia:upload,saveItem,publishItem,publishNew,setStatus:status,getGH:gh};
+  const PAGE_MAP = {
+    "index": ["announcements","events","sermons","gallery","leaders","leadership","ministries","teams","departments","sacred_ministries","locations","blueprint_sections"],
+    "announcements": ["announcements"],
+    "events": ["events"],
+    "sermons": ["sermons"],
+    "gallery": ["gallery","media_library"],
+    "leaders": ["leaders","leadership"],
+    "ministries": ["ministries","sacred_ministries"],
+    "teams": ["teams"],
+    "departments": ["departments"],
+    "locations": ["locations"],
+    "about": ["page_about","leaders","leadership"],
+    "give": ["page_give"],
+    "watch-live": ["media_settings","media_library"],
+    "listen-live": ["media_settings","sermons"]
+  };
+
+  function pageName(){
+    const f=(location.pathname.split('/').pop()||'index.html').replace('.html','');
+    return f==='' ? 'index' : f;
+  }
+
+  function isPublished(x){
+    const s=(x._status || x.status || 'draft').toLowerCase();
+    return s === 'published' && x.archived !== true;
+  }
+
+  function safe(v){ return v==null ? '' : String(v); }
+  function mediaOf(item){ return item.mediaUrl || item.imageUrl || item.photoUrl || item.thumbnailUrl || ""; }
+
+  function normalize(item,col){
+    const media = mediaOf(item);
+    return {
+      ...item,
+      collection: col || item.collection || '',
+      mediaUrl: media,
+      imageUrl: item.imageUrl || media,
+      title: item.title || item.name || item.label || 'Untitled',
+      summary: item.summary || item.subtitle || item.description || '',
+      body: item.body || item.content || item.message || ''
+    };
+  }
+
+  async function getFirebaseItems(cols){
+    const out=[];
+    try{
+      if(typeof firebaseConfig==="undefined" || !firebaseConfig.apiKey || firebaseConfig.apiKey.includes("PASTE_YOUR")) return out;
+      if(typeof firebase==="undefined" || !firebase.firestore) return out;
+      if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+      const db=firebase.firestore();
+      for(const col of cols){
+        try{
+          const snap=await db.collection(col).get();
+          snap.forEach(d=>{
+            const item=normalize({id:d.id,...d.data()},col);
+            if(isPublished(item)) out.push(item);
+          });
+        }catch(e){}
+      }
+    }catch(e){}
+    return out;
+  }
+
+  function getLocalItems(cols){
+    const out=[];
+    try{
+      const feed=JSON.parse(localStorage.getItem("chm_public_feed")||"{}");
+      cols.forEach(col=>(feed[col]||[]).forEach(x=>{ 
+        const item=normalize(x,col);
+        if(isPublished(item)) out.push(item); 
+      }));
+    }catch(e){}
+    cols.forEach(col=>{
+      try{
+        const arr=JSON.parse(localStorage.getItem("chm_"+col)||"[]");
+        arr.forEach(x=>{ 
+          const item=normalize(x,col);
+          if(isPublished(item)) out.push(item); 
+        });
+      }catch(e){}
+    });
+    return out;
+  }
+
+  function unique(items){
+    const seen=new Set();
+    return items.filter(x=>{
+      const k=(x.collection||"")+"-"+(x.id||x.title||JSON.stringify(x).slice(0,30));
+      if(seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
+  }
+
+  function fillCard(card,item){
+    if(!card || !item) return;
+    const title = safe(item.title);
+    const summary = safe(item.summary);
+    const body = safe(item.body);
+    const media = mediaOf(item);
+    const cat = safe(item.category || item.parentMenu || item.collection || 'Published');
+
+    card.classList.add('chm-cms-filled');
+    card.setAttribute('data-cms-filled','true');
+
+    let mediaBox = card.querySelector('img, video, .gallery-img, .gallery-image, .media-img, .media-thumb, .image-placeholder, .placeholder, .photo-placeholder, .sermon-img, .leader-photo, .card-image, .feature-icon, .gallery-icon, .media-icon, .icon');
+    if(media){
+      if(mediaBox && mediaBox.tagName && mediaBox.tagName.toLowerCase()==='img'){
+        mediaBox.src = media;
+        mediaBox.alt = title;
+        mediaBox.style.objectFit = 'cover';
+      } else if(mediaBox){
+        mediaBox.innerHTML = `<img src="${media}" alt="${title}" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block">`;
+      } else {
+        card.insertAdjacentHTML('afterbegin', `<div class="chm-cms-media"><img src="${media}" alt="${title}"></div>`);
+      }
+    }
+
+    const titleEl = card.querySelector('h1,h2,h3,h4,.title,.card-title,.gallery-title,.sermon-title,.leader-name');
+    if(titleEl) titleEl.textContent = title;
+    else if(title) card.insertAdjacentHTML('beforeend', `<h3>${title}</h3>`);
+
+    const tagEl = card.querySelector('.tag,.badge,.category,.gallery-category');
+    if(tagEl) tagEl.textContent = cat;
+
+    const textEl = card.querySelector('p,.summary,.description,.card-text,.gallery-desc,.sermon-desc,.leader-bio');
+    if(textEl) textEl.textContent = summary || body;
+    else if(summary || body) card.insertAdjacentHTML('beforeend', `<p>${summary || body}</p>`);
+
+    if(item.textColor) card.style.setProperty('color', item.textColor, 'important');
+    if(item.backgroundColor) card.style.setProperty('background', item.backgroundColor, 'important');
+  }
+
+  function cardHtml(item){
+    const media = mediaOf(item);
+    const title = safe(item.title);
+    const summary = safe(item.summary);
+    const body = safe(item.body);
+    const cat = safe(item.category || item.parentMenu || item.collection || 'Published');
+    return `<article class="feature-card chm-cms-filled" data-cms-filled="true" style="${item.textColor?`color:${item.textColor}!important;`:''}${item.backgroundColor?`background:${item.backgroundColor}!important;`:''}">
+      ${media ? `<div class="chm-cms-media"><img src="${media}" alt="${title}"></div>` : ""}
+      <span class="tag">${cat}</span>
+      <h3>${title}</h3>
+      ${summary ? `<p>${summary}</p>` : ""}
+      ${body ? `<p>${body}</p>` : ""}
+    </article>`;
+  }
+
+  function findBestContainer(){
+    const p=pageName();
+    const selectorsByPage = {
+      gallery: ['.gallery-grid','.masonry-grid','.media-grid','.feature-grid','.grid-3','.cards-grid'],
+      leaders: ['.leaders-grid','.team-grid','.feature-grid','.grid-3','.cards-grid'],
+      ministries: ['.ministries-grid','.feature-grid','.grid-3','.cards-grid'],
+      announcements: ['.announcements-grid','.feature-grid','.grid-3','.cards-grid'],
+      events: ['.events-grid','.feature-grid','.grid-3','.cards-grid'],
+      sermons: ['.sermons-grid','.feature-grid','.grid-3','.cards-grid'],
+      teams: ['.teams-grid','.feature-grid','.grid-3','.cards-grid'],
+      departments: ['.departments-grid','.feature-grid','.grid-3','.cards-grid'],
+      locations: ['.locations-grid','.feature-grid','.grid-3','.cards-grid']
+    };
+    const selectors = selectorsByPage[p] || ['.feature-grid','.grid-3','.cards-grid','.gallery-grid','.media-grid'];
+    for(const sel of selectors){
+      const el=document.querySelector(sel);
+      if(el) return el;
+    }
+    return null;
+  }
+
+  function existingCards(container){
+    if(!container) return [];
+    return Array.from(container.children).filter(el=>{
+      const tag=el.tagName ? el.tagName.toLowerCase() : '';
+      return tag==='article' || tag==='div' || el.className;
+    });
+  }
+
+  function renderIntoExistingSection(items){
+    if(!items.length) return;
+    const container = findBestContainer();
+    if(container){
+      const cards = existingCards(container);
+      items.forEach((item,i)=>{
+        if(cards[i]) fillCard(cards[i], item);
+        else container.insertAdjacentHTML('beforeend', cardHtml(item));
+      });
+      document.querySelectorAll('.chm-published-section').forEach(el=>el.remove());
+      return;
+    }
+
+    let host=document.querySelector("[data-cms-live]");
+    if(!host){
+      host=document.createElement("section");
+      host.className="section chm-published-section";
+      host.setAttribute("data-cms-live","true");
+      const footer=document.querySelector("footer");
+      if(footer && footer.parentNode) footer.parentNode.insertBefore(host, footer);
+      else document.body.appendChild(host);
+    }
+    const label = pageName()==="index" ? "Latest Published Updates" : "Published Content";
+    host.innerHTML=`<div class="container"><div class="section-header text-center">
+      <span class="section-label">Live From Admin Panel</span><h2>${label}</h2><div class="gold-line centered"></div>
+      </div><div class="feature-grid">${items.map(cardHtml).join("")}</div></div>`;
+  }
+
+  async function boot(){
+    const cols=PAGE_MAP[pageName()] || [];
+    if(!cols.length) return;
+    const remote=await getFirebaseItems(cols);
+    const local=getLocalItems(cols);
+    const items=unique([...remote,...local]).sort((a,b)=>(b._updatedAt||b.updatedAt||0)-(a._updatedAt||a.updatedAt||0));
+    renderIntoExistingSection(items);
+  }
+
+  document.addEventListener("DOMContentLoaded",boot);
 })();

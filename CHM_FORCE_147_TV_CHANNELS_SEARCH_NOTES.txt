@@ -1,0 +1,7 @@
+TV rail force fix:
+- Existing TV left rail is forced to show all 147 TV channels.
+- Channels continue after 51: 52, 53, 54, etc.
+- TV search is placed inside the existing channel rail and rebuilt if older scripts overwrite it.
+- Channel click uses the existing player and attempts autoplay.
+- Store and radio are preserved.
+- No separate admin folder.

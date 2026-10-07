@@ -1,18 +1,9 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CHM Network Admin</title>
+<html><head><meta charset="utf-8"><title>CHM Network Redirect</title>
 <script>
 (function(){
-  var base = "../index.html?admin=1";
-  window.location.replace(base);
+ var path=(location.pathname||"").toLowerCase().replace(/\/+$/,"");
+ if(path.endsWith("/admin")) location.replace("/admin.html");
+ else location.replace("/index.html");
 })();
-</script>
-</head>
-<body>
-<p>Opening CHM Network admin login...</p>
-<p><a href="../index.html?admin=1">Continue to Admin Login</a></p>
-</body>
-</html>
+</script></head><body>Redirecting...</body></html>

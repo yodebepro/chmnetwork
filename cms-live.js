@@ -1,16 +1,89 @@
 
+/* CHM CHURCH OF GOD — Blueprint Public Live Loader v5 */
 (function(){
-const OWNER=localStorage.getItem('chm_gh_owner')||'yodebepro',REPO=localStorage.getItem('chm_gh_repo')||'CHM-Church-of-God',BRANCH=localStorage.getItem('chm_gh_branch')||'main';
-const MAP={index:['hero','announcements','events','sermons','gallery','leaders','ministries','departments','teams','locations','page_content'],about:['page_content','leaders','departments','teams'],leaders:['leaders','leadership'],gallery:['gallery','media_library'],events:['events'],announcements:['announcements'],sermons:['sermons'],ministries:['ministries'],departments:['departments'],teams:['teams'],locations:['locations'],give:['page_content'],'watch-live':['hero','media_library','sermons'],'listen-live':['sermons','media_library']};
-function page(){const f=(location.pathname.split('/').pop()||'index.html').replace('.html','').toLowerCase();return f===''?'index':f}
-function pub(x){const s=String(x._status||x.status||'draft').toLowerCase();return s==='published'&&x.archived!==true}
-function media(x){return x.mediaUrl||x.imageUrl||x.photoUrl||x.thumbnailUrl||x.videoUrl||x.audioUrl||''}
-function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-async function load(){for(const u of[`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/site-data.json?_=${Date.now()}`,`https://cdn.jsdelivr.net/gh/${OWNER}/${REPO}@${BRANCH}/site-data.json?_=${Date.now()}`]){try{const r=await fetch(u,{cache:'no-store'});if(r.ok){const d=await r.json();localStorage.setItem('chm_sd_bk',JSON.stringify(d));return d}}catch(e){}}try{return JSON.parse(localStorage.getItem('chm_sd_bk')||localStorage.getItem('chm_sitedata')||'{}')}catch(e){return{}}}
-function applyHero(d){const h=((d.hero||[]).filter(pub)[0])||(d.site_config&&d.site_config.hero)||null;if(!h)return;const m=media(h),hero=document.querySelector('.hero,.page-hero,[data-hero]');if(hero&&m){let v=hero.querySelector('.chm-global-hero-video');if(!v){v=document.createElement('video');v.className='chm-global-hero-video';v.autoplay=true;v.muted=true;v.loop=true;v.playsInline=true;v.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.45;pointer-events:none;';hero.style.position='relative';hero.style.overflow='hidden';hero.insertBefore(v,hero.firstChild)}v.innerHTML=`<source src="${m}" type="video/mp4">`;Array.from(hero.children).forEach(ch=>{if(ch!==v){ch.style.position=ch.style.position||'relative';ch.style.zIndex=ch.style.zIndex||'1'}})}if(h.title){const t=document.querySelector('.hero-title,.hero h1,[data-cms="hero-title"]');if(t)t.textContent=h.title}if(h.summary||h.body){const s=document.querySelector('.hero-subtitle,.hero p,[data-cms="hero-text"]');if(s)s.textContent=h.summary||h.body}}
-function card(x){const m=media(x),title=esc(x.title||x.name||x.label||'Untitled'),summary=esc(x.summary||x.subtitle||x.description||''),body=esc(x.body||x.content||x.message||''),type=esc(x.category||x.collection||'Published'),vid=/\.(mp4|webm|mov)(\?|$)/i.test(m);return`<article class="feature-card chm-cms-card">${m?`<div class="chm-cms-media">${vid?`<video src="${m}" controls></video>`:`<img src="${m}" alt="${title}">`}</div>`:''}<span class="tag">${type}</span><h3>${title}</h3>${summary?`<p>${summary}</p>`:''}${body?`<p>${body}</p>`:''}</article>`}
-function grid(){const p=page();const sels={leaders:['.leaders-grid','.team-grid','.feature-grid','.grid-3'],gallery:['.gallery-grid','.media-grid','.feature-grid','.grid-3'],events:['.events-grid','.feature-grid','.grid-3'],announcements:['.announcements-grid','.feature-grid','.grid-3'],sermons:['.sermons-grid','.feature-grid','.grid-3'],ministries:['.ministries-grid','.feature-grid','.grid-3'],departments:['.departments-grid','.feature-grid','.grid-3'],teams:['.teams-grid','.feature-grid','.grid-3'],locations:['.locations-grid','.feature-grid','.grid-3']}[p]||['.feature-grid','.grid-3','.cards-grid'];for(const s of sels){const e=document.querySelector(s);if(e)return e}return null}
-function css(){if(document.getElementById('chmTrueCMSPublicCss'))return;const s=document.createElement('style');s.id='chmTrueCMSPublicCss';s.textContent='.chm-cms-media{width:100%;height:260px;border-radius:14px;overflow:hidden;margin-bottom:1rem;background:#0a1f44}.chm-cms-media img,.chm-cms-media video{width:100%;height:100%;object-fit:cover;display:block}.chm-cms-card{overflow:hidden}';document.head.appendChild(s)}
-function render(items){if(!items.length)return;const p=page();if(p==='index'){let h=document.querySelector('[data-cms-live="homepage"]');if(!h){h=document.createElement('section');h.className='section chm-cms-live-home';h.setAttribute('data-cms-live','homepage');const f=document.querySelector('footer');if(f&&f.parentNode)f.parentNode.insertBefore(h,f);else document.body.appendChild(h)}h.innerHTML=`<div class="container"><div class="section-header text-center"><span class="section-label">Latest From Admin</span><h2>Published Church Updates</h2><div class="gold-line centered"></div></div><div class="feature-grid">${items.slice(0,12).map(card).join('')}</div></div>`;return}const g=grid();if(g){g.innerHTML=items.map(card).join('');return}let h=document.querySelector('[data-cms-live="page"]');if(!h){h=document.createElement('section');h.className='section';h.setAttribute('data-cms-live','page');const f=document.querySelector('footer');if(f&&f.parentNode)f.parentNode.insertBefore(h,f);else document.body.appendChild(h)}h.innerHTML=`<div class="container"><div class="section-header text-center"><span class="section-label">Published Content</span><h2>Latest Updates</h2><div class="gold-line centered"></div></div><div class="feature-grid">${items.map(card).join('')}</div></div>`}
-document.addEventListener('DOMContentLoaded',async()=>{css();const d=await load();applyHero(d);let items=[];(MAP[page()]||[]).forEach(c=>{if(Array.isArray(d[c]))items=items.concat(d[c].filter(pub).map(x=>({...x,collection:c}))) });items.sort((a,b)=>(b._updatedAt||b.updatedAt||0)-(a._updatedAt||a.updatedAt||0));render(items)});
+  const collections = {
+    ministries:'ministries',
+    teams:'teams',
+    departments:'departments',
+    leaders:'leaders',
+    leadership:'leaders',
+    announcements:'announcements',
+    events:'events',
+    sermons:'sermons',
+    gallery:'gallery',
+    locations:'locations',
+    give:'page_give',
+    about:'page_about',
+    home:'page_home',
+    'watch-live':'media_settings',
+    'listen-live':'media_settings'
+  };
+  function pageKey(){
+    const f = (location.pathname.split('/').pop()||'index.html').replace('.html','');
+    return f==='index' || f==='' ? 'home' : f;
+  }
+  function fbConfigured(){
+    return typeof firebaseConfig !== 'undefined' && firebaseConfig.apiKey && !firebaseConfig.apiKey.includes('PASTE_YOUR');
+  }
+  async function init(){
+    if(!fbConfigured() || typeof firebase === 'undefined' || !firebase.firestore) return;
+    try{
+      if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+      await applyConfig(db);
+      await injectPublished(db);
+    }catch(e){ console.warn('[CHM live CMS] Firebase unavailable:', e.message); }
+  }
+  async function applyConfig(db){
+    try{
+      const confs = await db.collection('site_config').get();
+      let colors = {};
+      confs.forEach(d=>{ if(d.id==='colors') colors=d.data(); });
+      const r=document.documentElement;
+      if(colors.primaryColor) r.style.setProperty('--navy',colors.primaryColor);
+      if(colors.secondaryColor) r.style.setProperty('--navy-mid',colors.secondaryColor);
+      if(colors.accentColor) r.style.setProperty('--gold',colors.accentColor);
+      if(colors.textColor) r.style.setProperty('--text',colors.textColor);
+      if(colors.backgroundColor) document.body.style.background = colors.backgroundColor;
+      if(colors.footerTextColor){
+        const style=document.createElement('style');
+        style.textContent=`footer *, .footer *{color:${colors.footerTextColor}!important}`;
+        document.head.appendChild(style);
+      }
+      if(colors.footerBgColor){
+        const style=document.createElement('style');
+        style.textContent=`footer, .footer{background:${colors.footerBgColor}!important}`;
+        document.head.appendChild(style);
+      }
+    }catch(e){}
+  }
+  function card(item){
+    const img = item.mediaUrl ? `<div style="margin-top:1rem"><img src="${item.mediaUrl}" alt="${item.title||''}" style="width:100%;border-radius:14px;max-height:260px;object-fit:cover"></div>` : '';
+    const style = `${item.textColor?`color:${item.textColor};`:''}${item.backgroundColor?`background:${item.backgroundColor};`:''}`;
+    return `<article class="feature-card cms-card" style="${style}">
+      <span class="tag">${item.category||item.parentMenu||item.streamType||'Published'}</span>
+      <h3>${item.title||item.label||'Untitled'}</h3>
+      <p>${item.summary||''}</p>
+      ${item.body?`<p>${item.body}</p>`:''}
+      ${img}
+      ${item.buttonUrl?`<a class="btn btn-primary" href="${item.buttonUrl}">${item.buttonText||'Learn More'}</a>`:''}
+    </article>`;
+  }
+  async function getPublished(db,col){
+    const s=await db.collection(col).get();
+    return s.docs.map(d=>({id:d.id,...d.data()})).filter(x=>(x._status||x.status)==='published' && x._status!=='archived');
+  }
+  async function injectPublished(db){
+    const key=pageKey();
+    const col=collections[key];
+    if(!col) return;
+    const items=await getPublished(db,col);
+    if(!items.length) return;
+    const host = document.querySelector('[data-cms-live]') || document.querySelector('main') || document.body;
+    const section=document.createElement('section');
+    section.className='section cms-live-section';
+    section.innerHTML = `<div class="container"><div class="section-header text-center"><span class="section-label">Live CMS Updates</span><h2>Published ${key.replace('-', ' ')}</h2><div class="gold-line centered"></div></div><div class="feature-grid">${items.map(card).join('')}</div></div>`;
+    host.appendChild(section);
+  }
+  document.addEventListener('DOMContentLoaded',init);
 })();
