@@ -1,0 +1,13 @@
+CHM NETWORK RADIO + JSON PUBLISHING INSTRUCTIONS
+
+1. Extract this ZIP. Open the chmnetwork-main folder. Upload its CONTENTS to the ROOT of your GitHub repository (not the enclosing folder).
+2. In GitHub, replace index.html, listen-live.html, and published_radio.json with the updated files. Commit changes to the branch used by GitHub Pages (often main).
+3. Wait until Settings > Pages / Actions shows the latest deployment completed. Then reload https://chmnetwork.com/ (Ctrl+Shift+R on desktop).
+4. The new CHM stream is http://104.248.117.19:8000/live and is stored in published_radio.json as radioSettings.url.
+5. To change it later, edit published_radio.json, keep valid JSON syntax, commit to GitHub, and wait for deployment. The homepage requests published_radio.json?ts=<current timestamp> on load, every 60 seconds, and when the tab becomes active. This query parameter is added AUTOMATICALLY in code; DO NOT add a question mark to the actual JSON filename on GitHub.
+6. Confirm the deployed JSON by opening https://chmnetwork.com/published_radio.json?ts=12345 and checking radioSettings.url. Change the number if checking again. If it still shows old data, check the branch, commit and Pages deployment.
+7. Videos/music JSON also use timestamp query parameters on fetch; Store and TV channels already used cache-busting queries. These changes prevent ordinary browser caching but cannot repair invalid JSON, incorrect uploads, failed GitHub Pages deployments, or other scripts overriding settings.
+
+IMPORTANT HTTPS LIMITATION: CHMNetwork.com uses HTTPS, but the provided radio stream is HTTP. Modern browsers may block HTTP audio on an HTTPS page (mixed content) or try to upgrade to HTTPS, which may fail. For dependable live playback, configure a trusted HTTPS reverse proxy/domain pointing to this Icecast stream (with valid TLS certificate), then update published_radio.json to its HTTPS URL. A JSON or HTML change alone cannot add HTTPS support to the streaming server.
+
+No other website design or content was intentionally modified.
