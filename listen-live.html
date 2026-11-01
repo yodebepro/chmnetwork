@@ -1187,7 +1187,19 @@ document.addEventListener('DOMContentLoaded', () => {
   let timer = null;
   let seconds = 0;
 
-  const STREAM_URL = 'https://c13.radioboss.fm:8254/stream';
+  let STREAM_URL = 'http://104.248.117.19:8000/live';
+  async function refreshLiveRadioUrl(){
+    try {
+      const r = await fetch('./published_radio.json?ts=' + Date.now(), {cache:'no-store'});
+      if(!r.ok) return;
+      const data = await r.json();
+      const url = data?.radioSettings?.url;
+      if(typeof url === 'string' && /^https?:\/\//i.test(url)){
+        if(url !== STREAM_URL){ STREAM_URL = url; if(audioEl){const playing=!audioEl.paused;audioEl.src=url; if(playing)audioEl.play().catch(()=>{});}}
+      }
+    }catch(e){console.warn('CHM live radio settings refresh failed',e)}
+  }
+  document.addEventListener('DOMContentLoaded',()=>{refreshLiveRadioUrl();setInterval(refreshLiveRadioUrl,60000);});
   let audioEl = null;
 
   function togglePlay() {

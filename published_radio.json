@@ -1,1 +1,7 @@
-{"radioSettings":{"url":"https://c13.radioboss.fm:8254/stream","program":"Live Stream"},"generatedAt":""}
+{
+  "radioSettings": {
+    "url": "http://104.248.117.19:8000/live",
+    "program": "Live Stream"
+  },
+  "generatedAt": "2026-11-01T16:21:47.793251+00:00"
+}
