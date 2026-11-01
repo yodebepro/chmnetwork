@@ -1,21 +1,21 @@
 [
   {
     "id": 1,
-    "name": "Channel 1 - YodebePro TV",
-    "type": "youtube",
-    "url": "https://www.youtube.com/embed/SWQXGhWohy0?si=YATvL67_rSpr4QJU",
-    "title": "YodebePro TV",
-    "description": "Default YouTube embedded channel.",
-    "autoplay": true
+    "name": "Channel 1 - CHM Network TV",
+    "type": "hls",
+    "url": "https://tv.chmnetwork.com/hls/main.m3u8",
+    "title": "CHM Network Live TV",
+    "description": "Live Christian broadcasting from CHM Network.",
+    "autoplay": false
   },
   {
     "id": 2,
-    "name": "Channel 2 - Hope Channel",
+    "name": "Channel 2 - CHM Network TV",
     "type": "hls",
-    "url": "https://videodelivery.net/9fb3596948ddf463fde0ec4b85625b24/manifest/video.m3u8",
-    "title": "Christian Broadcasting",
-    "description": "Christian IPTV source from the uploaded IPTV master list.",
-    "autoplay": true
+    "url": "https://tv.chmnetwork.com/hls/main.m3u8",
+    "title": "CHM Network Live TV",
+    "description": "Live Christian broadcasting from CHM Network.",
+    "autoplay": false
   },
   {
     "id": 3,
