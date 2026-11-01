@@ -2308,7 +2308,7 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 <div style="color: var(--text-secondary); font-size:.9rem;">Now Playing: <span id="radioProgram">Live Stream Connected</span></div>
 </div>
 <audio controls="" id="radioPlayer">
-<source src="http://104.248.117.19:8000/live"/>
+<source src="https://radio.chmnetwork.com/live"/>
                             Your browser does not support the audio element.
                         </audio>
 <div class="player-controls">
@@ -2722,7 +2722,7 @@ body.light-theme{ background:#f6f7fb !important; color:#0b1020 !important; }
 <h3>Radio Stream Settings</h3>
 <div class="form-group">
 <label>Stream URL</label>
-<input readonly="" style="background: rgba(0, 188, 212, 0.1);" type="url" value="http://104.248.117.19:8000/live"/>
+<input readonly="" style="background: rgba(0, 188, 212, 0.1);" type="url" value="https://radio.chmnetwork.com/live"/>
 </div>
 <div class="form-group">
 <label>Current Program</label>
@@ -3091,7 +3091,7 @@ function closeInlineStore() {
                     videos: [],
                     music: [],
                     radioSettings: {
-                        url: 'http://104.248.117.19:8000/live',
+                        url: 'https://radio.chmnetwork.com/live',
                         program: 'Live Stream'
                     },
                     lastUpdated: new Date().toISOString()
@@ -3202,7 +3202,7 @@ updateRadioSettings(settings) {
     async function loadPublishedVideosFromServer() {
         try {
             // Only works when served over http(s). If opened as file://, fetch will usually fail.
-            const res = await fetch(PUBLISHED_VIDEOS_URL + '?ts=' + Date.now(), { cache: 'no-store' });
+            const res = await fetch(PUBLISHED_VIDEOS_URL, { cache: 'no-store' });
             if (!res.ok) return false;
             const data = await res.json();
             if (!data || !Array.isArray(data.videos)) return false;
@@ -3268,7 +3268,7 @@ loadVideoSchedule();
 
     async function loadPublishedMusicFromServer() {
         try {
-            const res = await fetch(PUBLISHED_MUSIC_URL + '?ts=' + Date.now(), { cache: 'no-store' });
+            const res = await fetch(PUBLISHED_MUSIC_URL, { cache: 'no-store' });
             if (!res.ok) return false;
             const data = await res.json();
             if (!data || !Array.isArray(data.music)) return false;
@@ -3282,6 +3282,27 @@ loadVideoSchedule();
                 duration: m.duration || 0,
             }));
             cache.setCache(current);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    // ==================== RADIO JSON LOADER (cache-busted) ====================
+    async function loadPublishedRadioFromServer() {
+        try {
+            const url = './published_radio.json?v=' + Date.now();
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) return false;
+            const data = await res.json();
+            if (!data || !data.radioSettings || !data.radioSettings.url) return false;
+            cache.updateRadioSettings(data.radioSettings);
+            // Also update the live <audio> element if it already exists
+            const player = document.getElementById('radioPlayer');
+            if (player) {
+                player.src = data.radioSettings.url;
+                try { player.load(); } catch(e) {}
+            }
             return true;
         } catch (e) {
             return false;
@@ -3760,6 +3781,7 @@ loadVideoSchedule();
         generateCalendar(new Date());
         
         // Load published JSON files from server (GitHub, hosting, etc.)
+        await loadPublishedRadioFromServer();
         await loadPublishedMusicFromServer();
         await loadPublishedVideosFromServer();
         
@@ -3829,67 +3851,12 @@ loadVideoSchedule();
 
     // ==================== RADIO PLAYER ====================
     
-// CHM Radio global configuration: always read the latest GitHub-published JSON.
-    // A changing query parameter bypasses browser/CDN caches; it does NOT upload the JSON to GitHub.
-    const CHM_RADIO_DEFAULT_URL = 'http://104.248.117.19:8000/live';
-    let chmRadioPublishedUrl = CHM_RADIO_DEFAULT_URL;
-    async function refreshPublishedRadioSettings() {
-        try {
-            const response = await fetch('./published_radio.json?ts=' + Date.now(), {cache:'no-store'});
-            if (!response.ok) throw new Error('HTTP ' + response.status);
-            const data = await response.json();
-            const published = data && data.radioSettings;
-            if (!published || typeof published.url !== 'string' || !/^https?:\/\//i.test(published.url.trim())) {
-                throw new Error('Invalid radioSettings.url');
-            }
-            const newUrl = published.url.trim();
-            const previous = chmRadioPublishedUrl;
-            chmRadioPublishedUrl = newUrl;
-            const current = cache.getRadioSettings();
-            if (current.url !== newUrl || current.program !== (published.program || 'Live Stream')) {
-                // Update local storage without triggering the old notification on every refresh.
-                const state = cache.getCache() || {};
-                state.radioSettings = {url:newUrl, program:published.program || 'Live Stream'};
-                state.lastUpdated = new Date().toISOString();
-                localStorage.setItem(cache.storageKey, JSON.stringify(state));
-            }
-            const player = document.getElementById('radioPlayer');
-            if (player) {
-                const active = player.currentSrc || player.src || '';
-                // Don't interrupt other stations selected from the Christian radio directory.
-                if (!active || active === previous || active === CHM_RADIO_DEFAULT_URL || active.includes('c13.radioboss.fm:8254/stream')) {
-                    if (active !== newUrl) {
-                        const wasPlaying = !player.paused;
-                        player.src = newUrl;
-                        player.load();
-                        if (wasPlaying) player.play().catch(()=>{});
-                    }
-                }
-            }
-            const program = document.getElementById('radioProgram');
-            if (program) program.textContent = published.program || 'Live Stream';
-            return true;
-        } catch (error) {
-            console.warn('CHM radio JSON unavailable; using configured fallback:', error);
-            return false;
-        }
-    }
-    window.refreshPublishedRadioSettings = refreshPublishedRadioSettings;
-    document.addEventListener('DOMContentLoaded', () => {
-        refreshPublishedRadioSettings();
-        setInterval(refreshPublishedRadioSettings, 60000);
-        document.addEventListener('visibilitychange', () => {
-            if (!document.hidden) refreshPublishedRadioSettings();
-        });
-    });
-
-    function setupRadioPlayer() {
+function setupRadioPlayer() {
         const player = document.getElementById('radioPlayer');
         const settings = cache.getRadioSettings();
-        if (!settings.url || settings.url.includes('c13.radioboss.fm')) settings.url = CHM_RADIO_DEFAULT_URL;
 
         // Ensure the stream URL is always set (some browsers prefer setting .src directly)
-        player.src = settings.url || 'http://104.248.117.19:8000/live';
+        player.src = settings.url || 'https://radio.chmnetwork.com/live';
         try { player.load(); } catch (e) {}
 
         // Helpful diagnostics if the stream is blocked or unsupported
@@ -3915,13 +3882,12 @@ loadVideoSchedule();
     }
 
     function playRadio() {
-        refreshPublishedRadioSettings().catch(()=>{});
         const player = document.getElementById('radioPlayer');
         const settings = cache.getRadioSettings();
 
         // Re-apply the URL in case something cleared it
-        const url = chmRadioPublishedUrl || CHM_RADIO_DEFAULT_URL;
-        if (!player.currentSrc || player.currentSrc !== url) {
+        const url = settings.url || 'https://radio.chmnetwork.com/live';
+        if (!player.src || !player.src.includes('radio.chmnetwork.com')) {
             player.src = url;
             try { player.load(); } catch (e) {}
         }
@@ -3952,7 +3918,7 @@ loadVideoSchedule();
     function saveRadioSettings() {
         const program = document.getElementById('currentProgram').value;
         cache.updateRadioSettings({
-            url: chmRadioPublishedUrl || CHM_RADIO_DEFAULT_URL,
+            url: 'https://radio.chmnetwork.com/live',
             program: program
         });
         showNotification('✓ Radio saved', 'success');
