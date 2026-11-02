@@ -5350,7 +5350,7 @@ function initPublicVideoPlaylistPanel() {
   const ADMIN_EMAIL        = "yodebepro@gmail.com";
   const ADMIN_PHONE        = "9295001124";   // chatbot SMS line
   const ADMIN_PHONE_DIAL   = "9738552396";   // phone menu dial number
-  const ADMIN_PIN          = "973855";
+  const ADMIN_PIN_HASH     = "0b670672740cd53300830b9ea1b931332ca9c47f7cb1c8cfebf8a4d30f85a5cc";
   const LS_KEY             = "chm_chat_sessions_v1";
 
   // ── DOM refs ──────────────────────────────────────────
@@ -5580,9 +5580,16 @@ function initPublicVideoPlaylistPanel() {
   }
   function hidePinModal(){ chmAdminOverlay.style.display="none"; }
 
-  document.getElementById("chmAdminPinSubmit").addEventListener("click",()=>{
+  async function checkAdminPin(val){
+    const enc=new TextEncoder().encode(val);
+    const buf=await crypto.subtle.digest("SHA-256",enc);
+    const hex=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
+    return hex===ADMIN_PIN_HASH;
+  }
+  document.getElementById("chmAdminPinSubmit").addEventListener("click",async()=>{
     const val=(document.getElementById("chmAdminPinInput").value||"").trim();
-    if(val===ADMIN_PIN){
+    const ok=await checkAdminPin(val);
+    if(ok){
       isAdmin=true;
       applyAdminUi();
       const sid=ensureSession();
