@@ -1,19 +1,19 @@
 [
   {
     "id": 1,
-    "name": "Channel 1 - CHM Network TV",
+    "name": "YODEBEPRO TV",
     "type": "hls",
     "url": "https://tv.chmnetwork.com/hls/main.m3u8",
-    "title": "CHM Network Live TV",
-    "description": "Live Christian broadcasting from CHM Network.",
+    "title": "YODEBEPRO TV",
+    "description": "Live Christian broadcasting \u2014 YODEBEPRO TV on CHM Network.",
     "autoplay": false
   },
   {
     "id": 2,
-    "name": "Channel 2 - CHM Network TV",
+    "name": "CHM Network TV",
     "type": "hls",
     "url": "https://tv.chmnetwork.com/hls/main.m3u8",
-    "title": "CHM Network Live TV",
+    "title": "CHM Network TV",
     "description": "Live Christian broadcasting from CHM Network.",
     "autoplay": false
   },
